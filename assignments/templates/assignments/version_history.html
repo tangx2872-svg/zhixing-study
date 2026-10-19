@@ -1,4 +1,5 @@
 {% extends 'base.html' %}{% load static %}
+{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{{ submission.assignment_ques.assignment_name }}</span>{% endblock %}
 {% block title %}版本历史 · {{ submission.assignment_ques }}{% endblock %}
 {% block body_content %}
 <link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261019-1">

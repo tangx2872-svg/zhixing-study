@@ -1,35 +1,86 @@
 {% extends 'assignments/assignment_base.html' %}
-{% block title_name %}在线学习平台 - {{ assignment.assignment_name }}{% endblock %}
+{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{{ assignment.assignment_name }}</span>{% endblock %}
+{% block title_name %}知行研学 · {{ assignment.assignment_name }}{% endblock %}
 {% block main_content %}
-<div class="container">
-<h1>{{ assignment.assignment_name }}</h1>
-<p>所属课程：<a href="{% url 'courses:detail' pk=assignment.course_id %}">{{ assignment.course }}</a></p>
-<p>截止时间（北京时间）：{{ assignment.due_date }} · {{ assignment.status_label }}</p>
-<p>{{ assignment.assignment_description|linebreaksbr }}</p>
-{% if user.user_type == 2 %}
-{% if not assignment.course.is_archived %}<a class="btn btn-warning" href="{% url 'assignments:update' pk=assignment.pk %}">编辑作业</a>
-{% if not submitted %}<a class="btn btn-danger" href="{% url 'assignments:delete' pk=assignment.pk %}">删除作业</a>{% endif %}
-{% endif %}<h3 class="mt-4">批改工作台</h3>
-<p>未提交：{{ missing_count }} 人 · 待评分：{{ pending_count }} 份 · 已评分：{{ graded_count }} 份</p>
-<table class="table table-bordered"><thead><tr><th>学生</th><th>状态</th><th>成绩</th><th>操作</th></tr></thead><tbody>
-{% for row in roster %}<tr><td>{{ row.student }}（{{ row.student.username }}）</td>
-<td>{% if not row.submission %}未提交{% elif row.submission.graded %}已评分{% else %}待评分{% endif %}</td>
-<td>{% if row.submission.graded %}{{ row.submission.grade }}{% else %}—{% endif %}</td>
-<td>{% if row.submission %}<a href="{% url 'assignments:submit_detail' pk=row.submission.pk %}">查看提交</a> {% if not assignment.course.is_archived %}· <a href="{% url 'assignments:grade' pk=row.submission.pk %}">{% if row.submission.graded %}修改评分{% else %}评分{% endif %}</a>{% endif %}{% else %}—{% endif %}</td></tr>
-{% empty %}<tr><td colspan="4">暂无选课学生。</td></tr>{% endfor %}
-</tbody></table>
-{% if former_submissions %}<h4>已退出课程的学生提交</h4><p>保留历史教学记录，仍可查看和评分。</p>{% for item in former_submissions %}<p><a href="{% url 'assignments:submit_detail' pk=item.pk %}">{{ item.author }}：{{ item.topic }}</a></p>{% endfor %}{% endif %}
-<h3 class="mt-4">全部提交与历史版本</h3>
-{% else %}
-{% if can_submit %}<a class="btn btn-success" href="{% url 'assignments:submit' pk=assignment.pk %}">{% if current_submission %}更新提交{% else %}提交作业{% endif %}</a>{% endif %}
-<h3 class="mt-4">我的提交记录</h3>
-{% endif %}
-{% for submission in submitted %}
-<a class="list-group-item list-group-item-action" href="{% url 'assignments:submit_detail' pk=submission.pk %}">
-<strong>{{ submission.topic }}</strong> · {{ submission.author }}
-<p class="mb-1">{% if submission.current_slot == 1 %}{% if submission.graded %}已评分：{{ submission.grade }} 分{% else %}待评分{% endif %}{% else %}历史版本{% endif %}</p>
-<small>首次提交：{{ submission.submitted_date }} · 最近更新：{{ submission.updated_at }}</small>
-</a>
-{% empty %}<p>暂无提交记录。</p>{% endfor %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">ASSIGNMENTS / 作业</p>
+        <h1>{{ assignment.assignment_name }}</h1>
+        <p class="page-description">所属课程 · <a href="{% url 'courses:detail' pk=assignment.course_id %}">{{ assignment.course }}</a> · 截止时间（北京时间）{{ assignment.due_date }}</p>
+    </div>
+    <span class="status-chip {% if assignment.course.is_archived %}is-muted{% endif %}">{{ assignment.status_label }}</span>
 </div>
+<div class="workspace-actions">
+{% if user.user_type == 2 %}
+    {% if not assignment.course.is_archived %}<a class="btn btn-outline-primary" href="{% url 'assignments:update' pk=assignment.pk %}">编辑作业</a>
+    {% if not submitted %}<a class="btn btn-outline-danger" href="{% url 'assignments:delete' pk=assignment.pk %}">删除作业</a>{% endif %}
+    {% endif %}
+{% else %}
+    {% if can_submit %}<a class="btn btn-primary" href="{% url 'assignments:submit' pk=assignment.pk %}">{% if current_submission %}更新提交{% else %}提交作业{% endif %}</a>{% endif %}
+{% endif %}
+</div>
+
+<section>
+    <div class="section-heading"><h2>作业要求</h2><span>{{ assignment.status_label }}</span></div>
+    <p>{{ assignment.assignment_description|linebreaksbr }}</p>
+</section>
+
+{% if user.user_type == 2 %}
+<section>
+    <div class="section-heading"><h2>批改工作台</h2><span>未提交 {{ missing_count }} 人 · 待评分 {{ pending_count }} 份 · 已评分 {{ graded_count }} 份</span></div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead><tr><th>学生</th><th>状态</th><th>成绩</th><th>操作</th></tr></thead>
+            <tbody>
+            {% for row in roster %}
+            <tr>
+                <td>{{ row.student }}（{{ row.student.username }}）</td>
+                <td>{% if not row.submission %}<span class="status-chip is-muted">未提交</span>{% elif row.submission.graded %}<span class="status-chip">已评分</span>{% else %}<span class="status-chip">待评分</span>{% endif %}</td>
+                <td>{% if row.submission.graded %}{{ row.submission.grade }} 分{% else %}—{% endif %}</td>
+                <td>{% if row.submission %}<a href="{% url 'assignments:submit_detail' pk=row.submission.pk %}">查看提交</a>{% if not assignment.course.is_archived %} · <a href="{% url 'assignments:grade' pk=row.submission.pk %}">{% if row.submission.graded %}修改评分{% else %}评分{% endif %}</a>{% endif %}{% else %}—{% endif %}</td>
+            </tr>
+            {% empty %}<tr><td colspan="4">暂无选课学生。</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if former_submissions %}
+    <div class="section-heading"><h2>已退出课程的学生提交</h2><span>保留历史教学记录，仍可查看和评分</span></div>
+    <div class="stack-list">
+        {% for item in former_submissions %}
+        <a class="stack-item" href="{% url 'assignments:submit_detail' pk=item.pk %}">
+            <span class="stack-item-main">
+                <strong class="stack-item-title">{{ item.author }}：{{ item.topic }}</strong>
+                <span class="stack-item-meta">已退出课程 · 提交记录保留</span>
+            </span>
+            <span class="stack-item-aside">
+                <span class="version-tag {% if item.current_slot == 1 %}current{% endif %}">V{{ item.version_number }}</span>
+                <span class="stack-item-meta">查看提交 →</span>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+{% endif %}
+
+<section>
+    <div class="section-heading"><h2>{% if user.user_type == 2 %}全部提交与历史版本{% else %}我的提交记录{% endif %}</h2><span>{{ submitted|length }} 条</span></div>
+    <div class="stack-list">
+    {% for submission in submitted %}
+        <a class="stack-item" href="{% url 'assignments:submit_detail' pk=submission.pk %}">
+            <span class="stack-item-main">
+                <strong class="stack-item-title">{{ submission.topic }}</strong>
+                <span class="stack-item-meta">{{ submission.author }} · 首次提交 {{ submission.submitted_date }} · 最近更新 {{ submission.updated_at }}</span>
+            </span>
+            <span class="stack-item-aside">
+                <span class="version-tag {% if submission.current_slot == 1 %}current{% endif %}">V{{ submission.version_number }}</span>
+                <span class="status-chip">{% if submission.current_slot == 1 %}{% if submission.graded %}已评分 {{ submission.grade }} 分{% else %}待评分{% endif %}{% else %}历史版本{% endif %}</span>
+            </span>
+        </a>
+    {% empty %}
+        <div class="empty-state"><h3>暂无提交记录</h3><p>学生提交作业后，会在这里按版本保留记录。</p></div>
+    {% endfor %}
+    </div>
+</section>
 {% endblock %}

@@ -58,7 +58,28 @@
     </div>
 </aside>
 <div class="workspace">
-    <header class="workspace-header"><span>知行研学 <span class="header-separator">/</span> {% if guest_mode %}访客演示{% elif request.resolver_match.namespace == 'research' %}科研协作{% else %}教学工作台{% endif %}</span><span class="role-label">{% if guest_mode %}只读体验{% elif user.is_authenticated %}{% if user.user_type == 2 %}教师端{% else %}学生端{% endif %}{% else %}访客{% endif %}</span></header>
+    <nav class="workspace-header" aria-label="面包屑导航">
+        <div class="breadcrumb-path">
+            {% if request.resolver_match.url_name == 'home' and not request.resolver_match.namespace %}
+            <span class="breadcrumb-item" aria-current="page">知行研学</span>
+            {% else %}
+            <span class="breadcrumb-item"><a href="{% url 'home' %}">知行研学</a></span>
+            {% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span>
+            {% if guest_mode %}<span class="breadcrumb-item" aria-current="page">访客演示</span>
+            {% elif request.resolver_match.namespace == 'research' %}<span class="breadcrumb-item" aria-current="page">科研协作</span>
+            {% elif request.resolver_match.namespace == 'courses' %}{% if request.resolver_match.view_name == 'courses:list' %}<span class="breadcrumb-item" aria-current="page">全部课程</span>{% else %}<span class="breadcrumb-item"><a href="{% url 'courses:list' %}">全部课程</a></span>{% endif %}
+            {% elif request.resolver_match.namespace == 'assignments' %}
+            {% if request.resolver_match.view_name == 'assignments:feedback' %}<span class="breadcrumb-item" aria-current="page">成绩反馈</span>
+            {% elif request.resolver_match.view_name == 'assignments:center' %}<span class="breadcrumb-item" aria-current="page">作业中心</span>
+            {% else %}<span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span>{% endif %}
+            {% elif request.resolver_match.url_name == 'profile' %}<span class="breadcrumb-item" aria-current="page">个人空间</span>
+            {% else %}<span class="breadcrumb-item" aria-current="page">教学工作台</span>
+            {% endif %}
+            {% endblock %}
+            {% endif %}
+        </div>
+        <span class="role-label">{% if guest_mode %}只读体验{% elif user.is_authenticated %}{% if user.user_type == 2 %}教师端{% else %}学生端{% endif %}{% else %}访客{% endif %}</span>
+    </nav>
     <main class="content" id="main-content" tabindex="-1">
         {% for message in messages %}<div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %}" role="status">{{ message }}</div>{% endfor %}
         <div class="page-panel">{% block body_content %}{% endblock %}</div>

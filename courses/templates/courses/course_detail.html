@@ -1,5 +1,6 @@
 {% extends 'courses/course_base.html' %}
 {% block title_name %}知行研学 · {{ course.course_name }}{% endblock %}
+{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'courses:list' %}">全部课程</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{{ course.course_name }}</span>{% endblock %}
 {% block main_content %}
 <div class="page-heading">
     <div>

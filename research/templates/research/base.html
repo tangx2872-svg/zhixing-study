@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}{{ workspace.name|default:'科研协作' }} · 科研项目{% endblock %}
+{% block breadcrumb %}
+{% if workspace %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% if guest_mode %}{% url 'research:demo' %}{% else %}{% url 'research:list' %}{% endif %}">科研协作</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{{ workspace.name }}</span>
+{% else %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">科研协作</span>{% endif %}
+{% endblock %}
 {% block body_content %}
 {% if guest_mode %}<div class="demo-notice"><span class="demo-tag">访客演示</span><p>以下成员、进度及实验结果均为演示样例，可自由浏览和下载。<br><small>想提交进度或上传成果？登录后创建自己的科研项目。</small></p><a href="{% url 'research:demo' %}">全部示例项目 →</a></div>{% endif %}
 {% if workspace %}

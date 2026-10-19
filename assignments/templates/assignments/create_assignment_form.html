@@ -1,36 +1,36 @@
 {% extends 'assignments/assignment_base.html' %}
+{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{% if object %}编辑作业{% else %}发布作业{% endif %}</span>{% endblock %}
 {% load bootstrap4 %}
-
-{% block title_name %}
-  在线学习平台 - {% if object %}编辑作业{% else %}发布作业{% endif %}
-{% endblock title_name %}
-  
+{% block title_name %}知行研学 · {% if object %}编辑作业{% else %}发布作业{% endif %}{% endblock %}
 {% block main_content %}
-
-<div class="container">
-  <h1>{% if object %}编辑作业{% else %}发布作业{% endif %}</h1>
-
-  {% if user.user_type == 2 %}
-    <form method="POST" action="{{ request.path }}">
-      {% csrf_token %} 
-      {% bootstrap_field form.assignment_name %}
-      {% bootstrap_field form.assignment_description %}
-      {% bootstrap_field form.due_date %}
-      {% bootstrap_field form.course %}
-      {% bootstrap_field form.submission_mode %}
-      {% bootstrap_field form.required_materials %}
-      {% bootstrap_field form.rubric_text %}
-      {% bootstrap_form_errors form %}
-      {{ form.name.errors }}
-      <input type="submit" value="提交" class="btn btn-success btn-lg">
-    </form>
-    
-    
-    {% else %}
-        <div class="jumbotron">
-            <h2>您无权发布作业。</h2>
-        </div>
-    {% endif %}
-
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">ASSIGNMENTS / 作业</p>
+        <h1>{% if object %}编辑作业{% else %}发布作业{% endif %}</h1>
+        <p class="page-description">{% if object %}调整作业说明、截止时间与提交要求，保存后对课程成员立即生效。{% else %}填写作业说明、截止时间与提交要求，学生即可在作业中心看到并提交。{% endif %}</p>
+    </div>
 </div>
+{% if user.user_type == 2 %}
+<section>
+    <div class="section-heading"><h2>作业信息</h2><span>带 * 的为必填项</span></div>
+    {% if form.errors %}<div class="alert alert-danger" role="alert">保存未成功，请检查下方标记的字段。</div>{% endif %}
+    <form method="POST" action="{{ request.path }}">
+        {% csrf_token %}
+        {% bootstrap_form_errors form %}
+        {% bootstrap_field form.assignment_name %}
+        {% bootstrap_field form.assignment_description %}
+        {% bootstrap_field form.due_date %}
+        {% bootstrap_field form.course %}
+        {% bootstrap_field form.submission_mode %}
+        {% bootstrap_field form.required_materials %}
+        {% bootstrap_field form.rubric_text %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{% if object %}保存修改{% else %}发布作业{% endif %}</button>
+            <a class="btn btn-outline-secondary" href="{% if object %}{% url 'assignments:detail' pk=object.pk %}{% else %}{% url 'assignments:center' %}{% endif %}">取消</a>
+        </div>
+    </form>
+</section>
+{% else %}
+<div class="empty-state" role="alert"><h3>您无权发布作业</h3><p>只有课程教师可以发布或编辑作业，学生账号可在作业中心查看自己的作业。</p></div>
+{% endif %}
 {% endblock main_content %}
