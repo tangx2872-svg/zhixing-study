@@ -1,5 +1,5 @@
 {% extends 'courses/course_base.html' %}
-{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'courses:list' %}">全部课程</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">{% if object %}编辑课程{% else %}创建课程{% endif %}</span>{% endblock %}
+{% block breadcrumb %}<span class="breadcrumb-separator" aria-hidden="true">/</span><a class="breadcrumb-item" href="{% url 'courses:list' %}">全部课程</a><span class="breadcrumb-separator" aria-hidden="true">/</span><span class="breadcrumb-current" aria-current="page">{% if object %}编辑课程{% else %}创建课程{% endif %}</span>{% endblock %}
 {% load bootstrap4 %}
 {% block title_name %}知行研学 · {% if object %}编辑课程{% else %}创建课程{% endif %}{% endblock %}
 {% block main_content %}

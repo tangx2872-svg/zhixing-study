@@ -1,5 +1,5 @@
 {% extends 'base.html' %}{% load bootstrap4 %}
-{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'courses:list' %}">全部课程</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course.course_name }}</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">实验小组</span>{% endblock %}
+{% block breadcrumb %}<span class="breadcrumb-separator" aria-hidden="true">/</span><a class="breadcrumb-item" href="{% url 'courses:list' %}">全部课程</a><span class="breadcrumb-separator" aria-hidden="true">/</span><a class="breadcrumb-item" href="{{ course.get_absolute_url }}">{{ course.course_name }}</a><span class="breadcrumb-separator" aria-hidden="true">/</span><span class="breadcrumb-current" aria-current="page">实验小组</span>{% endblock %}
 {% block title %}实验小组 · {{ course }}{% endblock %}
 {% block body_content %}
 <div class="section-heading"><div><p class="eyebrow">课程实验 / 小组</p><h1>{{ course }} · 实验小组</h1></div><a class="btn btn-outline-secondary" href="{{ course.get_absolute_url }}">返回课程</a></div>

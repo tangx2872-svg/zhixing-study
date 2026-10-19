@@ -1,5 +1,5 @@
 {% extends 'assignments/assignment_base.html' %}
-{% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span><span class="header-separator" aria-hidden="true">/</span><span class="breadcrumb-item" aria-current="page">批改作业</span>{% endblock %}
+{% block breadcrumb %}<span class="breadcrumb-separator" aria-hidden="true">/</span><a class="breadcrumb-item" href="{% url 'assignments:center' %}">作业中心</a><span class="breadcrumb-separator" aria-hidden="true">/</span><span class="breadcrumb-current" aria-current="page">批改作业</span>{% endblock %}
 {% load bootstrap4 %}
 {% block title_name %}在线学习平台 - 批改作业{% endblock %}
 {% block main_content %}

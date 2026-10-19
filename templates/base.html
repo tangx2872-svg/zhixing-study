@@ -61,19 +61,19 @@
     <nav class="workspace-header" aria-label="面包屑导航">
         <div class="breadcrumb-path">
             {% if request.resolver_match.url_name == 'home' and not request.resolver_match.namespace %}
-            <span class="breadcrumb-item" aria-current="page">知行研学</span>
+            <span class="breadcrumb-current" aria-current="page">知行研学</span>
             {% else %}
-            <span class="breadcrumb-item"><a href="{% url 'home' %}">知行研学</a></span>
-            {% block breadcrumb %}<span class="header-separator" aria-hidden="true">/</span>
-            {% if guest_mode %}<span class="breadcrumb-item" aria-current="page">访客演示</span>
-            {% elif request.resolver_match.namespace == 'research' %}<span class="breadcrumb-item" aria-current="page">科研协作</span>
-            {% elif request.resolver_match.namespace == 'courses' %}{% if request.resolver_match.view_name == 'courses:list' %}<span class="breadcrumb-item" aria-current="page">全部课程</span>{% else %}<span class="breadcrumb-item"><a href="{% url 'courses:list' %}">全部课程</a></span>{% endif %}
+            <a class="breadcrumb-item" href="{% url 'home' %}">知行研学</a>
+            {% block breadcrumb %}<span class="breadcrumb-separator" aria-hidden="true">/</span>
+            {% if guest_mode %}<span class="breadcrumb-current" aria-current="page">访客演示</span>
+            {% elif request.resolver_match.namespace == 'research' %}<span class="breadcrumb-current" aria-current="page">科研协作</span>
+            {% elif request.resolver_match.namespace == 'courses' %}{% if request.resolver_match.view_name == 'courses:list' %}<span class="breadcrumb-current" aria-current="page">全部课程</span>{% else %}<a class="breadcrumb-item" href="{% url 'courses:list' %}">全部课程</a>{% endif %}
             {% elif request.resolver_match.namespace == 'assignments' %}
-            {% if request.resolver_match.view_name == 'assignments:feedback' %}<span class="breadcrumb-item" aria-current="page">成绩反馈</span>
-            {% elif request.resolver_match.view_name == 'assignments:center' %}<span class="breadcrumb-item" aria-current="page">作业中心</span>
-            {% else %}<span class="breadcrumb-item"><a href="{% url 'assignments:center' %}">作业中心</a></span>{% endif %}
-            {% elif request.resolver_match.url_name == 'profile' %}<span class="breadcrumb-item" aria-current="page">个人空间</span>
-            {% else %}<span class="breadcrumb-item" aria-current="page">教学工作台</span>
+            {% if request.resolver_match.view_name == 'assignments:feedback' %}<span class="breadcrumb-current" aria-current="page">成绩反馈</span>
+            {% elif request.resolver_match.view_name == 'assignments:center' %}<span class="breadcrumb-current" aria-current="page">作业中心</span>
+            {% else %}<a class="breadcrumb-item" href="{% url 'assignments:center' %}">作业中心</a>{% endif %}
+            {% elif request.resolver_match.url_name == 'profile' %}<span class="breadcrumb-current" aria-current="page">个人空间</span>
+            {% else %}<span class="breadcrumb-current" aria-current="page">教学工作台</span>
             {% endif %}
             {% endblock %}
             {% endif %}
