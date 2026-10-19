@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#174f50">
-    <title>{% block title %}苏州工学院 · 教学平台{% endblock %}</title>
+    <title>{% block title %}知行研学 · 教学平台{% endblock %}</title>
     <link rel="icon" type="image/svg+xml" href="{% static 'django_lms/images/learning-mark.svg' %}">
     <link rel="stylesheet" href="{% static 'django_lms/vendor/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'django_lms/vendor/font-awesome/css/font-awesome.min.css' %}">
@@ -17,9 +17,9 @@
 <aside class="sidenav" aria-label="主导航">
     <a class="brand" href="{% url 'home' %}">
         <img src="{% static 'django_lms/images/learning-mark.svg' %}" width="42" height="42" alt="">
-        <span><strong>苏州工学院</strong><small>教学与科研协作平台</small></span>
+        <span><strong>知行研学</strong><small>教学与科研协作平台</small></span>
     </a>
-    <p class="school-motto">立本求真，日新致远</p>
+    <p class="school-motto">知行合一，研学相长</p>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation-content">展开导航</button>
     <div class="nav-body" id="navigation-content">
         <p class="nav-caption">工作空间</p>
@@ -58,12 +58,12 @@
     </div>
 </aside>
 <div class="workspace">
-    <header class="workspace-header"><span>苏州工学院 <span class="header-separator">/</span> {% if guest_mode %}访客演示{% elif request.resolver_match.namespace == 'research' %}科研协作{% else %}教学工作台{% endif %}</span><span class="role-label">{% if guest_mode %}只读体验{% elif user.is_authenticated %}{% if user.user_type == 2 %}教师端{% else %}学生端{% endif %}{% else %}访客{% endif %}</span></header>
+    <header class="workspace-header"><span>知行研学 <span class="header-separator">/</span> {% if guest_mode %}访客演示{% elif request.resolver_match.namespace == 'research' %}科研协作{% else %}教学工作台{% endif %}</span><span class="role-label">{% if guest_mode %}只读体验{% elif user.is_authenticated %}{% if user.user_type == 2 %}教师端{% else %}学生端{% endif %}{% else %}访客{% endif %}</span></header>
     <main class="content" id="main-content" tabindex="-1">
         {% for message in messages %}<div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %}" role="status">{{ message }}</div>{% endfor %}
         <div class="page-panel">{% block body_content %}{% endblock %}</div>
     </main>
-    <footer class="workspace-footer">苏州工学院 · 教学与科研协作平台 <span>界面版本 2026.10 · 实验提交 / 代码对比 / 小组协作</span></footer>
+    <footer class="workspace-footer">知行研学 · 教学与科研协作平台 <span>界面版本 2026.10 · 实验提交 / 代码对比 / 小组协作</span></footer>
 </div>
 </body>
 </html>
