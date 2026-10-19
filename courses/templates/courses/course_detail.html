@@ -1,33 +1,89 @@
 {% extends 'courses/course_base.html' %}
-{% block title_name %}在线学习平台 - {{ course.course_name }}{% endblock %}
+{% block title_name %}知行研学 · {{ course.course_name }}{% endblock %}
 {% block main_content %}
-<h1>{{ course.course_name }} {% if course.is_archived %}<span class="badge badge-secondary">已归档</span>{% endif %}</h1>
-<p>授课教师：{{ course.teacher }} · {{ course.students.count }} 人选课</p>
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">COURSES / 课程空间</p>
+        <h1>{{ course.course_name }}</h1>
+        <p class="page-description">授课教师 · {{ course.teacher }}{% if can_view_content %} · {{ course.students.count }} 人选课{% endif %}</p>
+    </div>
+    <span class="status-chip {% if course.is_archived %}is-muted{% endif %}">{% if course.is_archived %}已归档{% else %}开放中{% endif %}</span>
+</div>
 <p>{{ course.course_description|linebreaksbr }}</p>
-{% if can_view_content %}<a class="btn btn-outline-primary mb-3" href="{% url 'assignments:groups' course_id=course.pk %}">实验小组{% if is_teacher %}管理{% endif %}</a>{% endif %}
-{% if course.is_archived %}<p class="alert alert-info">课程已归档：保留内容、提交与成绩，停止新选课及教学修改。教师可恢复课程。</p>{% endif %}
+{% if course.is_archived %}<div class="alert alert-info">课程已归档：保留内容、提交与成绩，停止新选课及教学修改。教师可恢复课程。</div>{% endif %}
+<div class="workspace-actions">
 {% if is_teacher %}
 {% if not course.is_archived %}
-<a class="btn btn-secondary" href="{% url 'courses:update' pk=course.pk %}">编辑课程</a>
-<a class="btn btn-warning" href="{% url 'assignments:create' %}?course={{ course.pk }}">发布作业</a>
-<a class="btn btn-info" href="{% url 'resources:create' %}?course={{ course.pk }}">上传学习资料</a>
+<a class="btn btn-primary" href="{% url 'assignments:create' %}?course={{ course.pk }}">发布作业</a>
+<a class="btn btn-outline-primary" href="{% url 'courses:update' pk=course.pk %}">编辑课程</a>
+<a class="btn btn-outline-secondary" href="{% url 'resources:create' %}?course={{ course.pk }}">上传学习资料</a>
 {% endif %}
 <form method="post" action="{% url 'courses:archive' pk=course.pk %}" class="d-inline">{% csrf_token %}
-{% if course.is_archived %}<button class="btn btn-success" name="action" value="restore">恢复课程</button>{% else %}<button class="btn btn-outline-secondary" name="action" value="archive">归档课程（保留记录）</button>{% endif %}</form>
+{% if course.is_archived %}<button class="btn btn-primary" name="action" value="restore">恢复课程</button>{% else %}<button class="btn btn-outline-secondary" name="action" value="archive">归档课程（保留记录）</button>{% endif %}</form>
 {% elif user.user_type == 1 %}
-{% if is_enrolled %}<form method="post" action="{% url 'courses:unenroll' pk=course.pk %}">{% csrf_token %}<button class="btn btn-outline-danger">退出课程（保留提交）</button></form>
-{% elif not course.is_archived %}<form method="post" action="{% url 'courses:enroll' pk=course.pk %}">{% csrf_token %}<button class="btn btn-success">加入课程</button></form>{% endif %}
-{% elif not user.is_authenticated %}<a href="{% url 'users:login' %}">登录后加入课程</a>{% endif %}
-{% if is_teacher %}
-<details class="mt-4"><summary>课程成员（{{ members|length }} 人）</summary>
-<table class="table"><thead><tr><th>姓名</th><th>用户名</th></tr></thead><tbody>{% for member in members %}<tr><td>{{ member }}</td><td>{{ member.username }}</td></tr>{% empty %}<tr><td colspan="2">暂无选课学生。</td></tr>{% endfor %}</tbody></table>
-</details>
-{% endif %}
+{% if is_enrolled %}<form method="post" action="{% url 'courses:unenroll' pk=course.pk %}" class="d-inline">{% csrf_token %}<button class="btn btn-outline-danger">退出课程（保留提交）</button></form>
+{% elif not course.is_archived %}<form method="post" action="{% url 'courses:enroll' pk=course.pk %}" class="d-inline">{% csrf_token %}<button class="btn btn-primary">加入课程</button></form>{% endif %}
+{% elif not user.is_authenticated %}<a class="btn btn-outline-primary" href="{% url 'users:login' %}">登录后加入课程</a>{% endif %}
+{% if can_view_content %}<a class="btn btn-outline-secondary" href="{% url 'assignments:groups' course_id=course.pk %}">实验小组{% if is_teacher %}管理{% endif %}</a>{% endif %}
+</div>
+
 {% if can_view_content %}
-<h3 class="mt-4">课程作业</h3>
-{% for assignment in assignments %}<a class="list-group-item list-group-item-action" href="{% url 'assignments:detail' pk=assignment.pk %}"><h5>{{ assignment.assignment_name }}</h5><p>{{ assignment.assignment_description|truncatechars:160 }}</p><small>截止时间（北京时间）：{{ assignment.due_date }} · {{ assignment.status_label }}</small></a>{% empty %}<p>暂无作业。</p>{% endfor %}
-<h3 class="mt-4">学习资料</h3>
-{% for resource in resources %}<div class="list-group-item"><h5>{{ resource.resource_name }}</h5><p>附件：{{ resource.resource_file.name }}</p><a class="btn btn-primary btn-sm" href="{% url 'resources:download' pk=resource.pk %}">下载</a>
-{% if is_teacher and not course.is_archived %}<a class="btn btn-danger btn-sm" href="{% url 'resources:delete' pk=resource.pk %}">删除</a>{% endif %}</div>{% empty %}<p>暂无学习资料。</p>{% endfor %}
-{% else %}<p class="mt-4">课程内容仅向本课程教师和已选课学生开放。</p>{% endif %}
+<section>
+    <div class="section-heading"><h2>课程作业</h2><span>{{ assignments|length }} 项</span></div>
+    <div class="stack-list">
+    {% for assignment in assignments %}
+        <a class="stack-item" href="{% url 'assignments:detail' pk=assignment.pk %}">
+            <span class="stack-item-main">
+                <strong class="stack-item-title">{{ assignment.assignment_name }}</strong>
+                <span class="stack-item-desc">{{ assignment.assignment_description|truncatechars:160 }}</span>
+                <small class="stack-item-meta">截止时间（北京时间）：{{ assignment.due_date }}</small>
+            </span>
+            <span class="stack-item-aside">
+                <span class="status-chip">{{ assignment.status_label }}</span>
+                <span class="stack-item-meta">查看作业 →</span>
+            </span>
+        </a>
+    {% empty %}
+        <div class="empty-state"><h3>暂无作业</h3><p>教师发布作业后会显示在这里。</p></div>
+    {% endfor %}
+    </div>
+</section>
+
+<section>
+    <div class="section-heading"><h2>学习资料</h2><span>{{ resources|length }} 份</span></div>
+    <div class="stack-list">
+    {% for resource in resources %}
+        <div class="stack-item">
+            <div class="stack-item-main">
+                <strong class="stack-item-title">{{ resource.resource_name }}</strong>
+                <p class="stack-item-meta">附件：{{ resource.resource_file.name }}</p>
+            </div>
+            <div class="stack-item-actions">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'resources:download' pk=resource.pk %}">下载</a>
+                {% if is_teacher and not course.is_archived %}<a class="btn btn-sm btn-outline-danger" href="{% url 'resources:delete' pk=resource.pk %}">删除</a>{% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state"><h3>暂无学习资料</h3><p>上传学习资料后会显示在这里。</p></div>
+    {% endfor %}
+    </div>
+</section>
+
+{% if is_teacher %}
+<section>
+    <div class="section-heading"><h2>课程成员</h2><span>{{ members|length }} 人</span></div>
+    <details>
+        <summary>查看成员名单</summary>
+        <div class="table-responsive">
+            <table class="table">
+                <thead><tr><th>姓名</th><th>用户名</th></tr></thead>
+                <tbody>{% for member in members %}<tr><td>{{ member }}</td><td>{{ member.username }}</td></tr>{% empty %}<tr><td colspan="2">暂无选课学生。</td></tr>{% endfor %}</tbody>
+            </table>
+        </div>
+    </details>
+</section>
+{% endif %}
+{% else %}
+<div class="alert alert-info">课程内容仅向本课程教师和已选课学生开放。</div>
+{% endif %}
 {% endblock %}

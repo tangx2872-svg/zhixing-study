@@ -75,3 +75,25 @@ details{border:1px solid var(--line);border-radius:8px;padding:14px 18px;backgro
 .home-hint strong{color:var(--primary)}
 @media(max-width:900px){.home-workbench{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}.home-workbench>section+section{margin-top:8px}}
 @media(max-width:600px){.page-heading{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}.course-grid,.my-course-grid,.auth-layout{grid-template-columns:1fr}.course-card-banner{padding:18px}.course-card-body{padding:18px}.workspace-stats{gap:10px}.workspace-stats a{padding:15px}.workspace-stats strong{font-size:27px}.auth-intro{padding:22px}.auth-intro h2{font-size:26px}.auth-intro ul,.auth-signature{display:none}.auth-intro p:last-of-type{margin:0}.auth-form{padding:4px 0}.section-heading{align-items:flex-start}.profile-meta{gap:10px}}
+
+/* Visual consistency pass: secondary page headings, record lists, version tags. */
+.page-heading h2{font-size:23px;margin-bottom:6px}
+.page-panel form.center-filters{max-width:none}
+.stack-list{display:grid;gap:10px}
+.stack-item{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:#fff;color:var(--ink);text-decoration:none!important}
+.stack-item:hover{background:#fbfdfc}
+.stack-item-main{flex:1;min-width:0}
+.stack-item-title{display:block;font-size:16px;font-weight:600;margin:2px 0 4px}
+.stack-item-title a{color:var(--ink);text-decoration:none}
+.stack-item-title a:hover{color:var(--primary)}
+.stack-item-meta{display:block;font-size:12px;color:var(--muted);margin:0}
+.stack-item-desc{display:block;font-size:13px;color:var(--muted);margin:6px 0 0}
+.stack-item-aside{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none}
+.stack-item-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.version-tag{display:inline-flex;justify-content:center;min-width:40px;padding:2px 8px;border-radius:6px;background:#eef2f0;color:#5f726a;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.version-tag.current{background:var(--primary);color:#fff}
+.grade-value{font-size:20px;font-weight:600;color:var(--primary);font-variant-numeric:tabular-nums}
+@media(max-width:600px){.stack-item{flex-direction:column;align-items:stretch;gap:12px}
+.stack-item-aside{align-items:flex-start}
+.stack-item-actions{justify-content:flex-start}}

@@ -41,7 +41,7 @@ class GuestDemoTests(TestCase):
     def test_demo_versions_and_associated_details_are_public_read_only(self):
         logical = self.project.files.get(name='results.csv')
         self.assertEqual(logical.versions.count(), 3)
-        self.assertContains(self.client.get(self.url('file_detail', logical.pk)), 'v3')
+        self.assertContains(self.client.get(self.url('file_detail', logical.pk)), 'V3')
         for version in logical.versions.all():
             response = self.client.get(self.url('version_download', version.pk))
             self.assertEqual(response.status_code, 200)

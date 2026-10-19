@@ -1,7 +1,29 @@
 {% extends 'research/base.html' %}
 {% block research_content %}
-<div class="section-heading"><h2>科研任务</h2>{% if is_owner and can_write %}<a class="btn btn-primary" href="{% url 'research:task_create' pk=workspace.pk %}">创建任务</a>{% endif %}</div>
+<div class="page-heading">
+    <div>
+        <h2>科研任务</h2>
+        <p class="page-description">按状态查看任务分工与完成进度。</p>
+    </div>
+    {% if is_owner and can_write %}<a class="btn btn-primary" href="{% url 'research:task_create' pk=workspace.pk %}">创建任务</a>{% endif %}
+</div>
 <form method="get" class="center-filters mb-4"><div><label for="task-status">任务状态</label><select id="task-status" class="form-control" name="status"><option value="">全部任务</option><option value="ongoing" {% if request.GET.status == 'ongoing' %}selected{% endif %}>进行中</option><option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>已完成</option></select></div><button class="btn btn-outline-secondary">筛选</button></form>
-{% for task in tasks %}<article class="list-group-item"><h3 class="h5"><a href="{% url 'research:task_detail' pk=workspace.pk task_id=task.pk %}">{{ task.title }}</a></h3><p>{{ task.assignee|default:'待分配' }} · {{ task.progress }}%{% if task.progress == 100 %} · 已完成{% endif %}</p><progress class="research-progress" value="{{ task.progress }}" max="100" aria-label="{{ task.title }}进度">{{ task.progress }}%</progress></article>{% empty %}<p>暂无符合条件的任务。</p>{% endfor %}
+<div class="stack-list">
+{% for task in tasks %}
+<a class="stack-item" href="{% url 'research:task_detail' pk=workspace.pk task_id=task.pk %}">
+    <span class="stack-item-main">
+        <strong class="stack-item-title">{{ task.title }}</strong>
+        <span class="stack-item-meta">负责人 · {{ task.assignee|default:'待分配' }}</span>
+        <progress class="research-progress" value="{{ task.progress }}" max="100" aria-label="{{ task.title }}进度">{{ task.progress }}%</progress>
+    </span>
+    <span class="stack-item-aside">
+        <span class="status-chip {% if task.progress == 100 %}is-muted{% endif %}">{% if task.progress == 100 %}已完成{% else %}进行中{% endif %}</span>
+        <span class="stack-item-meta">{{ task.progress }}%</span>
+    </span>
+</a>
+{% empty %}
+<div class="empty-state"><h3>暂无符合条件的任务</h3><p>可以切换状态筛选，或创建新的科研任务。</p></div>
+{% endfor %}
+</div>
 {% include 'research/pagination.html' %}
 {% endblock %}
