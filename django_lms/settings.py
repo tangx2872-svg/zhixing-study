@@ -28,7 +28,7 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='CHANGE_ME_DEV_ONLY')
+SECRET_KEY = env('SECRET_KEY')  # required; set it in .env (see .env.example)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
@@ -101,11 +101,11 @@ WSGI_APPLICATION = 'django_lms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_lms',
-        'USER': 'lms',
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD', ''),
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': env('MYSQL_DATABASE', default='django_lms'),
+        'USER': env('MYSQL_USER', default='lms'),
+        'PASSWORD': env('MYSQL_PASSWORD', default=''),
+        'HOST': env('MYSQL_HOST', default='localhost'),
+        'PORT': env('MYSQL_PORT', default='3306'),
     }
 }
 
