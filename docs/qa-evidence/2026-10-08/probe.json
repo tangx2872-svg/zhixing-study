@@ -1,0 +1,2658 @@
+{
+  "checks": [
+    {
+      "name": "outsider_private_project",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/",
+        "final": "/research/3/",
+        "ms": 22.25,
+        "queries": "8",
+        "server_ms": "18.03",
+        "size": 3385
+      }
+    },
+    {
+      "name": "outsider_edit_project",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/edit/",
+        "final": "/research/3/edit/",
+        "ms": 46.45,
+        "queries": "8",
+        "server_ms": "21.54",
+        "size": 3385
+      }
+    },
+    {
+      "name": "member_owner_edit",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/edit/",
+        "final": "/research/3/edit/",
+        "ms": 21.49,
+        "queries": "8",
+        "server_ms": "17.74",
+        "size": 3551
+      }
+    },
+    {
+      "name": "viewer_commit_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 37.28,
+        "queries": "8",
+        "server_ms": "18.32",
+        "size": 3383
+      }
+    },
+    {
+      "name": "viewer_file_upload_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 20.23,
+        "queries": "8",
+        "server_ms": "16.7",
+        "size": 3383
+      }
+    },
+    {
+      "name": "viewer_task_change_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/tasks/11/",
+        "final": "/research/3/tasks/11/",
+        "ms": 47.55,
+        "queries": "10",
+        "server_ms": "24.11",
+        "size": 3383
+      }
+    },
+    {
+      "name": "outsider_version_download",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/versions/14/download/",
+        "final": "/research/3/versions/14/download/",
+        "ms": 43.36,
+        "queries": "8",
+        "server_ms": "21.36",
+        "size": 3385
+      }
+    },
+    {
+      "name": "outsider_course_file",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/download/2/",
+        "final": "/assignments/submission/download/2/",
+        "ms": 44.7,
+        "queries": "9",
+        "server_ms": "19.66",
+        "size": 3369
+      }
+    },
+    {
+      "name": "outsider_submission_browse",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/2/browse/",
+        "final": "/assignments/submission/2/browse/",
+        "ms": 44.6,
+        "queries": "7",
+        "server_ms": "18.57",
+        "size": 3369
+      }
+    },
+    {
+      "name": "outsider_submission_diff",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/2/compare/",
+        "final": "/assignments/submission/2/compare/",
+        "ms": 46.59,
+        "queries": "7",
+        "server_ms": "19.71",
+        "size": 3369
+      }
+    },
+    {
+      "name": "student_grading_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/grade/2/",
+        "final": "/assignments/grade/2/",
+        "ms": 48.09,
+        "queries": "10",
+        "server_ms": "21.79",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_group_edit_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/groups/1/",
+        "final": "/assignments/groups/1/",
+        "ms": 24.31,
+        "queries": "8",
+        "server_ms": "20.34",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_course_create_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/courses/new/",
+        "final": "/courses/new/",
+        "ms": 32.41,
+        "queries": "6",
+        "server_ms": "16.44",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_export_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/detail/1/export/grades/",
+        "final": "/assignments/detail/1/export/grades/",
+        "ms": 22.54,
+        "queries": "7",
+        "server_ms": "18.86",
+        "size": 3535
+      }
+    },
+    {
+      "name": "other_profile_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/user_profile/3/",
+        "final": "/user_profile/3/",
+        "ms": 21.39,
+        "queries": "6",
+        "server_ms": "17.34",
+        "size": 3532
+      }
+    },
+    {
+      "name": "demo_write_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/1/progress/new/",
+        "final": "/research/1/progress/new/",
+        "ms": 18.27,
+        "queries": "6",
+        "server_ms": "14.88",
+        "size": 3969
+      }
+    },
+    {
+      "name": "csrf_missing_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 18.5,
+        "queries": "0",
+        "server_ms": "4.06",
+        "size": 2508
+      }
+    },
+    {
+      "name": "invalid_assignment_id",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/assignments/detail/abc/",
+        "final": "/assignments/detail/abc/",
+        "ms": 87.53,
+        "queries": "9",
+        "server_ms": "60.55",
+        "size": 142555
+      }
+    },
+    {
+      "name": "invalid_submission_id",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/assignments/submission/detail/abc/",
+        "final": "/assignments/submission/detail/abc/",
+        "ms": 73.73,
+        "queries": "9",
+        "server_ms": "55.05",
+        "size": 143077
+      }
+    },
+    {
+      "name": "nonexistent_project",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/research/999999/",
+        "final": "/research/999999/",
+        "ms": 35.0,
+        "queries": "5",
+        "server_ms": "12.77",
+        "size": 1757
+      }
+    },
+    {
+      "name": "direct_media_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+        "final": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+        "ms": 9.67,
+        "queries": "0",
+        "server_ms": "5.69",
+        "size": 2945
+      }
+    },
+    {
+      "name": "path_traversal_preview_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/assignments/submission/2/browse/?path=../../settings.py",
+        "final": "/assignments/submission/2/browse/?path=../../settings.py",
+        "ms": 21.18,
+        "queries": "6",
+        "server_ms": "17.47",
+        "size": 1810
+      }
+    },
+    {
+      "name": "legacy_graphql_disabled",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/graphql/",
+        "final": "/graphql/",
+        "ms": 26.03,
+        "queries": "0",
+        "server_ms": "5.73",
+        "size": 2783
+      }
+    },
+    {
+      "name": "empty_workspace",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/new/",
+        "final": "/research/new/",
+        "ms": 52.73,
+        "queries": "6",
+        "server_ms": "28.77",
+        "size": 4613
+      }
+    },
+    {
+      "name": "long_workspace",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/new/",
+        "final": "/research/new/",
+        "ms": 45.87,
+        "queries": "6",
+        "server_ms": "29.5",
+        "size": 4789
+      }
+    },
+    {
+      "name": "negative_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 56.19,
+        "queries": "11",
+        "server_ms": "40.51",
+        "size": 5772
+      }
+    },
+    {
+      "name": "over_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 44.94,
+        "queries": "11",
+        "server_ms": "41.1",
+        "size": 5775
+      }
+    },
+    {
+      "name": "nonnumeric_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 64.0,
+        "queries": "11",
+        "server_ms": "44.37",
+        "size": 5757
+      }
+    },
+    {
+      "name": "zero_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 74.17,
+        "queries": "12",
+        "server_ms": "52.34",
+        "size": 6317
+      }
+    },
+    {
+      "name": "disallowed_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 72.21,
+        "queries": "12",
+        "server_ms": "49.83",
+        "size": 6379
+      }
+    },
+    {
+      "name": "oversize_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 117.67,
+        "queries": "12",
+        "server_ms": "113.31",
+        "size": 6317
+      }
+    },
+    {
+      "name": "long_filename",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 76.1,
+        "queries": "15",
+        "server_ms": "51.16",
+        "size": 6251
+      }
+    },
+    {
+      "name": "zip_traversal_rejected",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/1/",
+        "final": "/assignments/submit/1/",
+        "ms": 79.12,
+        "queries": "13",
+        "server_ms": "54.13",
+        "size": 7018
+      }
+    },
+    {
+      "name": "invalid_rubric_score",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/grade/2/",
+        "final": "/assignments/grade/2/",
+        "ms": 69.16,
+        "queries": "13",
+        "server_ms": "49.61",
+        "size": 6501
+      }
+    },
+    {
+      "name": "profile_edit_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/users/profile/edit/",
+        "final": "/users/profile/edit/",
+        "ms": 11.31,
+        "queries": "0",
+        "server_ms": "6.61",
+        "size": 3238
+      }
+    },
+    {
+      "name": "password_change_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/users/password_change/",
+        "final": "/users/password_change/",
+        "ms": 9.38,
+        "queries": "0",
+        "server_ms": "5.64",
+        "size": 3247
+      }
+    },
+    {
+      "name": "task_delete_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/research/3/tasks/11/delete/",
+        "final": "/research/3/tasks/11/delete/",
+        "ms": 27.55,
+        "queries": "0",
+        "server_ms": "6.66",
+        "size": 6559
+      }
+    },
+    {
+      "name": "version_restore_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/research/3/versions/14/restore/",
+        "final": "/research/3/versions/14/restore/",
+        "ms": 32.13,
+        "queries": "0",
+        "server_ms": "7.5",
+        "size": 6571
+      }
+    },
+    {
+      "name": "registration_role_gate",
+      "status": "FAIL",
+      "detail": {
+        "registered_role": 2,
+        "create_course_status": 200
+      }
+    },
+    {
+      "name": "emoji_input",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 102.81,
+        "queries": "11",
+        "server_ms": "80.47",
+        "size": 187550
+      }
+    },
+    {
+      "name": "20_tasks_create",
+      "status": "PASS",
+      "detail": {
+        "created": 20,
+        "distinct": 20
+      }
+    },
+    {
+      "name": "20_tasks_update",
+      "status": "PASS",
+      "detail": {
+        "updated": 20
+      }
+    },
+    {
+      "name": "stored_xss_escaped",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/12/",
+        "final": "/research/3/tasks/12/",
+        "ms": 70.95,
+        "queries": "11",
+        "server_ms": "44.18",
+        "size": 5977
+      }
+    },
+    {
+      "name": "duplicate_post_idempotency",
+      "status": "FAIL",
+      "detail": {
+        "created": 2
+      }
+    },
+    {
+      "name": "research_v1_v2_v3_bytes",
+      "status": "PASS",
+      "detail": {
+        "versions": 3,
+        "payloads": [
+          "category,image_auroc\nbottle,0.982\n",
+          "category,image_auroc\nbottle,0.987\n",
+          "category,image_auroc\nbottle,0.999\n"
+        ]
+      }
+    },
+    {
+      "name": "research_version_author_time",
+      "status": "PASS",
+      "detail": {
+        "author_ids": [
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "name": "individual_submit_bytes",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/2/",
+        "final": "/assignments/submission/detail/3/",
+        "ms": 62.57,
+        "queries": "16",
+        "server_ms": "29.17",
+        "size": 5002
+      }
+    },
+    {
+      "name": "withdraw_preserves_history",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submission/delete/3/",
+        "final": "/assignments/detail/2/",
+        "ms": 73.09,
+        "queries": "11",
+        "server_ms": "31.18",
+        "size": 4041
+      }
+    },
+    {
+      "name": "repeated_withdraw_safe",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/delete/3/",
+        "final": "/assignments/submission/delete/3/",
+        "ms": 36.26,
+        "queries": "12",
+        "server_ms": "22.8",
+        "size": 3526
+      }
+    },
+    {
+      "name": "resubmit_after_withdraw",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/2/",
+        "final": "/assignments/submission/detail/4/",
+        "ms": 109.65,
+        "queries": "16",
+        "server_ms": "36.51",
+        "size": 5115
+      }
+    },
+    {
+      "name": "resource_upload_download_content",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/resources/download/16/",
+        "final": "/resources/download/16/",
+        "ms": 25.24,
+        "queries": "7",
+        "server_ms": "21.15",
+        "size": 12
+      }
+    },
+    {
+      "name": "resource_unauthorized_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/resources/download/16/",
+        "final": "/resources/download/16/",
+        "ms": 39.66,
+        "queries": "9",
+        "server_ms": "20.54",
+        "size": 3357
+      }
+    },
+    {
+      "name": "resource_unauthorized_delete",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/resources/delete/16/",
+        "final": "/resources/delete/16/",
+        "ms": 45.62,
+        "queries": "8",
+        "server_ms": "20.17",
+        "size": 3535
+      }
+    },
+    {
+      "name": "resource_delete_db_disk",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/resources/delete/16/",
+        "final": "/courses/detail/1/",
+        "ms": 68.73,
+        "queries": "11",
+        "server_ms": "26.86",
+        "size": 5502
+      }
+    },
+    {
+      "name": "repeated_delete_safe",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/resources/delete/16/",
+        "final": "/resources/delete/16/",
+        "ms": 30.06,
+        "queries": "5",
+        "server_ms": "13.06",
+        "size": 1761
+      }
+    },
+    {
+      "name": "password_hash",
+      "status": "PASS",
+      "detail": {
+        "algorithm": "pbkdf2_sha256"
+      }
+    },
+    {
+      "name": "cors_no_wildcard",
+      "status": "PASS",
+      "detail": {
+        "acao": null
+      }
+    },
+    {
+      "name": "private_preview_headers",
+      "status": "PASS",
+      "detail": {
+        "Cache-Control": "private, no-store",
+        "X-Content-Type-Options": "nosniff"
+      }
+    },
+    {
+      "name": "archived_project_write_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 33.51,
+        "queries": "8",
+        "server_ms": "20.1",
+        "size": 3560
+      }
+    },
+    {
+      "name": "project_restore_read",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/",
+        "final": "/research/3/",
+        "ms": 76.29,
+        "queries": "19",
+        "server_ms": "53.2",
+        "size": 8169
+      }
+    }
+  ],
+  "traces": [
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 25.41,
+      "queries": "0",
+      "server_ms": "14.59",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 155.82,
+      "queries": "7",
+      "server_ms": "23.77",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 16.16,
+      "queries": "0",
+      "server_ms": "12.62",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 149.54,
+      "queries": "8",
+      "server_ms": "19.76",
+      "size": 4344
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 41.99,
+      "queries": "0",
+      "server_ms": "15.19",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 129.14,
+      "queries": "8",
+      "server_ms": "22.01",
+      "size": 4344
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 38.04,
+      "queries": "0",
+      "server_ms": "13.39",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 105.78,
+      "queries": "8",
+      "server_ms": "21.58",
+      "size": 4178
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 33.07,
+      "queries": "0",
+      "server_ms": "13.69",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 132.24,
+      "queries": "8",
+      "server_ms": "23.01",
+      "size": 4176
+    },
+    {
+      "status": 403,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 22.25,
+      "queries": "8",
+      "server_ms": "18.03",
+      "size": 3385
+    },
+    {
+      "status": 403,
+      "path": "/research/3/edit/",
+      "final": "/research/3/edit/",
+      "ms": 46.45,
+      "queries": "8",
+      "server_ms": "21.54",
+      "size": 3385
+    },
+    {
+      "status": 403,
+      "path": "/research/3/edit/",
+      "final": "/research/3/edit/",
+      "ms": 21.49,
+      "queries": "8",
+      "server_ms": "17.74",
+      "size": 3551
+    },
+    {
+      "status": 403,
+      "path": "/research/3/progress/new/",
+      "final": "/research/3/progress/new/",
+      "ms": 37.28,
+      "queries": "8",
+      "server_ms": "18.32",
+      "size": 3383
+    },
+    {
+      "status": 403,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/upload/",
+      "ms": 20.23,
+      "queries": "8",
+      "server_ms": "16.7",
+      "size": 3383
+    },
+    {
+      "status": 403,
+      "path": "/research/3/tasks/11/",
+      "final": "/research/3/tasks/11/",
+      "ms": 47.55,
+      "queries": "10",
+      "server_ms": "24.11",
+      "size": 3383
+    },
+    {
+      "status": 403,
+      "path": "/research/3/versions/14/download/",
+      "final": "/research/3/versions/14/download/",
+      "ms": 43.36,
+      "queries": "8",
+      "server_ms": "21.36",
+      "size": 3385
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submission/download/2/",
+      "final": "/assignments/submission/download/2/",
+      "ms": 44.7,
+      "queries": "9",
+      "server_ms": "19.66",
+      "size": 3369
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submission/2/browse/",
+      "final": "/assignments/submission/2/browse/",
+      "ms": 44.6,
+      "queries": "7",
+      "server_ms": "18.57",
+      "size": 3369
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submission/2/compare/",
+      "final": "/assignments/submission/2/compare/",
+      "ms": 46.59,
+      "queries": "7",
+      "server_ms": "19.71",
+      "size": 3369
+    },
+    {
+      "status": 403,
+      "path": "/assignments/grade/2/",
+      "final": "/assignments/grade/2/",
+      "ms": 48.09,
+      "queries": "10",
+      "server_ms": "21.79",
+      "size": 3535
+    },
+    {
+      "status": 403,
+      "path": "/assignments/groups/1/",
+      "final": "/assignments/groups/1/",
+      "ms": 24.31,
+      "queries": "8",
+      "server_ms": "20.34",
+      "size": 3535
+    },
+    {
+      "status": 403,
+      "path": "/courses/new/",
+      "final": "/courses/new/",
+      "ms": 32.41,
+      "queries": "6",
+      "server_ms": "16.44",
+      "size": 3535
+    },
+    {
+      "status": 403,
+      "path": "/assignments/detail/1/export/grades/",
+      "final": "/assignments/detail/1/export/grades/",
+      "ms": 22.54,
+      "queries": "7",
+      "server_ms": "18.86",
+      "size": 3535
+    },
+    {
+      "status": 403,
+      "path": "/user_profile/3/",
+      "final": "/user_profile/3/",
+      "ms": 21.39,
+      "queries": "6",
+      "server_ms": "17.34",
+      "size": 3532
+    },
+    {
+      "status": 403,
+      "path": "/research/1/progress/new/",
+      "final": "/research/1/progress/new/",
+      "ms": 18.27,
+      "queries": "6",
+      "server_ms": "14.88",
+      "size": 3969
+    },
+    {
+      "status": 403,
+      "path": "/research/3/progress/new/",
+      "final": "/research/3/progress/new/",
+      "ms": 18.5,
+      "queries": "0",
+      "server_ms": "4.06",
+      "size": 2508
+    },
+    {
+      "status": 500,
+      "path": "/assignments/detail/abc/",
+      "final": "/assignments/detail/abc/",
+      "ms": 87.53,
+      "queries": "9",
+      "server_ms": "60.55",
+      "size": 142555
+    },
+    {
+      "status": 500,
+      "path": "/assignments/submission/detail/abc/",
+      "final": "/assignments/submission/detail/abc/",
+      "ms": 73.73,
+      "queries": "9",
+      "server_ms": "55.05",
+      "size": 143077
+    },
+    {
+      "status": 404,
+      "path": "/research/999999/",
+      "final": "/research/999999/",
+      "ms": 35.0,
+      "queries": "5",
+      "server_ms": "12.77",
+      "size": 1757
+    },
+    {
+      "status": 404,
+      "path": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+      "final": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+      "ms": 9.67,
+      "queries": "0",
+      "server_ms": "5.69",
+      "size": 2945
+    },
+    {
+      "status": 404,
+      "path": "/assignments/submission/2/browse/?path=../../settings.py",
+      "final": "/assignments/submission/2/browse/?path=../../settings.py",
+      "ms": 21.18,
+      "queries": "6",
+      "server_ms": "17.47",
+      "size": 1810
+    },
+    {
+      "status": 404,
+      "path": "/graphql/",
+      "final": "/graphql/",
+      "ms": 26.03,
+      "queries": "0",
+      "server_ms": "5.73",
+      "size": 2783
+    },
+    {
+      "status": 200,
+      "path": "/research/new/",
+      "final": "/research/new/",
+      "ms": 52.73,
+      "queries": "6",
+      "server_ms": "28.77",
+      "size": 4613
+    },
+    {
+      "status": 200,
+      "path": "/research/new/",
+      "final": "/research/new/",
+      "ms": 45.87,
+      "queries": "6",
+      "server_ms": "29.5",
+      "size": 4789
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/new/",
+      "ms": 56.19,
+      "queries": "11",
+      "server_ms": "40.51",
+      "size": 5772
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/new/",
+      "ms": 44.94,
+      "queries": "11",
+      "server_ms": "41.1",
+      "size": 5775
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/new/",
+      "ms": 64.0,
+      "queries": "11",
+      "server_ms": "44.37",
+      "size": 5757
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/upload/",
+      "ms": 74.17,
+      "queries": "12",
+      "server_ms": "52.34",
+      "size": 6317
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/upload/",
+      "ms": 72.21,
+      "queries": "12",
+      "server_ms": "49.83",
+      "size": 6379
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/upload/",
+      "ms": 117.67,
+      "queries": "12",
+      "server_ms": "113.31",
+      "size": 6317
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/upload/",
+      "ms": 76.1,
+      "queries": "15",
+      "server_ms": "51.16",
+      "size": 6251
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submit/1/",
+      "ms": 79.12,
+      "queries": "13",
+      "server_ms": "54.13",
+      "size": 7018
+    },
+    {
+      "status": 200,
+      "path": "/assignments/grade/2/",
+      "final": "/assignments/grade/2/",
+      "ms": 69.16,
+      "queries": "13",
+      "server_ms": "49.61",
+      "size": 6501
+    },
+    {
+      "status": 404,
+      "path": "/users/profile/edit/",
+      "final": "/users/profile/edit/",
+      "ms": 11.31,
+      "queries": "0",
+      "server_ms": "6.61",
+      "size": 3238
+    },
+    {
+      "status": 404,
+      "path": "/users/password_change/",
+      "final": "/users/password_change/",
+      "ms": 9.38,
+      "queries": "0",
+      "server_ms": "5.64",
+      "size": 3247
+    },
+    {
+      "status": 404,
+      "path": "/research/3/tasks/11/delete/",
+      "final": "/research/3/tasks/11/delete/",
+      "ms": 27.55,
+      "queries": "0",
+      "server_ms": "6.66",
+      "size": 6559
+    },
+    {
+      "status": 404,
+      "path": "/research/3/versions/14/restore/",
+      "final": "/research/3/versions/14/restore/",
+      "ms": 32.13,
+      "queries": "0",
+      "server_ms": "7.5",
+      "size": 6571
+    },
+    {
+      "status": 200,
+      "path": "/users/signup/",
+      "final": "/users/signup/",
+      "ms": 57.38,
+      "queries": "0",
+      "server_ms": "34.41",
+      "size": 5420
+    },
+    {
+      "status": 200,
+      "path": "/users/signup/",
+      "final": "/users/signup/",
+      "ms": 43.77,
+      "queries": "3",
+      "server_ms": "38.85",
+      "size": 5712
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 38.78,
+      "queries": "0",
+      "server_ms": "11.23",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 134.54,
+      "queries": "8",
+      "server_ms": "22.56",
+      "size": 4659
+    },
+    {
+      "status": 200,
+      "path": "/courses/new/",
+      "final": "/courses/new/",
+      "ms": 48.14,
+      "queries": "6",
+      "server_ms": "23.94",
+      "size": 4378
+    },
+    {
+      "status": 500,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/new/",
+      "ms": 102.81,
+      "queries": "11",
+      "server_ms": "80.47",
+      "size": 187550
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/12/",
+      "ms": 100.07,
+      "queries": "11",
+      "server_ms": "46.1",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/13/",
+      "ms": 115.96,
+      "queries": "11",
+      "server_ms": "49.14",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/14/",
+      "ms": 117.27,
+      "queries": "11",
+      "server_ms": "42.03",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/15/",
+      "ms": 116.49,
+      "queries": "11",
+      "server_ms": "49.39",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/16/",
+      "ms": 101.96,
+      "queries": "11",
+      "server_ms": "74.52",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/17/",
+      "ms": 111.11,
+      "queries": "11",
+      "server_ms": "49.39",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/18/",
+      "ms": 127.45,
+      "queries": "11",
+      "server_ms": "52.2",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/19/",
+      "ms": 75.02,
+      "queries": "11",
+      "server_ms": "45.24",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/20/",
+      "ms": 91.59,
+      "queries": "11",
+      "server_ms": "48.95",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/21/",
+      "ms": 99.72,
+      "queries": "11",
+      "server_ms": "46.83",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/22/",
+      "ms": 87.34,
+      "queries": "11",
+      "server_ms": "40.3",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/23/",
+      "ms": 122.03,
+      "queries": "11",
+      "server_ms": "48.62",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/24/",
+      "ms": 73.91,
+      "queries": "11",
+      "server_ms": "47.57",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/25/",
+      "ms": 109.93,
+      "queries": "11",
+      "server_ms": "46.23",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/26/",
+      "ms": 104.58,
+      "queries": "11",
+      "server_ms": "43.91",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/27/",
+      "ms": 114.26,
+      "queries": "11",
+      "server_ms": "50.73",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/28/",
+      "ms": 96.31,
+      "queries": "11",
+      "server_ms": "47.6",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/29/",
+      "ms": 95.52,
+      "queries": "11",
+      "server_ms": "47.25",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/30/",
+      "ms": 117.37,
+      "queries": "11",
+      "server_ms": "49.46",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/31/",
+      "ms": 127.99,
+      "queries": "11",
+      "server_ms": "53.1",
+      "size": 6039
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/12/",
+      "final": "/research/3/tasks/12/",
+      "ms": 102.5,
+      "queries": "11",
+      "server_ms": "49.85",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/13/",
+      "final": "/research/3/tasks/13/",
+      "ms": 102.22,
+      "queries": "11",
+      "server_ms": "47.11",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/14/",
+      "final": "/research/3/tasks/14/",
+      "ms": 112.55,
+      "queries": "11",
+      "server_ms": "46.27",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/15/",
+      "final": "/research/3/tasks/15/",
+      "ms": 109.14,
+      "queries": "11",
+      "server_ms": "46.88",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/16/",
+      "final": "/research/3/tasks/16/",
+      "ms": 108.2,
+      "queries": "11",
+      "server_ms": "47.32",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/17/",
+      "final": "/research/3/tasks/17/",
+      "ms": 98.39,
+      "queries": "11",
+      "server_ms": "51.57",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/18/",
+      "final": "/research/3/tasks/18/",
+      "ms": 120.37,
+      "queries": "11",
+      "server_ms": "49.31",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/19/",
+      "final": "/research/3/tasks/19/",
+      "ms": 119.81,
+      "queries": "11",
+      "server_ms": "46.85",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/20/",
+      "final": "/research/3/tasks/20/",
+      "ms": 79.36,
+      "queries": "11",
+      "server_ms": "40.53",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/21/",
+      "final": "/research/3/tasks/21/",
+      "ms": 85.77,
+      "queries": "11",
+      "server_ms": "46.43",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/22/",
+      "final": "/research/3/tasks/22/",
+      "ms": 116.62,
+      "queries": "11",
+      "server_ms": "47.43",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/23/",
+      "final": "/research/3/tasks/23/",
+      "ms": 81.96,
+      "queries": "11",
+      "server_ms": "44.4",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/24/",
+      "final": "/research/3/tasks/24/",
+      "ms": 119.92,
+      "queries": "11",
+      "server_ms": "48.21",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/25/",
+      "final": "/research/3/tasks/25/",
+      "ms": 74.63,
+      "queries": "11",
+      "server_ms": "45.54",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/26/",
+      "final": "/research/3/tasks/26/",
+      "ms": 89.14,
+      "queries": "11",
+      "server_ms": "47.91",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/27/",
+      "final": "/research/3/tasks/27/",
+      "ms": 115.3,
+      "queries": "11",
+      "server_ms": "49.17",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/28/",
+      "final": "/research/3/tasks/28/",
+      "ms": 109.78,
+      "queries": "11",
+      "server_ms": "48.83",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/29/",
+      "final": "/research/3/tasks/29/",
+      "ms": 134.08,
+      "queries": "11",
+      "server_ms": "77.36",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/30/",
+      "final": "/research/3/tasks/30/",
+      "ms": 86.18,
+      "queries": "11",
+      "server_ms": "39.82",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/31/",
+      "final": "/research/3/tasks/31/",
+      "ms": 121.71,
+      "queries": "11",
+      "server_ms": "48.3",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/12/",
+      "final": "/research/3/tasks/12/",
+      "ms": 70.95,
+      "queries": "11",
+      "server_ms": "44.18",
+      "size": 5977
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/32/",
+      "ms": 88.94,
+      "queries": "11",
+      "server_ms": "46.84",
+      "size": 5887
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/new/",
+      "final": "/research/3/tasks/33/",
+      "ms": 119.68,
+      "queries": "11",
+      "server_ms": "53.63",
+      "size": 5887
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/9/",
+      "ms": 76.78,
+      "queries": "15",
+      "server_ms": "34.76",
+      "size": 5662
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/13/download/",
+      "final": "/research/3/versions/13/download/",
+      "ms": 15.4,
+      "queries": "7",
+      "server_ms": "11.34",
+      "size": 34
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/14/download/",
+      "final": "/research/3/versions/14/download/",
+      "ms": 32.71,
+      "queries": "7",
+      "server_ms": "12.02",
+      "size": 34
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/15/download/",
+      "final": "/research/3/versions/15/download/",
+      "ms": 39.19,
+      "queries": "7",
+      "server_ms": "21.17",
+      "size": 34
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/3/",
+      "ms": 62.57,
+      "queries": "16",
+      "server_ms": "29.17",
+      "size": 5002
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submission/download/3/",
+      "final": "/assignments/submission/download/3/",
+      "ms": 36.73,
+      "queries": "5",
+      "server_ms": "18.85",
+      "size": 12
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submission/delete/3/",
+      "final": "/assignments/detail/2/",
+      "ms": 73.09,
+      "queries": "11",
+      "server_ms": "31.18",
+      "size": 4041
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submission/delete/3/",
+      "final": "/assignments/submission/delete/3/",
+      "ms": 36.26,
+      "queries": "12",
+      "server_ms": "22.8",
+      "size": 3526
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/4/",
+      "ms": 109.65,
+      "queries": "16",
+      "server_ms": "36.51",
+      "size": 5115
+    },
+    {
+      "status": 200,
+      "path": "/resources/create/",
+      "final": "/courses/detail/1/",
+      "ms": 101.77,
+      "queries": "11",
+      "server_ms": "31.18",
+      "size": 5706
+    },
+    {
+      "status": 200,
+      "path": "/resources/download/16/",
+      "final": "/resources/download/16/",
+      "ms": 25.24,
+      "queries": "7",
+      "server_ms": "21.15",
+      "size": 12
+    },
+    {
+      "status": 403,
+      "path": "/resources/download/16/",
+      "final": "/resources/download/16/",
+      "ms": 39.66,
+      "queries": "9",
+      "server_ms": "20.54",
+      "size": 3357
+    },
+    {
+      "status": 403,
+      "path": "/resources/delete/16/",
+      "final": "/resources/delete/16/",
+      "ms": 45.62,
+      "queries": "8",
+      "server_ms": "20.17",
+      "size": 3535
+    },
+    {
+      "status": 200,
+      "path": "/resources/delete/16/",
+      "final": "/courses/detail/1/",
+      "ms": 68.73,
+      "queries": "11",
+      "server_ms": "26.86",
+      "size": 5502
+    },
+    {
+      "status": 404,
+      "path": "/resources/delete/16/",
+      "final": "/resources/delete/16/",
+      "ms": 30.06,
+      "queries": "5",
+      "server_ms": "13.06",
+      "size": 1761
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 54.07,
+      "queries": "19",
+      "server_ms": "49.86",
+      "size": 8197
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submission/2/browse/",
+      "final": "/assignments/submission/2/browse/",
+      "ms": 53.36,
+      "queries": "9",
+      "server_ms": "40.33",
+      "size": 6889
+    },
+    {
+      "status": 200,
+      "path": "/research/3/edit/",
+      "final": "/research/3/",
+      "ms": 86.73,
+      "queries": "17",
+      "server_ms": "47.43",
+      "size": 8674
+    },
+    {
+      "status": 403,
+      "path": "/research/3/progress/new/",
+      "final": "/research/3/progress/new/",
+      "ms": 33.51,
+      "queries": "8",
+      "server_ms": "20.1",
+      "size": 3560
+    },
+    {
+      "status": 200,
+      "path": "/research/3/edit/",
+      "final": "/research/3/",
+      "ms": 93.99,
+      "queries": "17",
+      "server_ms": "52.89",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 76.29,
+      "queries": "19",
+      "server_ms": "53.2",
+      "size": 8169
+    },
+    {
+      "status": 200,
+      "path": "/",
+      "final": "/",
+      "ms": 18.35,
+      "queries": "5",
+      "server_ms": "14.04",
+      "size": 5603
+    },
+    {
+      "status": 200,
+      "path": "/",
+      "final": "/",
+      "ms": 35.99,
+      "queries": "5",
+      "server_ms": "14.66",
+      "size": 5603
+    },
+    {
+      "status": 200,
+      "path": "/",
+      "final": "/",
+      "ms": 32.37,
+      "queries": "5",
+      "server_ms": "15.6",
+      "size": 5603
+    },
+    {
+      "status": 200,
+      "path": "/",
+      "final": "/",
+      "ms": 28.2,
+      "queries": "5",
+      "server_ms": "13.66",
+      "size": 5603
+    },
+    {
+      "status": 200,
+      "path": "/",
+      "final": "/",
+      "ms": 17.8,
+      "queries": "5",
+      "server_ms": "14.3",
+      "size": 5603
+    },
+    {
+      "status": 200,
+      "path": "/courses/all/",
+      "final": "/courses/all/",
+      "ms": 35.88,
+      "queries": "7",
+      "server_ms": "20.04",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/courses/all/",
+      "final": "/courses/all/",
+      "ms": 22.07,
+      "queries": "7",
+      "server_ms": "18.84",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/courses/all/",
+      "final": "/courses/all/",
+      "ms": 39.01,
+      "queries": "7",
+      "server_ms": "20.15",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/courses/all/",
+      "final": "/courses/all/",
+      "ms": 45.95,
+      "queries": "7",
+      "server_ms": "20.42",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/courses/all/",
+      "final": "/courses/all/",
+      "ms": 50.22,
+      "queries": "7",
+      "server_ms": "23.43",
+      "size": 4833
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 51.32,
+      "queries": "7",
+      "server_ms": "28.28",
+      "size": 4745
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 29.39,
+      "queries": "7",
+      "server_ms": "25.79",
+      "size": 4745
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 28.84,
+      "queries": "7",
+      "server_ms": "25.06",
+      "size": 4745
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 30.29,
+      "queries": "7",
+      "server_ms": "25.03",
+      "size": 4745
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 28.96,
+      "queries": "7",
+      "server_ms": "25.11",
+      "size": 4745
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 70.21,
+      "queries": "17",
+      "server_ms": "46.41",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 67.98,
+      "queries": "17",
+      "server_ms": "53.3",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 58.54,
+      "queries": "17",
+      "server_ms": "53.81",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 75.99,
+      "queries": "17",
+      "server_ms": "50.61",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/",
+      "final": "/research/3/",
+      "ms": 77.01,
+      "queries": "17",
+      "server_ms": "48.89",
+      "size": 8635
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 58.71,
+      "queries": "11",
+      "server_ms": "29.49",
+      "size": 5213
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 30.89,
+      "queries": "11",
+      "server_ms": "26.16",
+      "size": 5213
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 46.96,
+      "queries": "11",
+      "server_ms": "30.2",
+      "size": 5213
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 49.52,
+      "queries": "11",
+      "server_ms": "32.74",
+      "size": 5213
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 44.78,
+      "queries": "11",
+      "server_ms": "30.07",
+      "size": 5213
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 42.89,
+      "queries": "12",
+      "server_ms": "38.74",
+      "size": 6917
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 39.37,
+      "queries": "12",
+      "server_ms": "35.41",
+      "size": 6917
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 66.7,
+      "queries": "12",
+      "server_ms": "39.4",
+      "size": 6917
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 63.62,
+      "queries": "12",
+      "server_ms": "40.3",
+      "size": 6917
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 63.36,
+      "queries": "12",
+      "server_ms": "42.04",
+      "size": 6917
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/?q=baseline",
+      "final": "/research/3/progress/?q=baseline",
+      "ms": 91.66,
+      "queries": "12",
+      "server_ms": "72.63",
+      "size": 6655
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/?q=baseline",
+      "final": "/research/3/progress/?q=baseline",
+      "ms": 38.82,
+      "queries": "12",
+      "server_ms": "35.09",
+      "size": 6655
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/?q=baseline",
+      "final": "/research/3/progress/?q=baseline",
+      "ms": 53.87,
+      "queries": "12",
+      "server_ms": "38.9",
+      "size": 6655
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/?q=baseline",
+      "final": "/research/3/progress/?q=baseline",
+      "ms": 38.47,
+      "queries": "12",
+      "server_ms": "35.03",
+      "size": 6655
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/?q=baseline",
+      "final": "/research/3/progress/?q=baseline",
+      "ms": 52.66,
+      "queries": "12",
+      "server_ms": "37.47",
+      "size": 6655
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 68.43,
+      "queries": "19",
+      "server_ms": "42.92",
+      "size": 7459
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 60.18,
+      "queries": "19",
+      "server_ms": "42.4",
+      "size": 7459
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 67.82,
+      "queries": "19",
+      "server_ms": "47.6",
+      "size": 7459
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 47.3,
+      "queries": "19",
+      "server_ms": "43.55",
+      "size": 7459
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 56.17,
+      "queries": "19",
+      "server_ms": "41.84",
+      "size": 7459
+    }
+  ],
+  "performance": {
+    "home": {
+      "url": "/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/",
+          "final": "/",
+          "ms": 18.35,
+          "queries": "5",
+          "server_ms": "14.04",
+          "size": 5603
+        },
+        {
+          "status": 200,
+          "path": "/",
+          "final": "/",
+          "ms": 35.99,
+          "queries": "5",
+          "server_ms": "14.66",
+          "size": 5603
+        },
+        {
+          "status": 200,
+          "path": "/",
+          "final": "/",
+          "ms": 32.37,
+          "queries": "5",
+          "server_ms": "15.6",
+          "size": 5603
+        },
+        {
+          "status": 200,
+          "path": "/",
+          "final": "/",
+          "ms": 28.2,
+          "queries": "5",
+          "server_ms": "13.66",
+          "size": 5603
+        },
+        {
+          "status": 200,
+          "path": "/",
+          "final": "/",
+          "ms": 17.8,
+          "queries": "5",
+          "server_ms": "14.3",
+          "size": 5603
+        }
+      ],
+      "mean_ms": 26.54,
+      "queries": [
+        "5",
+        "5",
+        "5",
+        "5",
+        "5"
+      ]
+    },
+    "courses": {
+      "url": "/courses/all/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/courses/all/",
+          "final": "/courses/all/",
+          "ms": 35.88,
+          "queries": "7",
+          "server_ms": "20.04",
+          "size": 4833
+        },
+        {
+          "status": 200,
+          "path": "/courses/all/",
+          "final": "/courses/all/",
+          "ms": 22.07,
+          "queries": "7",
+          "server_ms": "18.84",
+          "size": 4833
+        },
+        {
+          "status": 200,
+          "path": "/courses/all/",
+          "final": "/courses/all/",
+          "ms": 39.01,
+          "queries": "7",
+          "server_ms": "20.15",
+          "size": 4833
+        },
+        {
+          "status": 200,
+          "path": "/courses/all/",
+          "final": "/courses/all/",
+          "ms": 45.95,
+          "queries": "7",
+          "server_ms": "20.42",
+          "size": 4833
+        },
+        {
+          "status": 200,
+          "path": "/courses/all/",
+          "final": "/courses/all/",
+          "ms": 50.22,
+          "queries": "7",
+          "server_ms": "23.43",
+          "size": 4833
+        }
+      ],
+      "mean_ms": 38.63,
+      "queries": [
+        "7",
+        "7",
+        "7",
+        "7",
+        "7"
+      ]
+    },
+    "projects": {
+      "url": "/research/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/research/",
+          "final": "/research/",
+          "ms": 51.32,
+          "queries": "7",
+          "server_ms": "28.28",
+          "size": 4745
+        },
+        {
+          "status": 200,
+          "path": "/research/",
+          "final": "/research/",
+          "ms": 29.39,
+          "queries": "7",
+          "server_ms": "25.79",
+          "size": 4745
+        },
+        {
+          "status": 200,
+          "path": "/research/",
+          "final": "/research/",
+          "ms": 28.84,
+          "queries": "7",
+          "server_ms": "25.06",
+          "size": 4745
+        },
+        {
+          "status": 200,
+          "path": "/research/",
+          "final": "/research/",
+          "ms": 30.29,
+          "queries": "7",
+          "server_ms": "25.03",
+          "size": 4745
+        },
+        {
+          "status": 200,
+          "path": "/research/",
+          "final": "/research/",
+          "ms": 28.96,
+          "queries": "7",
+          "server_ms": "25.11",
+          "size": 4745
+        }
+      ],
+      "mean_ms": 33.76,
+      "queries": [
+        "7",
+        "7",
+        "7",
+        "7",
+        "7"
+      ]
+    },
+    "project": {
+      "url": "/research/3/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/research/3/",
+          "final": "/research/3/",
+          "ms": 70.21,
+          "queries": "17",
+          "server_ms": "46.41",
+          "size": 8635
+        },
+        {
+          "status": 200,
+          "path": "/research/3/",
+          "final": "/research/3/",
+          "ms": 67.98,
+          "queries": "17",
+          "server_ms": "53.3",
+          "size": 8635
+        },
+        {
+          "status": 200,
+          "path": "/research/3/",
+          "final": "/research/3/",
+          "ms": 58.54,
+          "queries": "17",
+          "server_ms": "53.81",
+          "size": 8635
+        },
+        {
+          "status": 200,
+          "path": "/research/3/",
+          "final": "/research/3/",
+          "ms": 75.99,
+          "queries": "17",
+          "server_ms": "50.61",
+          "size": 8635
+        },
+        {
+          "status": 200,
+          "path": "/research/3/",
+          "final": "/research/3/",
+          "ms": 77.01,
+          "queries": "17",
+          "server_ms": "48.89",
+          "size": 8635
+        }
+      ],
+      "mean_ms": 69.95,
+      "queries": [
+        "17",
+        "17",
+        "17",
+        "17",
+        "17"
+      ]
+    },
+    "files": {
+      "url": "/research/3/files/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/research/3/files/",
+          "final": "/research/3/files/",
+          "ms": 58.71,
+          "queries": "11",
+          "server_ms": "29.49",
+          "size": 5213
+        },
+        {
+          "status": 200,
+          "path": "/research/3/files/",
+          "final": "/research/3/files/",
+          "ms": 30.89,
+          "queries": "11",
+          "server_ms": "26.16",
+          "size": 5213
+        },
+        {
+          "status": 200,
+          "path": "/research/3/files/",
+          "final": "/research/3/files/",
+          "ms": 46.96,
+          "queries": "11",
+          "server_ms": "30.2",
+          "size": 5213
+        },
+        {
+          "status": 200,
+          "path": "/research/3/files/",
+          "final": "/research/3/files/",
+          "ms": 49.52,
+          "queries": "11",
+          "server_ms": "32.74",
+          "size": 5213
+        },
+        {
+          "status": 200,
+          "path": "/research/3/files/",
+          "final": "/research/3/files/",
+          "ms": 44.78,
+          "queries": "11",
+          "server_ms": "30.07",
+          "size": 5213
+        }
+      ],
+      "mean_ms": 46.17,
+      "queries": [
+        "11",
+        "11",
+        "11",
+        "11",
+        "11"
+      ]
+    },
+    "history": {
+      "url": "/research/3/progress/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/research/3/progress/",
+          "final": "/research/3/progress/",
+          "ms": 42.89,
+          "queries": "12",
+          "server_ms": "38.74",
+          "size": 6917
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/",
+          "final": "/research/3/progress/",
+          "ms": 39.37,
+          "queries": "12",
+          "server_ms": "35.41",
+          "size": 6917
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/",
+          "final": "/research/3/progress/",
+          "ms": 66.7,
+          "queries": "12",
+          "server_ms": "39.4",
+          "size": 6917
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/",
+          "final": "/research/3/progress/",
+          "ms": 63.62,
+          "queries": "12",
+          "server_ms": "40.3",
+          "size": 6917
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/",
+          "final": "/research/3/progress/",
+          "ms": 63.36,
+          "queries": "12",
+          "server_ms": "42.04",
+          "size": 6917
+        }
+      ],
+      "mean_ms": 55.19,
+      "queries": [
+        "12",
+        "12",
+        "12",
+        "12",
+        "12"
+      ]
+    },
+    "search": {
+      "url": "/research/3/progress/?q=baseline",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/research/3/progress/?q=baseline",
+          "final": "/research/3/progress/?q=baseline",
+          "ms": 91.66,
+          "queries": "12",
+          "server_ms": "72.63",
+          "size": 6655
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/?q=baseline",
+          "final": "/research/3/progress/?q=baseline",
+          "ms": 38.82,
+          "queries": "12",
+          "server_ms": "35.09",
+          "size": 6655
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/?q=baseline",
+          "final": "/research/3/progress/?q=baseline",
+          "ms": 53.87,
+          "queries": "12",
+          "server_ms": "38.9",
+          "size": 6655
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/?q=baseline",
+          "final": "/research/3/progress/?q=baseline",
+          "ms": 38.47,
+          "queries": "12",
+          "server_ms": "35.03",
+          "size": 6655
+        },
+        {
+          "status": 200,
+          "path": "/research/3/progress/?q=baseline",
+          "final": "/research/3/progress/?q=baseline",
+          "ms": 52.66,
+          "queries": "12",
+          "server_ms": "37.47",
+          "size": 6655
+        }
+      ],
+      "mean_ms": 55.1,
+      "queries": [
+        "12",
+        "12",
+        "12",
+        "12",
+        "12"
+      ]
+    },
+    "workbench": {
+      "url": "/assignments/detail/1/",
+      "samples": [
+        {
+          "status": 200,
+          "path": "/assignments/detail/1/",
+          "final": "/assignments/detail/1/",
+          "ms": 68.43,
+          "queries": "19",
+          "server_ms": "42.92",
+          "size": 7459
+        },
+        {
+          "status": 200,
+          "path": "/assignments/detail/1/",
+          "final": "/assignments/detail/1/",
+          "ms": 60.18,
+          "queries": "19",
+          "server_ms": "42.4",
+          "size": 7459
+        },
+        {
+          "status": 200,
+          "path": "/assignments/detail/1/",
+          "final": "/assignments/detail/1/",
+          "ms": 67.82,
+          "queries": "19",
+          "server_ms": "47.6",
+          "size": 7459
+        },
+        {
+          "status": 200,
+          "path": "/assignments/detail/1/",
+          "final": "/assignments/detail/1/",
+          "ms": 47.3,
+          "queries": "19",
+          "server_ms": "43.55",
+          "size": 7459
+        },
+        {
+          "status": 200,
+          "path": "/assignments/detail/1/",
+          "final": "/assignments/detail/1/",
+          "ms": 56.17,
+          "queries": "19",
+          "server_ms": "41.84",
+          "size": 7459
+        }
+      ],
+      "mean_ms": 59.98,
+      "queries": [
+        "19",
+        "19",
+        "19",
+        "19",
+        "19"
+      ]
+    }
+  },
+  "ids": {
+    "project": 3,
+    "task_ids": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "individual": 2
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "source_database": "django_lms_qa_20261008",
+  "target_database": "django_lms_qa_restore_20261008",
+  "table_checks": [
+    {
+      "table": "assignments_assignment",
+      "count": 3,
+      "equal": true
+    },
+    {
+      "table": "assignments_coursegroup",
+      "count": 1,
+      "equal": true
+    },
+    {
+      "table": "assignments_graderecord",
+      "count": 1,
+      "equal": true
+    },
+    {
+      "table": "assignments_groupmember",
+      "count": 2,
+      "equal": true
+    },
+    {
+      "table": "assignments_submissionattachment",
+      "count": 17,
+      "equal": true
+    },
+    {
+      "table": "assignments_submitassignment",
+      "count": 5,
+      "equal": true
+    },
+    {
+      "table": "auth_group",
+      "count": 0,
+      "equal": true
+    },
+    {
+      "table": "auth_group_permissions",
+      "count": 0,
+      "equal": true
+    },
+    {
+      "table": "auth_permission",
+      "count": 96,
+      "equal": true
+    },
+    {
+      "table": "courses_course",
+      "count": 22,
+      "equal": true
+    },
+    {
+      "table": "courses_enrollment",
+      "count": 2,
+      "equal": true
+    },
+    {
+      "table": "django_admin_log",
+      "count": 1,
+      "equal": true
+    },
+    {
+      "table": "django_content_type",
+      "count": 24,
+      "equal": true
+    },
+    {
+      "table": "django_migrations",
+      "count": 36,
+      "equal": true
+    },
+    {
+      "table": "research_activity",
+      "count": 115,
+      "equal": true
+    },
+    {
+      "table": "research_commitcomment",
+      "count": 5,
+      "equal": true
+    },
+    {
+      "table": "research_commitfilechange",
+      "count": 14,
+      "equal": true
+    },
+    {
+      "table": "research_fileversion",
+      "count": 25,
+      "equal": true
+    },
+    {
+      "table": "research_logicalfile",
+      "count": 19,
+      "equal": true
+    },
+    {
+      "table": "research_progresscommit",
+      "count": 13,
+      "equal": true
+    },
+    {
+      "table": "research_researchtask",
+      "count": 33,
+      "equal": true
+    },
+    {
+      "table": "research_researchworkspace",
+      "count": 4,
+      "equal": true
+    },
+    {
+      "table": "research_workspacemember",
+      "count": 9,
+      "equal": true
+    },
+    {
+      "table": "resources_resource",
+      "count": 25,
+      "equal": true
+    },
+    {
+      "table": "users_user",
+      "count": 13,
+      "equal": true
+    },
+    {
+      "table": "users_user_groups",
+      "count": 0,
+      "equal": true
+    },
+    {
+      "table": "users_user_user_permissions",
+      "count": 0,
+      "equal": true
+    }
+  ],
+  "all_equal": true,
+  "restored_media_files": 34,
+  "media_checksums_equal": true,
+  "excluded_operational_data": [
+    "django_session",
+    "users_user.last_login"
+  ]
+}

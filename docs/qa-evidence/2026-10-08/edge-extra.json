@@ -1,0 +1,83 @@
+{
+  "results": [
+    {
+      "name": "pdf_raw",
+      "data": {
+        "status": 200,
+        "type": "application/pdf",
+        "csp": "frame-ancestors 'self'; base-uri 'none'",
+        "xframe": "DENY",
+        "bytes": 610
+      }
+    },
+    {
+      "name": "assignee_progress_edit",
+      "passed": true
+    },
+    {
+      "name": "tasks_pagination",
+      "passed": true
+    },
+    {
+      "name": "v3_history_ui",
+      "passed": true
+    },
+    {
+      "name": "comment_xss",
+      "passed": true
+    },
+    {
+      "name": "member_activity",
+      "passed": true
+    },
+    {
+      "name": "empty_form_feedback",
+      "passed": true
+    },
+    {
+      "name": "invalid_id_error_page",
+      "debug_trace": true
+    },
+    {
+      "name": "overflow",
+      "page": "edge-invalid-id"
+    },
+    {
+      "name": "offline_submit",
+      "url": "chrome-error://chromewebdata/",
+      "body": "你似乎未连接到 Internet\n\n让我们将你重新联机!\n\nERR_INTERNET_DISCONNECTED\n疑难解答\n想在等待时玩游戏吗?\n启动游戏"
+    },
+    {
+      "name": "20_nav_memory",
+      "baseline": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 619
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 610136
+        }
+      ],
+      "after": [
+        {
+          "name": "Documents",
+          "value": 8
+        },
+        {
+          "name": "Nodes",
+          "value": 2846
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 1757452
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

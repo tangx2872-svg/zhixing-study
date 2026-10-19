@@ -1,0 +1,16 @@
+QA reproduction, isolated MySQL only
+
+GET /assignments/detail/abc/ -> HTTP 500
+ValueError: Field 'id' expected a number but got 'abc'.
+Source: assignments/urls.py:20; AssignmentDetail generic get_object
+
+GET /assignments/submission/detail/abc/ -> HTTP 500
+ValueError: Field 'id' expected a number but got 'abc'.
+Source: assignments/urls.py:24
+
+POST /research/3/tasks/new/ title='QA emoji [U+1F680]' -> HTTP 500
+research/views.py:170 task.save()
+django.db.utils.OperationalError: (1366, Incorrect string value for column 'title')
+Database/table charset utf8mb4; connection charset utf8mb3.
+
+Full server log retained locally at .local/qa-20261008/server.log; not published because Django DEBUG output may contain operational context.

@@ -1,0 +1,8 @@
+{% extends 'research/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block research_content %}
+<h2>{{ heading }}</h2>{% if note %}<p class="text-muted">{{ note }}</p>{% endif %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}{% bootstrap_form form %}<button class="btn btn-primary" type="submit">{{ heading }}</button><a class="btn btn-outline-secondary" href="{% if workspace %}{{ workspace.get_absolute_url }}{% else %}{% url 'research:list' %}{% endif %}">取消</a></form>
+{% if form.uploads %}<p class="text-muted">若表单有错误，请重新选择待上传文件。已提交的历史版本不会被覆盖。</p><div id="upload-conflicts" class="alert alert-info" role="status" hidden></div>{{ file_inventory|json_script:'research-file-inventory' }}<script defer src="{% static 'django_lms/js/research-upload.js' %}"></script>{% endif %}
+{% endblock %}

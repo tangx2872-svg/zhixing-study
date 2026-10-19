@@ -1,0 +1,33 @@
+{% extends 'courses/course_base.html' %}
+{% block title_name %}在线学习平台 - {{ course.course_name }}{% endblock %}
+{% block main_content %}
+<h1>{{ course.course_name }} {% if course.is_archived %}<span class="badge badge-secondary">已归档</span>{% endif %}</h1>
+<p>授课教师：{{ course.teacher }} · {{ course.students.count }} 人选课</p>
+<p>{{ course.course_description|linebreaksbr }}</p>
+{% if can_view_content %}<a class="btn btn-outline-primary mb-3" href="{% url 'assignments:groups' course_id=course.pk %}">实验小组{% if is_teacher %}管理{% endif %}</a>{% endif %}
+{% if course.is_archived %}<p class="alert alert-info">课程已归档：保留内容、提交与成绩，停止新选课及教学修改。教师可恢复课程。</p>{% endif %}
+{% if is_teacher %}
+{% if not course.is_archived %}
+<a class="btn btn-secondary" href="{% url 'courses:update' pk=course.pk %}">编辑课程</a>
+<a class="btn btn-warning" href="{% url 'assignments:create' %}?course={{ course.pk }}">发布作业</a>
+<a class="btn btn-info" href="{% url 'resources:create' %}?course={{ course.pk }}">上传学习资料</a>
+{% endif %}
+<form method="post" action="{% url 'courses:archive' pk=course.pk %}" class="d-inline">{% csrf_token %}
+{% if course.is_archived %}<button class="btn btn-success" name="action" value="restore">恢复课程</button>{% else %}<button class="btn btn-outline-secondary" name="action" value="archive">归档课程（保留记录）</button>{% endif %}</form>
+{% elif user.user_type == 1 %}
+{% if is_enrolled %}<form method="post" action="{% url 'courses:unenroll' pk=course.pk %}">{% csrf_token %}<button class="btn btn-outline-danger">退出课程（保留提交）</button></form>
+{% elif not course.is_archived %}<form method="post" action="{% url 'courses:enroll' pk=course.pk %}">{% csrf_token %}<button class="btn btn-success">加入课程</button></form>{% endif %}
+{% elif not user.is_authenticated %}<a href="{% url 'users:login' %}">登录后加入课程</a>{% endif %}
+{% if is_teacher %}
+<details class="mt-4"><summary>课程成员（{{ members|length }} 人）</summary>
+<table class="table"><thead><tr><th>姓名</th><th>用户名</th></tr></thead><tbody>{% for member in members %}<tr><td>{{ member }}</td><td>{{ member.username }}</td></tr>{% empty %}<tr><td colspan="2">暂无选课学生。</td></tr>{% endfor %}</tbody></table>
+</details>
+{% endif %}
+{% if can_view_content %}
+<h3 class="mt-4">课程作业</h3>
+{% for assignment in assignments %}<a class="list-group-item list-group-item-action" href="{% url 'assignments:detail' pk=assignment.pk %}"><h5>{{ assignment.assignment_name }}</h5><p>{{ assignment.assignment_description|truncatechars:160 }}</p><small>截止时间（北京时间）：{{ assignment.due_date }} · {{ assignment.status_label }}</small></a>{% empty %}<p>暂无作业。</p>{% endfor %}
+<h3 class="mt-4">学习资料</h3>
+{% for resource in resources %}<div class="list-group-item"><h5>{{ resource.resource_name }}</h5><p>附件：{{ resource.resource_file.name }}</p><a class="btn btn-primary btn-sm" href="{% url 'resources:download' pk=resource.pk %}">下载</a>
+{% if is_teacher and not course.is_archived %}<a class="btn btn-danger btn-sm" href="{% url 'resources:delete' pk=resource.pk %}">删除</a>{% endif %}</div>{% empty %}<p>暂无学习资料。</p>{% endfor %}
+{% else %}<p class="mt-4">课程内容仅向本课程教师和已选课学生开放。</p>{% endif %}
+{% endblock %}

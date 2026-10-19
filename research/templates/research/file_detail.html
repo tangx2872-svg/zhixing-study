@@ -1,0 +1,13 @@
+{% extends 'research/base.html' %}
+{% block research_content %}
+<div class="section-heading"><h2>{{ logical_file.name }} <small>文件 #{{ logical_file.pk }}</small></h2>{% if can_write %}<a class="btn btn-primary" href="{% url 'research:file_upload' pk=workspace.pk %}?file={{ logical_file.pk }}">上传新版本</a>{% endif %}</div>
+<p>文件版本历史 · {{ page_obj.paginator.count }} 个版本</p>
+<a class="btn btn-primary mb-3" href="{% url 'research:version_download' pk=workspace.pk version_id=current_version.pk %}">下载当前版本 v{{ current_version.version_number }}</a>
+{% for version in versions %}<article class="list-group-item">
+<h3 class="h5">v{{ version.version_number }} {% if version.pk == current_version.pk %}<span class="status-chip">当前版本</span>{% endif %}</h3>
+<p>{{ version.uploaded_by }} · {{ version.created_at|date:'Y-m-d H:i' }} · {{ version.size|filesizeformat }}</p><p>{{ version.description|default:'未填写版本说明'|linebreaksbr }}</p>
+{% for change in version.commit_changes.all %}<p>关联进度：<a href="{{ change.commit.get_absolute_url }}">{{ change.commit.title }}</a></p>{% endfor %}
+<a class="btn btn-outline-secondary" href="{% url 'research:version_download' pk=workspace.pk version_id=version.pk %}">下载 v{{ version.version_number }}</a>
+<details class="mt-2"><summary>文件校验信息</summary><small>SHA-256：{{ version.checksum }}</small></details>
+</article>{% endfor %}{% include 'research/pagination.html' %}
+{% endblock %}

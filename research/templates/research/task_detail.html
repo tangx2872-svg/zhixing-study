@@ -1,0 +1,7 @@
+{% extends 'research/base.html' %}{% load bootstrap4 %}
+{% block research_content %}
+<h2>{{ task.title }}</h2><p>{{ task.description|linebreaksbr }}</p><p>负责人：{{ task.assignee|default:'待分配' }} · 进度 {{ task.progress }}%</p>
+{% if can_manage %}<details {% if form.errors %}open{% endif %}><summary>更新任务进度</summary><form method="post">{% csrf_token %}{% if is_owner %}{% bootstrap_form form %}{% else %}{% bootstrap_field form.progress %}{{ form.non_field_errors }}{% endif %}<button class="btn btn-primary">保存任务</button></form></details>{% endif %}
+<div class="section-heading"><h2>关联的科研进度</h2></div>
+{% include 'research/commit_rows.html' %}{% include 'research/pagination.html' %}
+{% endblock %}

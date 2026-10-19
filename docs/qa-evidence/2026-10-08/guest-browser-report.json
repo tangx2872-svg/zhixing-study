@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "checkpoints": [
+    "Anonymous homepage entry and two populated demo cards",
+    "All six project pages browsed without login",
+    "Guest search and filters available",
+    "Public historical downloads preserve v1/v3 data",
+    "Private workspace still requires authentication"
+  ],
+  "errors": []
+}

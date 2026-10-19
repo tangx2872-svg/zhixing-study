@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}苏州工学院 · 教学平台首页{% endblock %}
+{% block body_content %}
+<section class="home-hero">
+    <div class="hero-copy">
+        <p class="eyebrow">苏州工学院 · 教学与学习</p>
+        <h1>让教与学，<br>更有条理。</h1>
+        <p class="hero-description">从一门课程到每一次进步。<br>课程、作业与学习资料，在这里有序衔接。</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{% url 'courses:list' %}">查看全部课程 <span aria-hidden="true">→</span></a>
+            <a class="btn btn-outline-secondary" href="{% url 'research:demo' %}">访客体验 · 无需登录</a>
+            {% if user.is_authenticated %}<a class="btn btn-outline-secondary" href="{% url 'research:list' %}">科研项目</a>{% endif %}
+            {% if user.is_authenticated %}<a class="btn btn-outline-secondary" href="{% url 'profile' pk=user.pk %}">我的学习空间</a>{% else %}<a class="btn btn-outline-secondary" href="{% url 'users:login' %}">登录平台</a>{% endif %}
+        </div>
+    </div>
+    <div class="hero-emblem" aria-hidden="true"><span class="emblem-caption">学 · 思 · 践 · 行</span><img src="{% static 'django_lms/images/learning-mark.svg' %}" width="132" height="132" alt=""><span class="emblem-rule"></span><span>连接课堂与每一次实践</span></div>
+</section>
+<section class="home-features" aria-label="平台功能">
+    <article><span class="feature-number">01</span><h2>课程有序管理</h2><p>课程成员、作业与资料集中查看，让教学安排一目了然。</p><a href="{% url 'courses:list' %}">浏览课程 <span aria-hidden="true">→</span></a></article>
+    <article><span class="feature-number">02</span><h2>作业清晰提交</h2><p>查看要求与截止时间，上传报告，及时更新自己的学习成果。</p><a href="{% url 'assignments:center' %}">进入作业中心 <span aria-hidden="true">→</span></a></article>
+    <article><span class="feature-number">03</span><h2>反馈留有记录</h2><p>分数、评语与评分历史一起保留，让每一次进步都有迹可循。</p><a href="{% url 'assignments:feedback' %}">查看成绩反馈 <span aria-hidden="true">→</span></a></article>
+</section>
+{% endblock %}

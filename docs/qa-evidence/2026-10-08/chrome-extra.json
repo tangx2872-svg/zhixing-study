@@ -1,0 +1,83 @@
+{
+  "results": [
+    {
+      "name": "pdf_raw",
+      "data": {
+        "status": 200,
+        "type": "application/pdf",
+        "csp": "frame-ancestors 'self'; base-uri 'none'",
+        "xframe": "DENY",
+        "bytes": 610
+      }
+    },
+    {
+      "name": "assignee_progress_edit",
+      "passed": true
+    },
+    {
+      "name": "tasks_pagination",
+      "passed": true
+    },
+    {
+      "name": "v3_history_ui",
+      "passed": true
+    },
+    {
+      "name": "comment_xss",
+      "passed": true
+    },
+    {
+      "name": "member_activity",
+      "passed": true
+    },
+    {
+      "name": "empty_form_feedback",
+      "passed": true
+    },
+    {
+      "name": "invalid_id_error_page",
+      "debug_trace": true
+    },
+    {
+      "name": "overflow",
+      "page": "chrome-invalid-id"
+    },
+    {
+      "name": "offline_submit",
+      "url": "chrome-error://chromewebdata/",
+      "body": "按空格键即可开始游戏\n\n请试试以下办法：\n\n检查网线、调制解调器和路由器\n重新连接到 Wi-Fi 网络\n运行 Windows 网络诊断\nERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "name": "20_nav_memory",
+      "baseline": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 625
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 610024
+        }
+      ],
+      "after": [
+        {
+          "name": "Documents",
+          "value": 8
+        },
+        {
+          "name": "Nodes",
+          "value": 2846
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 1756812
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

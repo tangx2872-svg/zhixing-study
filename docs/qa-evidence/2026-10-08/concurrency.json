@@ -1,0 +1,435 @@
+{
+  "checks": [
+    {
+      "name": "two_group_submits_serialized",
+      "status": "PASS",
+      "detail": {
+        "requests": [
+          {
+            "status": 200,
+            "path": "/assignments/submit/1/",
+            "final": "/assignments/submission/detail/6/",
+            "ms": 182.91,
+            "queries": "38",
+            "server_ms": "92.58",
+            "size": 7433
+          },
+          {
+            "status": 200,
+            "path": "/assignments/submit/1/",
+            "final": "/assignments/submission/detail/7/",
+            "ms": 209.08,
+            "queries": "38",
+            "server_ms": "94.86",
+            "size": 7433
+          }
+        ],
+        "current_count": 1,
+        "versions": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "name": "assignment_history_pagination",
+      "status": "FAIL",
+      "detail": {
+        "database_versions": 32,
+        "rendered_page1": 32,
+        "rendered_page2": 32,
+        "response": {
+          "status": 200,
+          "path": "/assignments/detail/2/",
+          "final": "/assignments/detail/2/",
+          "ms": 79.48,
+          "queries": "13",
+          "server_ms": "57.59",
+          "size": 16700
+        },
+        "response_page2": {
+          "status": 200,
+          "path": "/assignments/detail/2/?page=2",
+          "final": "/assignments/detail/2/?page=2",
+          "ms": 54.31,
+          "queries": "13",
+          "server_ms": "50.17",
+          "size": 16700
+        }
+      }
+    },
+    {
+      "name": "business_code_unchanged",
+      "status": "PASS",
+      "detail": {
+        "tracked_files_checked": 152,
+        "changed": []
+      }
+    }
+  ],
+  "traces": [
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 24.58,
+      "queries": "0",
+      "server_ms": "14.67",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 168.4,
+      "queries": "29",
+      "server_ms": "46.58",
+      "size": 17938
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 29.63,
+      "queries": "0",
+      "server_ms": "14.14",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 163.5,
+      "queries": "29",
+      "server_ms": "53.95",
+      "size": 17938
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 34.74,
+      "queries": "0",
+      "server_ms": "12.32",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 144.91,
+      "queries": "7",
+      "server_ms": "31.84",
+      "size": 22039
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submission/detail/6/",
+      "ms": 182.91,
+      "queries": "38",
+      "server_ms": "92.58",
+      "size": 7433
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submission/detail/7/",
+      "ms": 209.08,
+      "queries": "38",
+      "server_ms": "94.86",
+      "size": 7433
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/8/",
+      "ms": 128.57,
+      "queries": "37",
+      "server_ms": "58.81",
+      "size": 5851
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/9/",
+      "ms": 87.55,
+      "queries": "37",
+      "server_ms": "50.74",
+      "size": 5950
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/10/",
+      "ms": 130.06,
+      "queries": "37",
+      "server_ms": "62.13",
+      "size": 6055
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/11/",
+      "ms": 120.25,
+      "queries": "37",
+      "server_ms": "57.79",
+      "size": 6155
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/12/",
+      "ms": 132.24,
+      "queries": "37",
+      "server_ms": "64.17",
+      "size": 6255
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/13/",
+      "ms": 129.81,
+      "queries": "37",
+      "server_ms": "69.99",
+      "size": 6355
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/14/",
+      "ms": 162.62,
+      "queries": "37",
+      "server_ms": "76.49",
+      "size": 6455
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/15/",
+      "ms": 132.61,
+      "queries": "37",
+      "server_ms": "69.54",
+      "size": 6558
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/16/",
+      "ms": 122.93,
+      "queries": "37",
+      "server_ms": "67.66",
+      "size": 6659
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/17/",
+      "ms": 157.09,
+      "queries": "37",
+      "server_ms": "70.42",
+      "size": 6760
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/18/",
+      "ms": 130.82,
+      "queries": "37",
+      "server_ms": "71.8",
+      "size": 6863
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/19/",
+      "ms": 132.41,
+      "queries": "37",
+      "server_ms": "77.79",
+      "size": 6964
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/20/",
+      "ms": 153.55,
+      "queries": "37",
+      "server_ms": "80.2",
+      "size": 7065
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/21/",
+      "ms": 131.44,
+      "queries": "37",
+      "server_ms": "81.28",
+      "size": 7166
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/22/",
+      "ms": 166.54,
+      "queries": "37",
+      "server_ms": "81.94",
+      "size": 7267
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/23/",
+      "ms": 167.01,
+      "queries": "37",
+      "server_ms": "108.09",
+      "size": 7368
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/24/",
+      "ms": 106.26,
+      "queries": "37",
+      "server_ms": "68.22",
+      "size": 7469
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/25/",
+      "ms": 129.99,
+      "queries": "37",
+      "server_ms": "61.42",
+      "size": 7570
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/26/",
+      "ms": 143.98,
+      "queries": "37",
+      "server_ms": "80.46",
+      "size": 7671
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/27/",
+      "ms": 128.0,
+      "queries": "37",
+      "server_ms": "66.04",
+      "size": 7772
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/28/",
+      "ms": 146.43,
+      "queries": "37",
+      "server_ms": "70.22",
+      "size": 7873
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/29/",
+      "ms": 151.01,
+      "queries": "37",
+      "server_ms": "79.08",
+      "size": 7974
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/30/",
+      "ms": 129.95,
+      "queries": "37",
+      "server_ms": "57.82",
+      "size": 8075
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/31/",
+      "ms": 135.49,
+      "queries": "37",
+      "server_ms": "68.92",
+      "size": 8176
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/32/",
+      "ms": 130.44,
+      "queries": "37",
+      "server_ms": "58.27",
+      "size": 8277
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/33/",
+      "ms": 138.22,
+      "queries": "37",
+      "server_ms": "70.21",
+      "size": 8378
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/34/",
+      "ms": 131.26,
+      "queries": "37",
+      "server_ms": "63.15",
+      "size": 8479
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/35/",
+      "ms": 132.86,
+      "queries": "37",
+      "server_ms": "69.6",
+      "size": 8580
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/36/",
+      "ms": 115.75,
+      "queries": "37",
+      "server_ms": "62.76",
+      "size": 8681
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/2/",
+      "final": "/assignments/submission/detail/37/",
+      "ms": 133.23,
+      "queries": "37",
+      "server_ms": "71.38",
+      "size": 8782
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/2/",
+      "final": "/assignments/detail/2/",
+      "ms": 79.48,
+      "queries": "13",
+      "server_ms": "57.59",
+      "size": 16700
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/2/?page=2",
+      "final": "/assignments/detail/2/?page=2",
+      "ms": 54.31,
+      "queries": "13",
+      "server_ms": "50.17",
+      "size": 16700
+    }
+  ]
+}

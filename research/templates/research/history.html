@@ -1,0 +1,11 @@
+{% extends 'research/base.html' %}
+{% block research_content %}
+<h2>科研进度</h2><p class="text-muted">按时间倒序记录每次进展 · 共 {{ page_obj.paginator.count }} 次提交。</p>
+<form method="get" class="center-filters mb-4">
+    <div><label for="progress-keyword">关键词</label><input class="form-control" id="progress-keyword" name="q" value="{{ request.GET.q }}" placeholder="搜索标题或说明" maxlength="200"></div>
+    <div><label for="progress-member">成员</label><select class="form-control" id="progress-member" name="member"><option value="">全部成员</option>{% for member in member_options %}<option value="{{ member.pk }}" {% if request.GET.member == member.pk|stringformat:'s' %}selected{% endif %}>{{ member }}</option>{% endfor %}</select></div>
+    <div><label for="progress-task">任务</label><select class="form-control" id="progress-task" name="task"><option value="">全部任务</option>{% for task in task_options %}<option value="{{ task.pk }}" {% if request.GET.task == task.pk|stringformat:'s' %}selected{% endif %}>{{ task }}</option>{% endfor %}</select></div>
+    <button class="btn btn-primary">筛选</button><a class="btn btn-outline-secondary" href="{{ request.path }}">重置</a>
+</form>
+{% include 'research/commit_rows.html' with commits=page_obj %}{% include 'research/pagination.html' %}
+{% endblock %}

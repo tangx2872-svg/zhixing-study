@@ -1,0 +1,18 @@
+{% extends 'courses/course_base.html' %}
+{% block title_name %}苏州工学院 · 全部课程{% endblock %}
+{% block main_content %}
+<div class="page-heading">
+    <div><p class="eyebrow">COURSES / 课程空间</p><h1>全部课程</h1><p class="page-description">从课程出发，找到作业、资料和每一次学习反馈。</p></div>
+    {% if user.user_type == 2 %}<a class="btn btn-primary" href="{% url 'courses:create' %}"><i class="fa fa-plus" aria-hidden="true"></i> 创建课程</a>{% endif %}
+</div>
+<div class="section-heading"><h2>课程目录</h2><span>{{ object_list|length }} 门课程</span></div>
+<div class="course-grid">
+{% for course_item in object_list %}
+<article class="course-card">
+    <div class="course-card-banner"><span class="course-tile" aria-hidden="true"><i class="fa fa-book"></i></span><span class="status-chip {% if course_item.is_archived %}is-muted{% endif %}">{% if course_item.is_archived %}已归档{% else %}开放中{% endif %}</span></div>
+    <div class="course-card-body"><h3><a href="{% url 'courses:detail' pk=course_item.pk %}">{{ course_item.course_name }}</a></h3><p class="course-teacher">授课教师 · {{ course_item.teacher }}</p><p class="course-description">{{ course_item.course_description|truncatechars:130 }}</p>
+    <div class="course-card-footer"><span><i class="fa fa-user-o" aria-hidden="true"></i> {{ course_item.students.count }} 人选课</span><a href="{% url 'courses:detail' pk=course_item.pk %}">进入课程 <span aria-hidden="true">→</span></a></div></div>
+</article>
+{% empty %}<div class="empty-state"><i class="fa fa-book" aria-hidden="true"></i><h3>还没有课程</h3><p>{% if user.user_type == 2 %}创建第一门课程，开始安排教学内容。{% else %}教师发布课程后，会在这里展示。{% endif %}</p></div>{% endfor %}
+</div>
+{% endblock %}

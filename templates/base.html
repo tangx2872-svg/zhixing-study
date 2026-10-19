@@ -1,0 +1,69 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#174f50">
+    <title>{% block title %}苏州工学院 · 教学平台{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'django_lms/images/learning-mark.svg' %}">
+    <link rel="stylesheet" href="{% static 'django_lms/vendor/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'django_lms/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'django_lms/css/master.css' %}?v=20261008-1">
+    <script defer src="{% static 'django_lms/js/navigation.js' %}?v=20260922-3"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">跳到主要内容</a>
+<aside class="sidenav" aria-label="主导航">
+    <a class="brand" href="{% url 'home' %}">
+        <img src="{% static 'django_lms/images/learning-mark.svg' %}" width="42" height="42" alt="">
+        <span><strong>苏州工学院</strong><small>教学与科研协作平台</small></span>
+    </a>
+    <p class="school-motto">立本求真，日新致远</p>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation-content">展开导航</button>
+    <div class="nav-body" id="navigation-content">
+        <p class="nav-caption">工作空间</p>
+        <nav class="nav-links" aria-label="功能导航">
+            <a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %}><i class="fa fa-home" aria-hidden="true"></i>首页</a>
+            <a href="{% url 'courses:list' %}" {% if request.resolver_match.view_name == 'courses:list' %}aria-current="page"{% endif %}><i class="fa fa-th-large" aria-hidden="true"></i>全部课程</a>
+            <a href="{% url 'research:demo' %}" {% if guest_mode %}aria-current="page"{% endif %}><i class="fa fa-compass" aria-hidden="true"></i>访客演示</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'research:list' %}" {% if request.resolver_match.namespace == 'research' %}aria-current="page"{% endif %}><i class="fa fa-flask" aria-hidden="true"></i>科研项目</a>
+                <a href="{% url 'assignments:center' %}" {% if request.resolver_match.view_name == 'assignments:center' %}aria-current="page"{% endif %}><i class="fa fa-tasks" aria-hidden="true"></i>作业中心</a>
+                <a href="{% url 'assignments:feedback' %}" {% if request.resolver_match.view_name == 'assignments:feedback' %}aria-current="page"{% endif %}><i class="fa fa-comment-o" aria-hidden="true"></i>成绩反馈</a>
+                {% if user.user_type == 2 %}
+                <a href="{% url 'courses:create' %}" {% if request.resolver_match.view_name == 'courses:create' %}aria-current="page"{% endif %}><i class="fa fa-plus-square-o" aria-hidden="true"></i>创建课程</a>
+                <a href="{% url 'assignments:create' %}" {% if request.resolver_match.view_name == 'assignments:create' %}aria-current="page"{% endif %}><i class="fa fa-pencil-square-o" aria-hidden="true"></i>发布作业</a>
+                <a href="{% url 'resources:create' %}" {% if request.resolver_match.view_name == 'resources:create' %}aria-current="page"{% endif %}><i class="fa fa-folder-open-o" aria-hidden="true"></i>上传学习资料</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'users:login' %}" {% if request.resolver_match.view_name == 'users:login' %}aria-current="page"{% endif %}><i class="fa fa-sign-in" aria-hidden="true"></i>登录</a>
+                <a href="{% url 'users:signup' %}" {% if request.resolver_match.view_name == 'users:signup' %}aria-current="page"{% endif %}><i class="fa fa-user-plus" aria-hidden="true"></i>注册</a>
+            {% endif %}
+        </nav>
+        {% if user.is_authenticated %}
+        <div class="course-navigation">
+            <p class="nav-caption">我的课程</p>
+            {% for course in list_courses %}
+                {% if user.id == course.teacher_id or user in course.students.all %}
+                <a class="course-link" href="{% url 'courses:detail' pk=course.pk %}" {% if request.resolver_match.view_name == 'courses:detail' and object.pk == course.pk %}aria-current="page"{% endif %}><span class="course-dot" aria-hidden="true"></span><span>{{ course.course_name }}{% if course.is_archived %}<small>已归档</small>{% endif %}</span></a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="account-card">
+            <a href="{% url 'profile' pk=user.pk %}" class="account-link"><span class="avatar" aria-hidden="true">{{ user.username|first|upper }}</span><span><strong>{{ user }}</strong><small>{% if user.user_type == 2 %}教师账号{% else %}学生账号{% endif %} · 个人页</small></span></a>
+            <a class="logout-link" href="{% url 'users:logout' %}">退出登录 <span aria-hidden="true">↗</span></a>
+        </div>
+        {% else %}<div class="visitor-note">{% if guest_mode %}正在浏览示例项目<br><span>无需登录，查看完整科研协作流程。</span>{% else %}欢迎来到教学平台<br><span>可先进入访客演示，了解科研协作。</span>{% endif %}</div>{% endif %}
+    </div>
+</aside>
+<div class="workspace">
+    <header class="workspace-header"><span>苏州工学院 <span class="header-separator">/</span> {% if guest_mode %}访客演示{% elif request.resolver_match.namespace == 'research' %}科研协作{% else %}教学工作台{% endif %}</span><span class="role-label">{% if guest_mode %}只读体验{% elif user.is_authenticated %}{% if user.user_type == 2 %}教师端{% else %}学生端{% endif %}{% else %}访客{% endif %}</span></header>
+    <main class="content" id="main-content" tabindex="-1">
+        {% for message in messages %}<div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %}" role="status">{{ message }}</div>{% endfor %}
+        <div class="page-panel">{% block body_content %}{% endblock %}</div>
+    </main>
+    <footer class="workspace-footer">苏州工学院 · 教学与科研协作平台 <span>界面版本 2026.10 · 实验提交 / 代码对比 / 小组协作</span></footer>
+</div>
+</body>
+</html>

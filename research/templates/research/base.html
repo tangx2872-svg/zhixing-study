@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ workspace.name|default:'科研协作' }} · 科研项目{% endblock %}
+{% block body_content %}
+{% if guest_mode %}<div class="demo-notice"><span class="demo-tag">访客演示</span><p>以下成员、进度及实验结果均为演示样例，可自由浏览和下载。<br><small>想提交进度或上传成果？登录后创建自己的科研项目。</small></p><a href="{% url 'research:demo' %}">全部示例项目 →</a></div>{% endif %}
+{% if workspace %}
+<div class="page-heading"><div><p class="eyebrow"><a href="{% if guest_mode %}{% url 'research:demo' %}{% else %}{% url 'research:list' %}{% endif %}">科研项目</a> / {{ workspace.get_status_display }}</p><h1>{{ workspace.name }}</h1><p class="page-description">负责人 · {{ workspace.owner }}{% if role == 'viewer' %} · 你是只读成员{% endif %}</p></div>{% if can_write %}<a class="btn btn-primary" href="{% url 'research:commit_create' pk=workspace.pk %}">提交进度</a>{% endif %}</div>
+{% if workspace.status == 'archived' %}<p class="alert alert-info">项目已归档，进度、文件版本和讨论记录仍可查看。</p>{% endif %}
+<nav class="research-tabs" aria-label="项目导航">
+<a href="{% url 'research:overview' pk=workspace.pk %}" {% if tab == 'overview' %}aria-current="page"{% endif %}>概览</a>
+<a href="{% url 'research:tasks' pk=workspace.pk %}" {% if tab == 'tasks' %}aria-current="page"{% endif %}>任务</a>
+<a href="{% url 'research:history' pk=workspace.pk %}" {% if tab == 'history' %}aria-current="page"{% endif %}>进度</a>
+<a href="{% url 'research:files' pk=workspace.pk %}" {% if tab == 'files' %}aria-current="page"{% endif %}>文件</a>
+<a href="{% url 'research:members' pk=workspace.pk %}" {% if tab == 'members' %}aria-current="page"{% endif %}>成员</a>
+<a href="{% url 'research:activity' pk=workspace.pk %}" {% if tab == 'activity' %}aria-current="page"{% endif %}>动态</a>
+</nav>
+{% endif %}
+{% block research_content %}{% endblock %}
+{% endblock %}

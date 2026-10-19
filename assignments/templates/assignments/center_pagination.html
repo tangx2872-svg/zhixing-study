@@ -1,0 +1,7 @@
+{% if page_obj.has_other_pages %}
+<nav class="mt-4" aria-label="列表分页">
+{% if page_obj.has_previous %}<a class="btn btn-outline-secondary" href="?course={{ selected_course|urlencode }}&amp;status={{ selected_status|urlencode }}&amp;page={{ page_obj.previous_page_number }}">上一页</a>{% endif %}
+<span class="mx-2">第 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} 页</span>
+{% if page_obj.has_next %}<a class="btn btn-outline-secondary" href="?course={{ selected_course|urlencode }}&amp;status={{ selected_status|urlencode }}&amp;page={{ page_obj.next_page_number }}">下一页</a>{% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,9 @@
+{% extends 'research/base.html' %}
+{% block research_content %}
+<div class="section-heading"><h2>项目文件</h2>{% if can_write %}<a class="btn btn-primary" href="{% url 'research:file_upload' pk=workspace.pk %}">上传文件</a>{% endif %}</div>
+<p class="text-muted">每次更新生成新版本，历史成果始终保留。同名的独立文件通过文件编号区分。</p>
+<form method="get" class="center-filters mb-4"><div><label for="file-search">文件名</label><input id="file-search" name="q" class="form-control" value="{{ request.GET.q }}" maxlength="200"></div><button class="btn btn-outline-secondary">搜索</button></form>
+<table class="table"><thead><tr><th>文件</th><th>当前版本</th><th>上传者 / 时间</th><th>操作</th></tr></thead><tbody>
+{% for file in files %}{% with version=file.versions.all|first %}<tr><td><a href="{% url 'research:file_detail' pk=workspace.pk file_id=file.pk %}">{{ file.name }}</a><small> · #{{ file.pk }}</small></td><td>v{{ version.version_number }}</td><td>{{ version.uploaded_by }}<br><small>{{ version.created_at|date:'m-d H:i' }}</small></td><td><a href="{% url 'research:version_download' pk=workspace.pk version_id=version.pk %}">下载当前版</a></td></tr>{% endwith %}{% empty %}<tr><td colspan="4">暂无符合条件的文件。</td></tr>{% endfor %}
+</tbody></table>{% include 'research/pagination.html' %}
+{% endblock %}

@@ -1,0 +1,2 @@
+{% extends 'research/base.html' %}
+{% block research_content %}<h2>{{ member_user }} · 科研活动</h2>{% include 'research/commit_rows.html' with commits=page_obj %}{% include 'research/pagination.html' %}{% endblock %}

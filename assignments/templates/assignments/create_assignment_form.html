@@ -1,0 +1,36 @@
+{% extends 'assignments/assignment_base.html' %}
+{% load bootstrap4 %}
+
+{% block title_name %}
+  在线学习平台 - {% if object %}编辑作业{% else %}发布作业{% endif %}
+{% endblock title_name %}
+  
+{% block main_content %}
+
+<div class="container">
+  <h1>{% if object %}编辑作业{% else %}发布作业{% endif %}</h1>
+
+  {% if user.user_type == 2 %}
+    <form method="POST" action="{{ request.path }}">
+      {% csrf_token %} 
+      {% bootstrap_field form.assignment_name %}
+      {% bootstrap_field form.assignment_description %}
+      {% bootstrap_field form.due_date %}
+      {% bootstrap_field form.course %}
+      {% bootstrap_field form.submission_mode %}
+      {% bootstrap_field form.required_materials %}
+      {% bootstrap_field form.rubric_text %}
+      {% bootstrap_form_errors form %}
+      {{ form.name.errors }}
+      <input type="submit" value="提交" class="btn btn-success btn-lg">
+    </form>
+    
+    
+    {% else %}
+        <div class="jumbotron">
+            <h2>您无权发布作业。</h2>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock main_content %}

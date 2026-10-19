@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}苏州工学院 · 作业中心{% endblock %}
+{% block body_content %}
+<h1>作业中心</h1>
+<p>{% if is_teacher %}集中查看自己课程的作业与批改进度。{% else %}集中查看已选课程的作业，按截止时间安排提交。退课后的提交可在成绩反馈中心查看。{% endif %}</p>
+{% include 'assignments/center_filters.html' %}
+<p class="text-muted">共 {{ page_obj.paginator.count }} 份作业</p>
+{% for assignment in page_obj %}
+<article class="list-group-item mb-3">
+    <small>{{ assignment.course }}{% if assignment.course.is_archived %} · 已归档{% endif %}</small>
+    <h2 class="h5 mt-2"><a href="{% url 'assignments:detail' pk=assignment.pk %}">{{ assignment.assignment_name }}</a></h2>
+    <p>{{ assignment.assignment_description|truncatechars:150 }}</p>
+    <p>截止时间（北京时间）：{{ assignment.due_date }} · <strong>{{ assignment.center_status }}</strong></p>
+    {% if is_teacher %}<p>待评分：{{ assignment.pending_count }} 份 · 已评分：{{ assignment.graded_count }} 份</p>
+    <a class="btn btn-primary" href="{% url 'assignments:detail' pk=assignment.pk %}">{% if assignment.course.is_archived %}查看记录{% else %}查看与批改{% endif %}</a>
+    {% else %}
+        {% if assignment.can_submit_here %}<a class="btn btn-primary" href="{% url 'assignments:submit' pk=assignment.pk %}">{% if assignment.my_submission %}更新提交{% else %}提交作业{% endif %}</a>{% endif %}
+        {% if assignment.my_submission %}<a class="btn btn-outline-secondary" href="{% url 'assignments:submit_detail' pk=assignment.my_submission.pk %}">查看提交{% if assignment.my_submission.graded %} · {{ assignment.my_submission.grade }} 分{% endif %}</a>{% endif %}
+    {% endif %}
+</article>
+{% empty %}<div class="alert alert-info">暂无符合条件的作业。可以切换筛选条件，或进入课程列表查看课程。</div><a href="{% url 'courses:list' %}">查看课程</a>{% endfor %}
+{% include 'assignments/center_pagination.html' %}
+{% endblock %}

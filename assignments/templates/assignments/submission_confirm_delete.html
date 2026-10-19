@@ -1,0 +1,29 @@
+{% extends 'assignments/assignment_base.html' %}
+
+{% block title_name %}
+    在线学习平台 - 删除确认
+{% endblock title_name %}
+    
+
+{% block main_content %}
+    {% if user.user_type == 1 %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>确定撤回当前有效提交吗？</h2>
+                <p>本次提交不再参加当前评分，代码、附件和历史记录仍然保留。截止前可重新提交新版本。</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="确认撤回" class="btn btn-danger btn-large">
+                    <a href="{% url 'assignments:submit_detail' pk=submission.pk %}" class="btn btn-primary btn-large">取消</a>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>您无权撤回这份提交。</h2>
+            </div>
+        </div>
+    {% endif %}
+        
+{% endblock main_content %}

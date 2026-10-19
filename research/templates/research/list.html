@@ -1,0 +1,7 @@
+{% extends 'research/base.html' %}
+{% block research_content %}
+<div class="page-heading"><div><p class="eyebrow">科研协作空间</p><h1>我的科研项目</h1><p class="page-description">把任务、阶段进展与每一版成果留在一起。</p></div><a class="btn btn-primary" href="{% url 'research:create' %}">创建项目</a></div>
+<form method="get" class="center-filters mb-4"><div><label for="project-search">搜索我的项目</label><input class="form-control" id="project-search" name="q" value="{{ keyword }}" maxlength="200"></div><button class="btn btn-outline-secondary">搜索</button></form>
+<div class="course-grid">{% for project in projects %}<article class="course-card"><div class="course-card-banner"><span class="course-tile" aria-hidden="true"><i class="fa fa-flask"></i></span><span class="status-chip">{{ project.get_status_display }}</span></div><div class="course-card-body"><h2 class="h5"><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h2><p>{{ project.description|truncatechars:160 }}</p><div class="course-card-footer"><span>负责人 · {{ project.owner }}</span><a href="{{ project.get_absolute_url }}">进入项目 →</a></div></div></article>{% empty %}<div class="empty-state"><h2>从一个研究问题开始</h2><p>创建项目，或请项目负责人用你的用户名添加你。</p></div>{% endfor %}</div>
+{% include 'research/pagination.html' %}
+{% endblock %}

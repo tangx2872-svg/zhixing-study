@@ -1,0 +1,29 @@
+{% extends 'assignments/assignment_base.html' %}
+
+{% block title_name %}
+    在线学习平台 - 删除确认
+{% endblock title_name %}
+    
+
+{% block main_content %}
+    {% if user.user_type == 2 %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>确定要删除这项作业吗？</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="确认删除" class="btn btn-danger btn-large">
+                    <a href="{% url 'assignments:detail' pk=assignment.pk %}" class="btn btn-primary btn-large">取消</a>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>您无权删除这项作业。</h2>
+            </div>
+        </div>
+    {% endif %}
+        
+{% endblock main_content %}
+    

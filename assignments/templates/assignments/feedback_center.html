@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}苏州工学院 · 成绩反馈中心{% endblock %}
+{% block body_content %}
+<h1>成绩反馈中心</h1>
+<p>{% if is_teacher %}查看自己课程的提交、评语与成绩，进入详情复核评分。{% else %}查看自己的提交、成绩与教师评语。退出课程后，这些记录仍然保留。{% endif %}</p>
+{% include 'assignments/center_filters.html' %}
+<p class="text-muted">共 {{ page_obj.paginator.count }} 条提交记录</p>
+{% for submission in page_obj %}
+<article class="list-group-item mb-3">
+    <small>{{ submission.assignment_ques.course|default:'历史课程' }} / {{ submission.assignment_ques|default:'未关联作业' }}{% if submission.assignment_ques.course.is_archived %} · 课程已归档{% endif %}</small>
+    <h2 class="h5 mt-2"><a href="{% url 'assignments:submit_detail' pk=submission.pk %}">{{ submission.topic }}</a></h2>
+    {% if is_teacher %}<p>提交人：{{ submission.author }}（{{ submission.author.username }}）</p>{% endif %}
+    {% if submission.current_slot != 1 %}<p>历史版本 · 不参与当前评分</p>{% endif %}
+    {% if submission.graded %}<p><strong>成绩：{{ submission.display_grade }} 分</strong>{% if submission.group_id %} · {{ submission.group }} · 小组分 {{ submission.grade }}{% endif %}</p><p>评语：{{ submission.feedback|default:'暂无评语'|linebreaksbr }}</p><small>最近评分：{{ submission.graded_at|default:'原评分时间未记录' }}</small>
+    {% else %}<p>{% if submission.current_slot == 1 %}待评分{% else %}此版本未评分{% endif %}</p>{% endif %}
+    <div class="mt-3"><a class="btn btn-outline-secondary" href="{% url 'assignments:submit_detail' pk=submission.pk %}">查看提交与评分记录</a>
+    {% if is_teacher and submission.current_slot == 1 and not submission.assignment_ques.course.is_archived %}<a class="btn btn-primary" href="{% url 'assignments:grade' pk=submission.pk %}">{% if submission.graded %}修改评分{% else %}评分{% endif %}</a>{% endif %}</div>
+</article>
+{% empty %}<div class="alert alert-info">暂无符合条件的提交或成绩，可以切换筛选条件。</div><a href="{% url 'assignments:center' %}">前往作业中心</a>{% endfor %}
+{% include 'assignments/center_pagination.html' %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "name": "admin_password_reset_hash",
+      "status": "FAIL",
+      "detail": {
+        "status": 200,
+        "plaintext_stored": true,
+        "check_password": false,
+        "password_field_type": "text"
+      }
+    },
+    {
+      "name": "admin_reset_actual_login",
+      "status": "FAIL",
+      "detail": {
+        "response": {
+          "status": 200,
+          "path": "/users/login/",
+          "final": "/users/login/",
+          "ms": 67.65,
+          "queries": "3",
+          "server_ms": "63.5",
+          "size": 4300
+        },
+        "login_error_present": false
+      }
+    }
+  ]
+}

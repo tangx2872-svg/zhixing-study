@@ -1,0 +1,19 @@
+{% extends 'assignments/assignment_base.html' %}
+{% load bootstrap4 %}
+{% block title_name %}在线学习平台 - 提交作业{% endblock %}
+{% block main_content %}
+<div class="container">
+  <h2>{% if submission %}更新提交{% else %}提交作业{% endif %}</h2>
+  <p>作业：{{ assignment.assignment_name }} · 提交人：{{ user }}</p>
+  <p>截止时间（北京时间）：{{ assignment.due_date }}</p>
+  <p>每次保存都会生成新版本，旧附件和评分保留。截止前可追加提交，以最新有效版本参加评分；已评分版本不能撤回。</p>
+  {% if group %}<div class="alert alert-info">代表「{{ group }}」提交；全组成员共享本次成果与评分。请在说明中写明成员分工。</div>{% endif %}
+  {% if required_materials %}<div class="alert alert-warning">必交材料：{% for key,label in required_materials %}{{ label }}{% if not forloop.last %}、{% endif %}{% endfor %}。请上传到对应栏目，材料不齐不能正式提交。</div>{% endif %}
+  {% if submission %}<p>当前为 v{{ submission.version_number }}。默认保留上一版附件，同名新附件替换对应文件；取消勾选可重新提交完整材料。</p><a href="{{ submission.get_absolute_url }}">查看上一版材料</a>{% endif %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}{% bootstrap_form form %}
+    <button class="btn btn-success" type="submit">保存提交</button>
+    <a href="{% url 'assignments:detail' pk=assignment.pk %}" class="btn btn-secondary">返回作业</a>
+  </form>
+</div>
+{% endblock %}

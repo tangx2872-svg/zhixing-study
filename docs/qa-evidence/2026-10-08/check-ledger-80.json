@@ -1,0 +1,850 @@
+{
+  "count": 80,
+  "statuses": {
+    "PASS": 63,
+    "FAIL": 9,
+    "NOT_IMPLEMENTED": 4,
+    "BLOCKED": 2,
+    "PARTIAL": 2
+  },
+  "checks": [
+    {
+      "name": "outsider_private_project",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/",
+        "final": "/research/3/",
+        "ms": 22.25,
+        "queries": "8",
+        "server_ms": "18.03",
+        "size": 3385
+      }
+    },
+    {
+      "name": "outsider_edit_project",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/edit/",
+        "final": "/research/3/edit/",
+        "ms": 46.45,
+        "queries": "8",
+        "server_ms": "21.54",
+        "size": 3385
+      }
+    },
+    {
+      "name": "member_owner_edit",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/edit/",
+        "final": "/research/3/edit/",
+        "ms": 21.49,
+        "queries": "8",
+        "server_ms": "17.74",
+        "size": 3551
+      }
+    },
+    {
+      "name": "viewer_commit_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 37.28,
+        "queries": "8",
+        "server_ms": "18.32",
+        "size": 3383
+      }
+    },
+    {
+      "name": "viewer_file_upload_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 20.23,
+        "queries": "8",
+        "server_ms": "16.7",
+        "size": 3383
+      }
+    },
+    {
+      "name": "viewer_task_change_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/tasks/11/",
+        "final": "/research/3/tasks/11/",
+        "ms": 47.55,
+        "queries": "10",
+        "server_ms": "24.11",
+        "size": 3383
+      }
+    },
+    {
+      "name": "outsider_version_download",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/versions/14/download/",
+        "final": "/research/3/versions/14/download/",
+        "ms": 43.36,
+        "queries": "8",
+        "server_ms": "21.36",
+        "size": 3385
+      }
+    },
+    {
+      "name": "outsider_course_file",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/download/2/",
+        "final": "/assignments/submission/download/2/",
+        "ms": 44.7,
+        "queries": "9",
+        "server_ms": "19.66",
+        "size": 3369
+      }
+    },
+    {
+      "name": "outsider_submission_browse",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/2/browse/",
+        "final": "/assignments/submission/2/browse/",
+        "ms": 44.6,
+        "queries": "7",
+        "server_ms": "18.57",
+        "size": 3369
+      }
+    },
+    {
+      "name": "outsider_submission_diff",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/2/compare/",
+        "final": "/assignments/submission/2/compare/",
+        "ms": 46.59,
+        "queries": "7",
+        "server_ms": "19.71",
+        "size": 3369
+      }
+    },
+    {
+      "name": "student_grading_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/grade/2/",
+        "final": "/assignments/grade/2/",
+        "ms": 48.09,
+        "queries": "10",
+        "server_ms": "21.79",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_group_edit_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/groups/1/",
+        "final": "/assignments/groups/1/",
+        "ms": 24.31,
+        "queries": "8",
+        "server_ms": "20.34",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_course_create_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/courses/new/",
+        "final": "/courses/new/",
+        "ms": 32.41,
+        "queries": "6",
+        "server_ms": "16.44",
+        "size": 3535
+      }
+    },
+    {
+      "name": "student_export_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/detail/1/export/grades/",
+        "final": "/assignments/detail/1/export/grades/",
+        "ms": 22.54,
+        "queries": "7",
+        "server_ms": "18.86",
+        "size": 3535
+      }
+    },
+    {
+      "name": "other_profile_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/user_profile/3/",
+        "final": "/user_profile/3/",
+        "ms": 21.39,
+        "queries": "6",
+        "server_ms": "17.34",
+        "size": 3532
+      }
+    },
+    {
+      "name": "demo_write_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/1/progress/new/",
+        "final": "/research/1/progress/new/",
+        "ms": 18.27,
+        "queries": "6",
+        "server_ms": "14.88",
+        "size": 3969
+      }
+    },
+    {
+      "name": "csrf_missing_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 18.5,
+        "queries": "0",
+        "server_ms": "4.06",
+        "size": 2508
+      }
+    },
+    {
+      "name": "invalid_assignment_id",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/assignments/detail/abc/",
+        "final": "/assignments/detail/abc/",
+        "ms": 87.53,
+        "queries": "9",
+        "server_ms": "60.55",
+        "size": 142555
+      }
+    },
+    {
+      "name": "invalid_submission_id",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/assignments/submission/detail/abc/",
+        "final": "/assignments/submission/detail/abc/",
+        "ms": 73.73,
+        "queries": "9",
+        "server_ms": "55.05",
+        "size": 143077
+      }
+    },
+    {
+      "name": "nonexistent_project",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/research/999999/",
+        "final": "/research/999999/",
+        "ms": 35.0,
+        "queries": "5",
+        "server_ms": "12.77",
+        "size": 1757
+      }
+    },
+    {
+      "name": "direct_media_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+        "final": "/media/experiments/a9b9818f51004d2a9f951f29f6bf00c1/project.zip",
+        "ms": 9.67,
+        "queries": "0",
+        "server_ms": "5.69",
+        "size": 2945
+      }
+    },
+    {
+      "name": "path_traversal_preview_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/assignments/submission/2/browse/?path=../../settings.py",
+        "final": "/assignments/submission/2/browse/?path=../../settings.py",
+        "ms": 21.18,
+        "queries": "6",
+        "server_ms": "17.47",
+        "size": 1810
+      }
+    },
+    {
+      "name": "legacy_graphql_disabled",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/graphql/",
+        "final": "/graphql/",
+        "ms": 26.03,
+        "queries": "0",
+        "server_ms": "5.73",
+        "size": 2783
+      }
+    },
+    {
+      "name": "empty_workspace",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/new/",
+        "final": "/research/new/",
+        "ms": 52.73,
+        "queries": "6",
+        "server_ms": "28.77",
+        "size": 4613
+      }
+    },
+    {
+      "name": "long_workspace",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/new/",
+        "final": "/research/new/",
+        "ms": 45.87,
+        "queries": "6",
+        "server_ms": "29.5",
+        "size": 4789
+      }
+    },
+    {
+      "name": "negative_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 56.19,
+        "queries": "11",
+        "server_ms": "40.51",
+        "size": 5772
+      }
+    },
+    {
+      "name": "over_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 44.94,
+        "queries": "11",
+        "server_ms": "41.1",
+        "size": 5775
+      }
+    },
+    {
+      "name": "nonnumeric_progress",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 64.0,
+        "queries": "11",
+        "server_ms": "44.37",
+        "size": 5757
+      }
+    },
+    {
+      "name": "zero_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 74.17,
+        "queries": "12",
+        "server_ms": "52.34",
+        "size": 6317
+      }
+    },
+    {
+      "name": "disallowed_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 72.21,
+        "queries": "12",
+        "server_ms": "49.83",
+        "size": 6379
+      }
+    },
+    {
+      "name": "oversize_file",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 117.67,
+        "queries": "12",
+        "server_ms": "113.31",
+        "size": 6317
+      }
+    },
+    {
+      "name": "long_filename",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/files/upload/",
+        "final": "/research/3/files/upload/",
+        "ms": 76.1,
+        "queries": "15",
+        "server_ms": "51.16",
+        "size": 6251
+      }
+    },
+    {
+      "name": "zip_traversal_rejected",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/1/",
+        "final": "/assignments/submit/1/",
+        "ms": 79.12,
+        "queries": "13",
+        "server_ms": "54.13",
+        "size": 7018
+      }
+    },
+    {
+      "name": "invalid_rubric_score",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/grade/2/",
+        "final": "/assignments/grade/2/",
+        "ms": 69.16,
+        "queries": "13",
+        "server_ms": "49.61",
+        "size": 6501
+      }
+    },
+    {
+      "name": "profile_edit_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/users/profile/edit/",
+        "final": "/users/profile/edit/",
+        "ms": 11.31,
+        "queries": "0",
+        "server_ms": "6.61",
+        "size": 3238
+      }
+    },
+    {
+      "name": "password_change_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/users/password_change/",
+        "final": "/users/password_change/",
+        "ms": 9.38,
+        "queries": "0",
+        "server_ms": "5.64",
+        "size": 3247
+      }
+    },
+    {
+      "name": "task_delete_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/research/3/tasks/11/delete/",
+        "final": "/research/3/tasks/11/delete/",
+        "ms": 27.55,
+        "queries": "0",
+        "server_ms": "6.66",
+        "size": 6559
+      }
+    },
+    {
+      "name": "version_restore_route",
+      "status": "NOT_IMPLEMENTED",
+      "detail": {
+        "status": 404,
+        "path": "/research/3/versions/14/restore/",
+        "final": "/research/3/versions/14/restore/",
+        "ms": 32.13,
+        "queries": "0",
+        "server_ms": "7.5",
+        "size": 6571
+      }
+    },
+    {
+      "name": "registration_role_gate",
+      "status": "FAIL",
+      "detail": {
+        "registered_role": 2,
+        "create_course_status": 200
+      }
+    },
+    {
+      "name": "emoji_input",
+      "status": "FAIL",
+      "detail": {
+        "status": 500,
+        "path": "/research/3/tasks/new/",
+        "final": "/research/3/tasks/new/",
+        "ms": 102.81,
+        "queries": "11",
+        "server_ms": "80.47",
+        "size": 187550
+      }
+    },
+    {
+      "name": "20_tasks_create",
+      "status": "PASS",
+      "detail": {
+        "created": 20,
+        "distinct": 20
+      }
+    },
+    {
+      "name": "20_tasks_update",
+      "status": "PASS",
+      "detail": {
+        "updated": 20
+      }
+    },
+    {
+      "name": "stored_xss_escaped",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/tasks/12/",
+        "final": "/research/3/tasks/12/",
+        "ms": 70.95,
+        "queries": "11",
+        "server_ms": "44.18",
+        "size": 5977
+      }
+    },
+    {
+      "name": "duplicate_post_idempotency",
+      "status": "FAIL",
+      "detail": {
+        "created": 2
+      }
+    },
+    {
+      "name": "research_v1_v2_v3_bytes",
+      "status": "PASS",
+      "detail": {
+        "versions": 3,
+        "payloads": [
+          "category,image_auroc\nbottle,0.982\n",
+          "category,image_auroc\nbottle,0.987\n",
+          "category,image_auroc\nbottle,0.999\n"
+        ]
+      }
+    },
+    {
+      "name": "research_version_author_time",
+      "status": "PASS",
+      "detail": {
+        "author_ids": [
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "name": "individual_submit_bytes",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/2/",
+        "final": "/assignments/submission/detail/3/",
+        "ms": 62.57,
+        "queries": "16",
+        "server_ms": "29.17",
+        "size": 5002
+      }
+    },
+    {
+      "name": "withdraw_preserves_history",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submission/delete/3/",
+        "final": "/assignments/detail/2/",
+        "ms": 73.09,
+        "queries": "11",
+        "server_ms": "31.18",
+        "size": 4041
+      }
+    },
+    {
+      "name": "repeated_withdraw_safe",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submission/delete/3/",
+        "final": "/assignments/submission/delete/3/",
+        "ms": 36.26,
+        "queries": "12",
+        "server_ms": "22.8",
+        "size": 3526
+      }
+    },
+    {
+      "name": "resubmit_after_withdraw",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/2/",
+        "final": "/assignments/submission/detail/4/",
+        "ms": 109.65,
+        "queries": "16",
+        "server_ms": "36.51",
+        "size": 5115
+      }
+    },
+    {
+      "name": "resource_upload_download_content",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/resources/download/16/",
+        "final": "/resources/download/16/",
+        "ms": 25.24,
+        "queries": "7",
+        "server_ms": "21.15",
+        "size": 12
+      }
+    },
+    {
+      "name": "resource_unauthorized_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/resources/download/16/",
+        "final": "/resources/download/16/",
+        "ms": 39.66,
+        "queries": "9",
+        "server_ms": "20.54",
+        "size": 3357
+      }
+    },
+    {
+      "name": "resource_unauthorized_delete",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/resources/delete/16/",
+        "final": "/resources/delete/16/",
+        "ms": 45.62,
+        "queries": "8",
+        "server_ms": "20.17",
+        "size": 3535
+      }
+    },
+    {
+      "name": "resource_delete_db_disk",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/resources/delete/16/",
+        "final": "/courses/detail/1/",
+        "ms": 68.73,
+        "queries": "11",
+        "server_ms": "26.86",
+        "size": 5502
+      }
+    },
+    {
+      "name": "repeated_delete_safe",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/resources/delete/16/",
+        "final": "/resources/delete/16/",
+        "ms": 30.06,
+        "queries": "5",
+        "server_ms": "13.06",
+        "size": 1761
+      }
+    },
+    {
+      "name": "password_hash",
+      "status": "PASS",
+      "detail": {
+        "algorithm": "pbkdf2_sha256"
+      }
+    },
+    {
+      "name": "cors_no_wildcard",
+      "status": "PASS",
+      "detail": {
+        "acao": null
+      }
+    },
+    {
+      "name": "private_preview_headers",
+      "status": "PASS",
+      "detail": {
+        "Cache-Control": "private, no-store",
+        "X-Content-Type-Options": "nosniff"
+      }
+    },
+    {
+      "name": "archived_project_write_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/research/3/progress/new/",
+        "final": "/research/3/progress/new/",
+        "ms": 33.51,
+        "queries": "8",
+        "server_ms": "20.1",
+        "size": 3560
+      }
+    },
+    {
+      "name": "project_restore_read",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/research/3/",
+        "final": "/research/3/",
+        "ms": 76.29,
+        "queries": "19",
+        "server_ms": "53.2",
+        "size": 8169
+      }
+    },
+    {
+      "name": "existing_77_tests",
+      "status": "PASS",
+      "detail": "77 PASS / 0 FAIL / 0 SKIP；tests.log"
+    },
+    {
+      "name": "migrations_mysql",
+      "status": "PASS",
+      "detail": "新MySQL全迁移成功；无漂移"
+    },
+    {
+      "name": "existing_environment",
+      "status": "PASS",
+      "detail": "Python3.8.20/Django3.1.3/MySQL8.0.46，pip check通过"
+    },
+    {
+      "name": "clean_install",
+      "status": "BLOCKED",
+      "detail": "新venv pip安装PyPI TLS EOF"
+    },
+    {
+      "name": "research_ui_flow",
+      "status": "PASS",
+      "detail": "browser-report.json；多人协作/历史字节"
+    },
+    {
+      "name": "lab_ui_flow",
+      "status": "PASS",
+      "detail": "lab-browser-report.json；材料/代码/评分/导出"
+    },
+    {
+      "name": "guest_ui_flow",
+      "status": "PASS",
+      "detail": "guest-browser-report.json；六栏目/下载"
+    },
+    {
+      "name": "new_user_ui_flow",
+      "status": "PASS",
+      "detail": "chrome-layout.json；注册/保存/刷新/重登"
+    },
+    {
+      "name": "course_ui_flow",
+      "status": "PASS",
+      "detail": "Chrome创建/编辑/加入/退出"
+    },
+    {
+      "name": "admin_password_workflow",
+      "status": "FAIL",
+      "detail": "管理员改密原样存储；BUG-001"
+    },
+    {
+      "name": "five_viewports",
+      "status": "PARTIAL",
+      "detail": "正常页面310测量无整页溢出；错误页溢出及手机diff体验"
+    },
+    {
+      "name": "chrome_edge_actual",
+      "status": "PASS",
+      "detail": "双浏览器实际运行；PDF等待4秒确认内容"
+    },
+    {
+      "name": "firefox",
+      "status": "BLOCKED",
+      "detail": "NOT_TESTED；无可运行Firefox"
+    },
+    {
+      "name": "production_readiness",
+      "status": "FAIL",
+      "detail": "5条check --deploy警告及配置不一致"
+    },
+    {
+      "name": "tracked_sensitive_config",
+      "status": "FAIL",
+      "detail": "固定密钥和compose示例凭据入Git；不复制值"
+    },
+    {
+      "name": "query_growth_pagination",
+      "status": "FAIL",
+      "detail": "9→29查询；32历史全部渲染"
+    },
+    {
+      "name": "ux_feedback",
+      "status": "PARTIAL",
+      "detail": "正常反馈可用；重复标题/断网无草稿/无忙碌状态"
+    },
+    {
+      "name": "backup_restore",
+      "status": "PASS",
+      "detail": "独立库恢复27表34附件一致，排除session/last_login"
+    },
+    {
+      "name": "continuous_file_ops",
+      "status": "PASS",
+      "detail": "10文件字节/SHA一致，20次页面请求全200"
+    },
+    {
+      "name": "concurrent_effective_slot",
+      "status": "PASS",
+      "detail": "2组员并发追加2版，current_slot=1仅1条"
+    }
+  ]
+}

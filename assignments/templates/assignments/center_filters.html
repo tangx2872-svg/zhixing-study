@@ -1,0 +1,5 @@
+<form method="get" class="center-filters mb-4">
+    <div><label for="filter-course">课程</label><select class="form-control" name="course" id="filter-course"><option value="">全部课程</option>{% for course in courses %}<option value="{{ course.pk }}" {% if selected_course == course.pk|stringformat:'s' %}selected{% endif %}>{{ course.course_name }}{% if course.is_archived %}（已归档）{% endif %}</option>{% endfor %}</select></div>
+    <div><label for="filter-status">状态</label><select class="form-control" name="status" id="filter-status">{% for value,label in status_options %}<option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <button class="btn btn-primary" type="submit">筛选</button><a class="btn btn-outline-secondary" href="{{ request.path }}">重置</a>
+</form>

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checkpoints": [
+    "Teacher created course group and rubric-based lab with four required materials",
+    "Student submitted all materials; code highlighting, Markdown, PDF and image preview work",
+    "Second submission preserves v1 and shows added/deleted/modified files with side-by-side diff",
+    "Teacher workbench, rubric scoring, individual adjustment, CSV and batch ZIP export work",
+    "Non-submitting group member sees shared submission and their adjusted grade"
+  ],
+  "errors": [],
+  "assignment": "1",
+  "first": "1",
+  "second": "2"
+}

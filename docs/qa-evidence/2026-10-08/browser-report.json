@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "projectId": 3,
+  "checkpoints": [
+    "Owner created workspace",
+    "Owner added member and viewer",
+    "Owner created task",
+    "Member submitted task-linked progress and v1",
+    "Same-name upload confirmed and v2 recorded",
+    "Both historical files downloaded with original bytes",
+    "Supervisor commented and reviewed activity",
+    "Member weekly progress count verified",
+    "Viewer read-only interface verified"
+  ],
+  "errors": []
+}

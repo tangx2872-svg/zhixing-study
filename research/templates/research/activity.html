@@ -1,0 +1,2 @@
+{% extends 'research/base.html' %}
+{% block research_content %}<h2>项目动态</h2><p class="text-muted">按时间倒序查看项目协作过程。</p>{% include 'research/activity_rows.html' with activities=page_obj %}{% include 'research/pagination.html' %}{% endblock %}

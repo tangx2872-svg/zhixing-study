@@ -1,0 +1,933 @@
+{
+  "checks": [
+    {
+      "name": "admin_password_reset_hash",
+      "status": "FAIL",
+      "detail": {
+        "status": 200,
+        "plaintext_stored": true,
+        "check_password": false,
+        "password_field_type": "text"
+      }
+    },
+    {
+      "name": "navigation_query_scaling",
+      "status": "FAIL",
+      "detail": {
+        "before": [
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 48.48,
+            "queries": "9",
+            "server_ms": "29.48",
+            "size": 4396
+          },
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 46.55,
+            "queries": "9",
+            "server_ms": "29.44",
+            "size": 4396
+          },
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 37.06,
+            "queries": "9",
+            "server_ms": "21.89",
+            "size": 4396
+          }
+        ],
+        "after": [
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 58.25,
+            "queries": "29",
+            "server_ms": "54.0",
+            "size": 4996
+          },
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 77.46,
+            "queries": "29",
+            "server_ms": "55.36",
+            "size": 4996
+          },
+          {
+            "status": 200,
+            "path": "/research/",
+            "final": "/research/",
+            "ms": 72.37,
+            "queries": "29",
+            "server_ms": "49.69",
+            "size": 4996
+          }
+        ],
+        "extra_courses": 20
+      }
+    },
+    {
+      "name": "mysql_charset_alignment",
+      "status": "FAIL",
+      "detail": {
+        "character_set_client": "utf8mb3",
+        "character_set_connection": "utf8mb3",
+        "character_set_database": "utf8mb4",
+        "character_set_results": "utf8mb3",
+        "title_collation": "utf8mb4_0900_ai_ci"
+      }
+    },
+    {
+      "name": "10_upload_download_checksums",
+      "status": "PASS",
+      "detail": [
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        },
+        {
+          "status": 200,
+          "match": true,
+          "checksum": true
+        }
+      ]
+    },
+    {
+      "name": "20_navigation_reload",
+      "status": "PASS",
+      "detail": {
+        "requests": 20,
+        "max_ms": 106.89
+      }
+    },
+    {
+      "name": "required_materials_rejection",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submit/1/",
+        "final": "/assignments/submit/1/",
+        "ms": 108.46,
+        "queries": "40",
+        "server_ms": "80.14",
+        "size": 7808
+      }
+    },
+    {
+      "name": "submitted_group_frozen",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/groups/1/1/",
+        "final": "/assignments/groups/1/1/",
+        "ms": 26.29,
+        "queries": "8",
+        "server_ms": "22.69",
+        "size": 8204
+      }
+    },
+    {
+      "name": "group_v3_author_history",
+      "status": "PASS",
+      "detail": {
+        "versions": [
+          [
+            1,
+            "qa-a",
+            false,
+            0,
+            null
+          ],
+          [
+            2,
+            "qa-a",
+            true,
+            90,
+            null
+          ],
+          [
+            3,
+            "qa-b",
+            false,
+            0,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "name": "old_code_after_v3",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/submission/1/browse/?path=src%2FMain.java",
+        "final": "/assignments/submission/1/browse/?path=src%2FMain.java",
+        "ms": 93.26,
+        "queries": "30",
+        "server_ms": "72.37",
+        "size": 7883
+      }
+    },
+    {
+      "name": "batch_export_zip_integrity",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "files": 5,
+        "crc_error": null,
+        "latest_source_bytes_match": true
+      }
+    },
+    {
+      "name": "empty_assignment_delete",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/delete/3/",
+        "final": "/courses/all/",
+        "ms": 67.48,
+        "queries": "7",
+        "server_ms": "27.08",
+        "size": 22039
+      }
+    },
+    {
+      "name": "repeat_assignment_delete",
+      "status": "PASS",
+      "detail": {
+        "status": 404,
+        "path": "/assignments/delete/3/",
+        "final": "/assignments/delete/3/",
+        "ms": 41.66,
+        "queries": "5",
+        "server_ms": "14.91",
+        "size": 1772
+      }
+    },
+    {
+      "name": "submitted_assignment_delete_protected",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/delete/1/",
+        "final": "/assignments/detail/1/",
+        "ms": 79.15,
+        "queries": "20",
+        "server_ms": "47.8",
+        "size": 12030
+      }
+    },
+    {
+      "name": "archived_course_submit_denied",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submit/1/",
+        "final": "/assignments/submit/1/",
+        "ms": 70.71,
+        "queries": "31",
+        "server_ms": "41.72",
+        "size": 4207
+      }
+    },
+    {
+      "name": "restored_course_read",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "path": "/assignments/detail/1/",
+        "final": "/assignments/detail/1/",
+        "ms": 72.72,
+        "queries": "35",
+        "server_ms": "56.83",
+        "size": 5621
+      }
+    },
+    {
+      "name": "deadline_enforced",
+      "status": "PASS",
+      "detail": {
+        "status": 403,
+        "path": "/assignments/submit/4/",
+        "final": "/assignments/submit/4/",
+        "ms": 59.99,
+        "queries": "31",
+        "server_ms": "42.17",
+        "size": 4183
+      }
+    }
+  ],
+  "traces": [
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 22.73,
+      "queries": "0",
+      "server_ms": "12.99",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 124.79,
+      "queries": "9",
+      "server_ms": "24.17",
+      "size": 5305
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 32.96,
+      "queries": "0",
+      "server_ms": "13.96",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 132.92,
+      "queries": "7",
+      "server_ms": "22.46",
+      "size": 5659
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 17.93,
+      "queries": "0",
+      "server_ms": "14.33",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 135.32,
+      "queries": "9",
+      "server_ms": "23.74",
+      "size": 4991
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/users/login/",
+      "ms": 35.88,
+      "queries": "0",
+      "server_ms": "14.08",
+      "size": 3964
+    },
+    {
+      "status": 200,
+      "path": "/users/login/",
+      "final": "/courses/all/",
+      "ms": 146.67,
+      "queries": "9",
+      "server_ms": "24.02",
+      "size": 4991
+    },
+    {
+      "status": 200,
+      "path": "/admin/users/user/13/change/",
+      "final": "/admin/users/user/13/change/",
+      "ms": 353.79,
+      "queries": "106",
+      "server_ms": "325.67",
+      "size": 22661
+    },
+    {
+      "status": 200,
+      "path": "/admin/users/user/13/change/",
+      "final": "/admin/users/user/",
+      "ms": 142.18,
+      "queries": "7",
+      "server_ms": "102.81",
+      "size": 10353
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 48.48,
+      "queries": "9",
+      "server_ms": "29.48",
+      "size": 4396
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 46.55,
+      "queries": "9",
+      "server_ms": "29.44",
+      "size": 4396
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 37.06,
+      "queries": "9",
+      "server_ms": "21.89",
+      "size": 4396
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 58.25,
+      "queries": "29",
+      "server_ms": "54.0",
+      "size": 4996
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 77.46,
+      "queries": "29",
+      "server_ms": "55.36",
+      "size": 4996
+    },
+    {
+      "status": 200,
+      "path": "/research/",
+      "final": "/research/",
+      "ms": 72.37,
+      "queries": "29",
+      "server_ms": "49.69",
+      "size": 4996
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/10/",
+      "ms": 97.09,
+      "queries": "35",
+      "server_ms": "57.28",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/16/download/",
+      "final": "/research/3/versions/16/download/",
+      "ms": 24.57,
+      "queries": "7",
+      "server_ms": "20.34",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/11/",
+      "ms": 124.65,
+      "queries": "35",
+      "server_ms": "60.36",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/17/download/",
+      "final": "/research/3/versions/17/download/",
+      "ms": 26.3,
+      "queries": "7",
+      "server_ms": "21.0",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/12/",
+      "ms": 113.51,
+      "queries": "35",
+      "server_ms": "52.86",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/18/download/",
+      "final": "/research/3/versions/18/download/",
+      "ms": 24.03,
+      "queries": "7",
+      "server_ms": "19.9",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/13/",
+      "ms": 113.45,
+      "queries": "35",
+      "server_ms": "62.09",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/19/download/",
+      "final": "/research/3/versions/19/download/",
+      "ms": 49.86,
+      "queries": "7",
+      "server_ms": "20.88",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/14/",
+      "ms": 145.79,
+      "queries": "35",
+      "server_ms": "58.15",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/20/download/",
+      "final": "/research/3/versions/20/download/",
+      "ms": 41.24,
+      "queries": "7",
+      "server_ms": "25.28",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/15/",
+      "ms": 108.66,
+      "queries": "35",
+      "server_ms": "58.06",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/21/download/",
+      "final": "/research/3/versions/21/download/",
+      "ms": 23.52,
+      "queries": "7",
+      "server_ms": "19.08",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/16/",
+      "ms": 103.13,
+      "queries": "35",
+      "server_ms": "60.51",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/22/download/",
+      "final": "/research/3/versions/22/download/",
+      "ms": 37.45,
+      "queries": "7",
+      "server_ms": "22.54",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/17/",
+      "ms": 143.45,
+      "queries": "35",
+      "server_ms": "57.4",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/23/download/",
+      "final": "/research/3/versions/23/download/",
+      "ms": 40.9,
+      "queries": "7",
+      "server_ms": "22.31",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/18/",
+      "ms": 142.77,
+      "queries": "35",
+      "server_ms": "59.9",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/24/download/",
+      "final": "/research/3/versions/24/download/",
+      "ms": 22.89,
+      "queries": "7",
+      "server_ms": "18.69",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/upload/",
+      "final": "/research/3/files/19/",
+      "ms": 113.92,
+      "queries": "35",
+      "server_ms": "60.17",
+      "size": 5343
+    },
+    {
+      "status": 200,
+      "path": "/research/3/versions/25/download/",
+      "final": "/research/3/versions/25/download/",
+      "ms": 38.36,
+      "queries": "7",
+      "server_ms": "21.35",
+      "size": 17
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/",
+      "final": "/research/3/tasks/",
+      "ms": 62.25,
+      "queries": "32",
+      "server_ms": "58.45",
+      "size": 9958
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 64.9,
+      "queries": "34",
+      "server_ms": "61.3",
+      "size": 7674
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 91.83,
+      "queries": "35",
+      "server_ms": "68.79",
+      "size": 7168
+    },
+    {
+      "status": 200,
+      "path": "/research/3/activity/",
+      "final": "/research/3/activity/",
+      "ms": 59.71,
+      "queries": "32",
+      "server_ms": "56.12",
+      "size": 9705
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/",
+      "final": "/research/3/tasks/",
+      "ms": 85.04,
+      "queries": "32",
+      "server_ms": "59.68",
+      "size": 9958
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 76.67,
+      "queries": "34",
+      "server_ms": "58.75",
+      "size": 7674
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 64.02,
+      "queries": "35",
+      "server_ms": "59.83",
+      "size": 7168
+    },
+    {
+      "status": 200,
+      "path": "/research/3/activity/",
+      "final": "/research/3/activity/",
+      "ms": 106.89,
+      "queries": "32",
+      "server_ms": "102.87",
+      "size": 9705
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/",
+      "final": "/research/3/tasks/",
+      "ms": 74.87,
+      "queries": "32",
+      "server_ms": "56.35",
+      "size": 9958
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 84.61,
+      "queries": "34",
+      "server_ms": "63.83",
+      "size": 7674
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 84.49,
+      "queries": "35",
+      "server_ms": "68.55",
+      "size": 7168
+    },
+    {
+      "status": 200,
+      "path": "/research/3/activity/",
+      "final": "/research/3/activity/",
+      "ms": 89.76,
+      "queries": "32",
+      "server_ms": "66.07",
+      "size": 9705
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/",
+      "final": "/research/3/tasks/",
+      "ms": 59.78,
+      "queries": "32",
+      "server_ms": "56.12",
+      "size": 9958
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 68.0,
+      "queries": "34",
+      "server_ms": "63.92",
+      "size": 7674
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 92.83,
+      "queries": "35",
+      "server_ms": "66.27",
+      "size": 7168
+    },
+    {
+      "status": 200,
+      "path": "/research/3/activity/",
+      "final": "/research/3/activity/",
+      "ms": 71.12,
+      "queries": "32",
+      "server_ms": "67.38",
+      "size": 9705
+    },
+    {
+      "status": 200,
+      "path": "/research/3/tasks/",
+      "final": "/research/3/tasks/",
+      "ms": 77.47,
+      "queries": "32",
+      "server_ms": "62.43",
+      "size": 9958
+    },
+    {
+      "status": 200,
+      "path": "/research/3/files/",
+      "final": "/research/3/files/",
+      "ms": 77.69,
+      "queries": "34",
+      "server_ms": "62.26",
+      "size": 7674
+    },
+    {
+      "status": 200,
+      "path": "/research/3/progress/",
+      "final": "/research/3/progress/",
+      "ms": 54.51,
+      "queries": "35",
+      "server_ms": "51.06",
+      "size": 7168
+    },
+    {
+      "status": 200,
+      "path": "/research/3/activity/",
+      "final": "/research/3/activity/",
+      "ms": 87.28,
+      "queries": "32",
+      "server_ms": "64.83",
+      "size": 9705
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submit/1/",
+      "ms": 108.46,
+      "queries": "40",
+      "server_ms": "80.14",
+      "size": 7808
+    },
+    {
+      "status": 403,
+      "path": "/assignments/groups/1/1/",
+      "final": "/assignments/groups/1/1/",
+      "ms": 26.29,
+      "queries": "8",
+      "server_ms": "22.69",
+      "size": 8204
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submission/detail/5/",
+      "ms": 139.41,
+      "queries": "38",
+      "server_ms": "65.83",
+      "size": 7226
+    },
+    {
+      "status": 200,
+      "path": "/assignments/submission/1/browse/?path=src%2FMain.java",
+      "final": "/assignments/submission/1/browse/?path=src%2FMain.java",
+      "ms": 93.26,
+      "queries": "30",
+      "server_ms": "72.37",
+      "size": 7883
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/export/files/",
+      "final": "/assignments/detail/1/export/files/",
+      "ms": 44.32,
+      "queries": "11",
+      "server_ms": "22.25",
+      "size": 1400
+    },
+    {
+      "status": 200,
+      "path": "/assignments/delete/3/",
+      "final": "/courses/all/",
+      "ms": 67.48,
+      "queries": "7",
+      "server_ms": "27.08",
+      "size": 22039
+    },
+    {
+      "status": 404,
+      "path": "/assignments/delete/3/",
+      "final": "/assignments/delete/3/",
+      "ms": 41.66,
+      "queries": "5",
+      "server_ms": "14.91",
+      "size": 1772
+    },
+    {
+      "status": 200,
+      "path": "/assignments/delete/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 79.15,
+      "queries": "20",
+      "server_ms": "47.8",
+      "size": 12030
+    },
+    {
+      "status": 200,
+      "path": "/courses/archive/1/",
+      "final": "/courses/detail/1/",
+      "ms": 90.68,
+      "queries": "11",
+      "server_ms": "32.9",
+      "size": 9737
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submit/1/",
+      "final": "/assignments/submit/1/",
+      "ms": 70.71,
+      "queries": "31",
+      "server_ms": "41.72",
+      "size": 4207
+    },
+    {
+      "status": 200,
+      "path": "/courses/archive/1/",
+      "final": "/courses/detail/1/",
+      "ms": 66.96,
+      "queries": "11",
+      "server_ms": "29.59",
+      "size": 9738
+    },
+    {
+      "status": 200,
+      "path": "/assignments/detail/1/",
+      "final": "/assignments/detail/1/",
+      "ms": 72.72,
+      "queries": "35",
+      "server_ms": "56.83",
+      "size": 5621
+    },
+    {
+      "status": 403,
+      "path": "/assignments/submit/4/",
+      "final": "/assignments/submit/4/",
+      "ms": 59.99,
+      "queries": "31",
+      "server_ms": "42.17",
+      "size": 4183
+    }
+  ]
+}

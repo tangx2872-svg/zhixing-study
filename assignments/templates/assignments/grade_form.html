@@ -1,0 +1,18 @@
+{% extends 'assignments/assignment_base.html' %}
+{% load bootstrap4 %}
+{% block title_name %}在线学习平台 - 批改作业{% endblock %}
+{% block main_content %}
+<div class="container">
+<h1>{% if submissions.graded %}修改评分{% else %}批改作业{% endif %}</h1>
+<p>作业：{{ submissions.assignment_ques }} · 学生：{{ submissions.author }}</p>
+<p>评分对象：{{ submissions.owner_label }} · v{{ submissions.version_number }}。{% if submissions.group_id %}填写小组成绩及各成员调整分，未调整成员沿用小组分。{% endif %}</p>
+<a class="btn btn-outline-primary mb-3" href="{% url 'assignments:browse' pk=submissions.pk %}">在线查看代码与报告</a>
+<h4>{{ submissions.topic }}</h4><p>{{ submissions.description|linebreaksbr }}</p>
+<a href="{% url 'assignments:download' pk=submissions.pk %}" class="btn btn-primary mb-3">下载提交附件</a>
+{% if submissions.graded %}<p>当前成绩：{{ submissions.grade }} 分。保存后学生将看到最新成绩，原评分保留在记录中。</p>{% endif %}
+<form method="post">{% csrf_token %}{% bootstrap_form form %}
+<button class="btn btn-success" type="submit">保存评分</button>
+<a class="btn btn-secondary" href="{% url 'assignments:submit_detail' pk=submissions.pk %}">返回提交详情</a>
+</form>
+</div>
+{% endblock %}

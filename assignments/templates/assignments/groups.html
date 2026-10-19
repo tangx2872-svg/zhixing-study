@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% load bootstrap4 %}
+{% block title %}实验小组 · {{ course }}{% endblock %}
+{% block body_content %}
+<div class="section-heading"><div><p class="eyebrow">课程实验 / 小组</p><h1>{{ course }} · 实验小组</h1></div><a class="btn btn-outline-secondary" href="{{ course.get_absolute_url }}">返回课程</a></div>
+<p>每位学生在本课程中加入一个实验小组。任一组员可代表提交，组员共享查看；首次提交后锁定小组名单，保留历史成绩归属。</p>
+{% for group in groups %}<article class="list-group-item mb-3"><div class="section-heading"><h2 class="h5">{{ group.name }}</h2>{% if group.locked %}<span class="status-chip">名单已锁定</span>{% elif is_teacher and not course.is_archived %}<a href="{% url 'assignments:group_edit' course_id=course.pk group_id=group.pk %}">编辑成员</a>{% endif %}</div><p>{% for membership in group.memberships.all %}{{ membership.user }}（{{ membership.user.username }}）{% if not forloop.last %}、{% endif %}{% endfor %}</p></article>{% empty %}<div class="alert alert-info">{% if is_teacher %}尚未建立实验小组。{% else %}你尚未加入实验小组，请联系课程教师。{% endif %}</div>{% endfor %}
+{% if ungrouped %}<p>尚未分组：{% for student in ungrouped %}{{ student }}（{{ student.username }}）{% if not forloop.last %}、{% endif %}{% endfor %}</p>{% endif %}
+{% if form %}<section class="mt-4"><h2 class="h4">{% if editing_group %}编辑 {{ editing_group }}{% else %}建立小组{% endif %}</h2><form method="post">{% csrf_token %}{% bootstrap_form form %}<button class="btn btn-primary">保存小组</button>{% if editing_group %}<a href="{% url 'assignments:groups' course_id=course.pk %}" class="btn btn-outline-secondary">返回</a>{% endif %}</form></section>{% endif %}
+{% endblock %}
