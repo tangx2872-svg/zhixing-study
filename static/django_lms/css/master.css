@@ -62,4 +62,16 @@ details{border:1px solid var(--line);border-radius:8px;padding:14px 18px;backgro
 .empty-state{padding:40px 24px;background:#f7faf9;border:1px dashed #cdded8;border-radius:10px;text-align:center;grid-column:1/-1}.empty-state>i{font-size:28px;color:#72978b;margin-bottom:16px}.empty-state h3{font-size:17px}.empty-state p{font-size:13px;color:var(--muted)}
 .auth-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:stretch}.auth-intro{background:#edf5f3;border-radius:10px;padding:36px 28px;display:flex;flex-direction:column;justify-content:center}.auth-intro h2{font-size:32px;line-height:1.55;margin-bottom:22px}.auth-intro p,.auth-intro li{color:var(--muted);font-size:13px}.auth-intro ul{padding-left:18px;line-height:2.2;margin:12px 0 30px}.auth-signature{color:#557b70;font-size:12px;letter-spacing:5px}.auth-form{padding:30px 8px}.auth-form .page-description{margin-bottom:26px}.auth-form form .btn{width:100%;margin-top:10px}.auth-alternative{font-size:12px;margin-top:22px;color:var(--muted)}.registration-form{padding-top:6px}.registration-form ul{padding-left:20px}
 @media(max-width:1100px){.workspace-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-layout{gap:24px}.auth-intro{padding:28px 22px}.auth-intro h2{font-size:27px}}
+
+/* Home sections: recent courses, assignments, resources and research projects. */
+.home-workbench{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;border-top:1px solid var(--line);margin-top:36px;padding-top:6px}
+.home-list{display:grid;gap:10px}
+.home-list-item{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid var(--line);border-radius:9px;padding:14px 18px;background:#fff;color:var(--ink);text-decoration:none!important}
+.home-list-item:hover{background:var(--soft);color:var(--ink)}
+.home-list-item strong{display:block;font-size:14px}
+.home-list-item small{display:block;margin-top:4px}
+.home-meta{color:var(--muted);font-size:12px;white-space:nowrap}
+.home-hint{margin-top:14px;font-size:12px;color:var(--muted)}
+.home-hint strong{color:var(--primary)}
+@media(max-width:900px){.home-workbench{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}.home-workbench>section+section{margin-top:8px}}
 @media(max-width:600px){.page-heading{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}.course-grid,.my-course-grid,.auth-layout{grid-template-columns:1fr}.course-card-banner{padding:18px}.course-card-body{padding:18px}.workspace-stats{gap:10px}.workspace-stats a{padding:15px}.workspace-stats strong{font-size:27px}.auth-intro{padding:22px}.auth-intro h2{font-size:26px}.auth-intro ul,.auth-signature{display:none}.auth-intro p:last-of-type{margin:0}.auth-form{padding:4px 0}.section-heading{align-items:flex-start}.profile-meta{gap:10px}}

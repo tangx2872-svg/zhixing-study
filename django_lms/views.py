@@ -1,13 +1,65 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
-from courses.models import Course
+
 from assignments.models import Assignment, SubmitAssignment
+from courses.models import Course
+from research.models import ResearchWorkspace
+from resources.models import Resource
 
 
 def index(request):
-    return render(request, 'index.html')
+    """首页：保留原有 Hero，登录后补充与本人相关的近期内容。"""
+    context = {}
+    user = request.user
+
+    if user.is_authenticated:
+        if user.user_type == 2:
+            courses = Course.objects.filter(teacher=user)
+        else:
+            courses = Course.objects.filter(students=user)
+        courses = courses.select_related('teacher')
+
+        context['recent_courses'] = courses.order_by('-pk')[:4]
+        context['recent_assignments'] = (
+            Assignment.objects.filter(course__in=courses, course__is_archived=False)
+            .filter(due_date__gte=timezone.now())
+            .select_related('course')
+            .order_by('due_date')[:5]
+        )
+        context['recent_resources'] = (
+            Resource.objects.filter(course__in=courses, workspace__isnull=True)
+            .select_related('course')
+            .order_by('-pk')[:5]
+        )
+        context['my_projects'] = (
+            ResearchWorkspace.objects.filter(Q(owner=user) | Q(memberships__user=user))
+            .distinct()
+            .select_related('owner')
+            .order_by('-updated_at')[:3]
+        )
+        if user.user_type == 2:
+            context['pending_total'] = SubmitAssignment.objects.filter(
+                assignment_ques__course__teacher=user, current_slot=1, graded=False
+            ).count()
+        else:
+            context['pending_total'] = SubmitAssignment.objects.filter(
+                author=user, current_slot=1, graded=True
+            ).count()
+    else:
+        context['recent_courses'] = (
+            Course.objects.filter(is_archived=False).select_related('teacher').order_by('-pk')[:4]
+        )
+
+    context['demo_projects'] = (
+        ResearchWorkspace.objects.filter(demo_key__isnull=False)
+        .exclude(demo_key='')
+        .order_by('demo_key')[:2]
+    )
+    return render(request, 'index.html', context)
 
 
 class UserProfile(LoginRequiredMixin, generic.ListView):

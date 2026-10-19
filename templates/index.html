@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}苏州工学院 · 教学平台首页{% endblock %}
+{% block title %}知行研学 · 教学平台首页{% endblock %}
 {% block body_content %}
 <section class="home-hero">
     <div class="hero-copy">
-        <p class="eyebrow">苏州工学院 · 教学与学习</p>
+        <p class="eyebrow">知行研学 · 教学与学习</p>
         <h1>让教与学，<br>更有条理。</h1>
         <p class="hero-description">从一门课程到每一次进步。<br>课程、作业与学习资料，在这里有序衔接。</p>
         <div class="hero-actions">
@@ -21,4 +21,82 @@
     <article><span class="feature-number">02</span><h2>作业清晰提交</h2><p>查看要求与截止时间，上传报告，及时更新自己的学习成果。</p><a href="{% url 'assignments:center' %}">进入作业中心 <span aria-hidden="true">→</span></a></article>
     <article><span class="feature-number">03</span><h2>反馈留有记录</h2><p>分数、评语与评分历史一起保留，让每一次进步都有迹可循。</p><a href="{% url 'assignments:feedback' %}">查看成绩反馈 <span aria-hidden="true">→</span></a></article>
 </section>
+
+{% if user.is_authenticated %}
+<div class="home-workbench">
+    <section>
+        <div class="section-heading"><h2>近期作业</h2><a href="{% url 'assignments:center' %}">作业中心 →</a></div>
+        <div class="home-list">
+        {% for assignment in recent_assignments %}
+            <a class="home-list-item" href="{% url 'assignments:detail' pk=assignment.pk %}">
+                <span><strong>{{ assignment.assignment_name }}</strong><small>{{ assignment.course }} · 截止 {{ assignment.due_date|date:'m-d H:i' }}</small></span>
+                <span class="status-chip">{{ assignment.status_label }}</span>
+            </a>
+        {% empty %}<p class="text-muted">暂无进行中的作业，可到作业中心查看历史记录。</p>{% endfor %}
+        </div>
+        {% if pending_total %}<p class="home-hint">{% if user.user_type == 2 %}当前有 <strong>{{ pending_total }}</strong> 份提交等待批改。{% else %}已有 <strong>{{ pending_total }}</strong> 份提交收到成绩反馈。{% endif %}</p>{% endif %}
+    </section>
+    <section>
+        <div class="section-heading"><h2>我的课程</h2><a href="{% url 'courses:list' %}">全部课程 →</a></div>
+        <div class="home-list">
+        {% for course in recent_courses %}
+            <a class="home-list-item" href="{% url 'courses:detail' pk=course.pk %}">
+                <span><strong>{{ course.course_name }}</strong><small>{{ course.teacher }} · {{ course.students.count }} 人参与</small></span>
+                <span class="home-meta">{% if course.is_archived %}已归档{% else %}进入 →{% endif %}</span>
+            </a>
+        {% empty %}<p class="text-muted">还没有课程。{% if user.user_type == 2 %}可以先创建一门课程。{% else %}可到全部课程中申请加入。{% endif %}</p>{% endfor %}
+        </div>
+    </section>
+</div>
+
+<div class="home-workbench">
+    <section>
+        <div class="section-heading"><h2>最新学习资料</h2><a href="{% url 'courses:list' %}">按课程查看 →</a></div>
+        <div class="home-list">
+        {% for resource in recent_resources %}
+            <a class="home-list-item" href="{% url 'resources:download' pk=resource.pk %}">
+                <span><strong>{{ resource.resource_name }}</strong><small>{{ resource.course }}</small></span>
+                <span class="home-meta">下载 ↓</span>
+            </a>
+        {% empty %}<p class="text-muted">本学期的课程资料会显示在这里。</p>{% endfor %}
+        </div>
+    </section>
+    <section>
+        <div class="section-heading"><h2>我的科研项目</h2><a href="{% url 'research:list' %}">全部项目 →</a></div>
+        <div class="home-list">
+        {% for project in my_projects %}
+            <a class="home-list-item" href="{{ project.get_absolute_url }}">
+                <span><strong>{{ project.name }}</strong><small>负责人 · {{ project.owner }}</small></span>
+                <span class="status-chip">{{ project.get_status_display }}</span>
+            </a>
+        {% empty %}<p class="text-muted">把任务、阶段进展和成果版本留在一起，<a href="{% url 'research:create' %}">创建第一个项目</a>。</p>{% endfor %}
+        </div>
+    </section>
+</div>
+{% else %}
+<section>
+    <div class="section-heading"><h2>最近开设的课程</h2><a href="{% url 'courses:list' %}">全部课程 →</a></div>
+    <div class="course-grid">
+    {% for course in recent_courses %}
+        <article class="course-card">
+            <div class="course-card-banner"><span class="course-tile" aria-hidden="true"><i class="fa fa-book"></i></span><span class="status-chip">开放中</span></div>
+            <div class="course-card-body"><h3><a href="{% url 'courses:detail' pk=course.pk %}">{{ course.course_name }}</a></h3><p class="course-teacher">授课教师 · {{ course.teacher }}</p><p class="course-description">{{ course.course_description|truncatechars:80 }}</p></div>
+        </article>
+    {% empty %}<div class="empty-state"><h3>课程正在准备中</h3><p>教师发布课程后会在这里展示。</p></div>{% endfor %}
+    </div>
+</section>
+{% if demo_projects %}
+<section>
+    <div class="section-heading"><h2>示例课题组</h2><a href="{% url 'research:demo' %}">访客演示 →</a></div>
+    <div class="home-list">
+    {% for project in demo_projects %}
+        <a class="home-list-item" href="{{ project.get_absolute_url }}">
+            <span><strong>{{ project.name }}</strong><small>只读示例 · 可浏览任务、进度与成果版本</small></span>
+            <span class="home-meta">进入体验 →</span>
+        </a>
+    {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endif %}
 {% endblock %}
