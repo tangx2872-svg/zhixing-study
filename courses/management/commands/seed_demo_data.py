@@ -409,6 +409,11 @@ class Command(BaseCommand):
                 user.save(update_fields=['password'])
                 self.counts['users'] += 1
             else:
+                # 仅对可识别的演示账号生效，且只在其"不可登录"时补充密码，
+                # 不会覆盖任何真实账号或已设置过的密码。
+                if options.get('enable_login') and username.startswith('demo_') and not user.has_usable_password():
+                    user.set_password(password)
+                    user.save(update_fields=['password'])
                 self.skipped['users'] += 1
             result[key] = user
         return result
