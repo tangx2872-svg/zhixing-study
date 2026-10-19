@@ -22,7 +22,8 @@ from django_lms.permissions import require_teacher, require_member, require_acti
 from .models import Assignment, SubmitAssignment, CourseGroup, GroupMember
 from .experiment_forms import CourseGroupForm
 from .submission_service import attachment_list, submission_series, materials_for
-from .code_review import manifest, read_entry, is_text, text_content, highlighted_lines, changes_between, side_by_side, MAX_PREVIEW
+from .code_review import (manifest, read_entry, is_text, text_content, highlighted_lines, changes_between,
+                          side_by_side, line_stats, unified_rows, MAX_PREVIEW)
 
 
 def private(response):
@@ -35,6 +36,77 @@ def readable(request, pk):
     submission = get_object_or_404(SubmitAssignment.objects.select_related('assignment_ques__course', 'author', 'group'), pk=pk)
     require_submission_reader(request.user, submission)
     return submission
+
+
+def _file_pair_stats(left, right, path, limit=256 * 1024):
+    """Best-effort added/removed counts for one text file; binaries return (0, 0)."""
+    if not is_text(path):
+        return 0, 0
+    if path in left and left[path]['size'] > limit or path in right and right[path]['size'] > limit:
+        return 0, 0
+    try:
+        a = text_content(read_entry(left[path])) if path in left else ''
+        b = text_content(read_entry(right[path])) if path in right else ''
+        if a is None or b is None:
+            return 0, 0
+        return line_stats(a, b)
+    except (ValidationError, OSError, zipfile.BadZipFile, RuntimeError, NotImplementedError):
+        return 0, 0
+
+
+def submission_diff_stats(submission):
+    """Files changed and +/- lines of this version against its previous version."""
+    previous = (submission_series(submission)
+                .filter(version_number__lt=submission.version_number)
+                .order_by('-version_number').first())
+    empty = {'files': 0, 'added': 0, 'removed': 0, 'added_ratio': 0, 'previous': None}
+    if previous is None:
+        return empty
+    try:
+        left, right = manifest(previous), manifest(submission)
+        changes = changes_between(left, right)
+    except (ValidationError, OSError, zipfile.BadZipFile, RuntimeError, NotImplementedError):
+        return empty
+    changed = [item for item in changes if item['status'] != 'unchanged']
+    added = removed = 0
+    for item in changed[:60]:
+        a, r = _file_pair_stats(left, right, item['path'])
+        added += a
+        removed += r
+    total = added + removed
+    return {'files': len(changed), 'added': added, 'removed': removed, 'previous': previous,
+            'added_ratio': int(round(added * 100.0 / total)) if total else 0}
+
+
+def version_timeline(submission):
+    """Newest-first timeline with per-version change statistics."""
+    versions = list(submission_series(submission).order_by('version_number', 'pk'))
+    rows, previous = [], None
+    for version in versions:
+        stats = {'files': 0, 'added': 0, 'removed': 0}
+        if previous is not None:
+            stats = submission_diff_stats(version)
+        rows.append({'submission': version, 'stats': stats, 'previous': previous,
+                     'is_current': version.current_slot == 1})
+        previous = version
+    return list(reversed(rows))
+
+
+@login_required
+def version_history(request, pk):
+    submission = readable(request, pk)
+    timeline = version_timeline(submission)
+    ascending = list(reversed(timeline))
+    pairs = [{'from': left['submission'], 'to': right['submission']}
+             for left, right in zip(ascending, ascending[1:])]
+    if len(ascending) > 2:
+        pairs.append({'from': ascending[0]['submission'], 'to': ascending[-1]['submission']})
+    return private(render(request, 'assignments/version_history.html', {
+        'submission': submission,
+        'timeline': timeline,
+        'compare_pairs': pairs,
+        'versions': submission_series(submission),
+    }))
 
 
 def markdown_preview(text):
@@ -74,7 +146,9 @@ def browse(request, pk):
     try:
         entries = manifest(submission)
         context['files'] = [{'path': path, 'size': entry['size'], 'query': urlencode({'path': path}),
-                             'depth': path.count('/')} for path, entry in entries.items()]
+                             'depth': path.count('/'), 'name': Path(path).name,
+                             'ext': Path(path).suffix.lower().lstrip('.')} for path, entry in entries.items()]
+        context['total_size'] = sum(entry['size'] for entry in entries.values())
         path = context['selected_path']
         if not path:
             path = next((name for name in entries if Path(name).name.lower() == 'readme.md'), next(iter(entries), ''))
@@ -92,6 +166,7 @@ def browse(request, pk):
                 context['notice'] = '该文件不是可识别的文本，请下载查看。'
             else:
                 context['lines'] = highlighted_lines(path, text)
+                context['line_count'] = len(context['lines'])
                 if suffix == '.md':
                     context['markdown'] = markdown_preview(text)
         else:
@@ -140,7 +215,29 @@ def compare(request, pk):
                 item['query'] = urlencode({'from': older.pk, 'to': newer.pk, 'path': item['path']})
             context['changes'] = changes
             context['changed_count'] = sum(item['status'] != 'unchanged' for item in changes)
-            path = context['selected_path'] or next((row['path'] for row in changes if row['status'] != 'unchanged'), next(iter(right), next(iter(left), '')))
+            total_added = total_removed = 0
+            for index, item in enumerate(changes):
+                item['added'], item['removed'] = 0, 0
+                if item['status'] == 'unchanged' or index >= 60:
+                    continue
+                added, removed = _file_pair_stats(left, right, item['path'])
+                item['added'], item['removed'] = added, removed
+                total_added += added
+                total_removed += removed
+            context['total_added'] = total_added
+            context['total_removed'] = total_removed
+            total_lines = total_added + total_removed
+            context['added_ratio'] = int(round(total_added * 100.0 / total_lines)) if total_lines else 0
+            if context['selected_path']:
+                path = context['selected_path']
+            else:
+                # 默认打开代码差异最大的文本文件，让页面直接展示最有价值的对比。
+                text_changes = [row for row in changes if row['status'] != 'unchanged' and is_text(row['path'])]
+                if text_changes:
+                    path = max(text_changes, key=lambda row: row['added'] + row['removed'])['path']
+                else:
+                    path = next((row['path'] for row in changes if row['status'] != 'unchanged'),
+                                next(iter(right), next(iter(left), '')))
             context['selected_path'] = path
             if path not in left and path not in right:
                 raise Http404
@@ -149,6 +246,7 @@ def compare(request, pk):
                 b = text_content(read_entry(right[path])) if path in right else ''
                 if a is not None and b is not None:
                     context['diff_rows'] = side_by_side(a, b)
+                    context['unified'] = unified_rows(context['diff_rows'])
                 else:
                     context['notice'] = '二进制文件仅显示是否更换，请下载查看。'
             else:

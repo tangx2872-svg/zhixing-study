@@ -1,23 +1,195 @@
 {% extends 'base.html' %}{% load static %}
 {% block title %}实验 · {{ assignment.assignment_name }}{% endblock %}
 {% block body_content %}
-<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261008-1">
-<p class="eyebrow"><a href="{{ assignment.course.get_absolute_url }}">{{ assignment.course }}</a> / {{ assignment.get_submission_mode_display }}</p>
-<h1>{{ assignment.assignment_name }}</h1><p>截止时间（北京时间）：{{ assignment.due_date }} · {{ assignment.status_label }}</p><p>{{ assignment.assignment_description|linebreaksbr }}</p>
-{% if materials_required %}<p>必交材料：{% for label in materials_required %}<span class="material-chip">{{ label }}</span>{% endfor %}</p>{% endif %}
-{% if assignment.rubric %}<details class="mb-3"><summary>评分标准（满分 100）</summary>{% for item in assignment.rubric %}<p>{{ item.title }}：{{ item.points }} 分</p>{% endfor %}</details>{% endif %}
+<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261019-1">
+
+<section class="exp-hero">
+  <div class="exp-hero-top">
+    <div>
+      <p class="eyebrow"><a href="{{ assignment.course.get_absolute_url }}">{{ assignment.course }}</a> / {{ assignment.get_submission_mode_display }}</p>
+      <h1 class="exp-title">{{ assignment.assignment_name }}</h1>
+      <p class="exp-sub">授课教师 · {{ assignment.course.teacher }}{% if user.user_type == 2 %}　|　{{ assignment.course.students.count }} 名学生{% endif %}</p>
+    </div>
+    <div class="stat-row">
+      <span class="status-chip">{{ assignment.status_label }}</span>
+      {% if user.user_type == 1 and current_submission %}<span class="stat-pill">当前版本 <b>V{{ current_submission.version_number }}</b></span>{% endif %}
+      {% if user.user_type == 2 %}<span class="stat-pill">待评分 <b>{{ pending_count }}</b></span>{% endif %}
+    </div>
+  </div>
+  <ul class="exp-meta">
+    <li><span>截止时间</span><strong>{{ assignment.due_date|date:'Y-m-d H:i' }}</strong></li>
+    <li><span>提交方式</span><strong>{{ assignment.get_submission_mode_display }}</strong></li>
+    <li><span>当前状态</span><strong>{{ assignment.status_label }}</strong></li>
+    <li><span>评分标准</span><strong>{% if assignment.rubric %}{{ assignment.rubric|length }} 项 · 满分 100{% else %}未设置评分项{% endif %}</strong></li>
+  </ul>
+</section>
+
+<nav class="exp-nav" aria-label="页面分区">
+  <a class="active" href="#overview">概览</a>
+  {% if user.user_type == 2 %}
+    <a href="#submissions">学生提交</a>
+    <a href="#workbench">批改工作台</a>
+  {% else %}
+    <a href="#submissions">我的提交</a>
+    <a href="#history">版本历史</a>
+    <a href="#feedback">成绩反馈</a>
+  {% endif %}
+</nav>
+
+<section class="exp-section" id="overview">
+  <h2>实验要求</h2>
+  <p>{{ assignment.assignment_description|linebreaksbr }}</p>
+  {% if materials_required %}
+  <p class="mt-3">必交材料：{% for label in materials_required %}<span class="material-chip">{{ label }}</span>{% endfor %}</p>
+  {% endif %}
+  {% if assignment.rubric %}
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h2 class="h6">评分标准（满分 100）</h2>
+      {% for item in assignment.rubric %}
+      <div class="rubric-row"><span class="r-name">{{ item.title }}</span><span class="r-score">{{ item.points }} 分</span></div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+
 {% if user.user_type == 2 %}
-<div class="experiment-toolbar">{% if not assignment.course.is_archived %}<a class="btn btn-outline-primary" href="{% url 'assignments:update' pk=assignment.pk %}">编辑实验</a>{% if not submitted %}<a class="btn btn-outline-danger" href="{% url 'assignments:delete' pk=assignment.pk %}">删除实验</a>{% endif %}{% endif %}<a class="btn btn-outline-secondary" href="{% url 'assignments:groups' course_id=assignment.course_id %}">管理实验小组</a></div>
-<h2 class="h4 mt-4">批改工作台</h2><p>未提交：{{ missing_count }} {% if assignment.submission_mode == 'group' %}组{% else %}人{% endif %} · 待评分：{{ pending_count }} 份 · 已评分：{{ graded_count }} 份</p>
-{% if ungrouped %}<div class="alert alert-warning">尚未分组的学生：{% for student in ungrouped %}{{ student }}（{{ student.username }}） {% endfor %}。请先在实验小组中分配成员。</div>{% endif %}
-<form method="get" class="experiment-toolbar"><label class="sr-only" for="review-q">搜索学生或小组</label><input id="review-q" class="form-control" name="q" value="{{ query }}" placeholder="搜索姓名、用户名或小组"><label class="sr-only" for="review-status">提交状态</label><select id="review-status" class="form-control" name="status"><option value="all">全部状态</option><option value="missing" {% if selected_status == 'missing' %}selected{% endif %}>未提交</option><option value="pending" {% if selected_status == 'pending' %}selected{% endif %}>待评分</option><option value="graded" {% if selected_status == 'graded' %}selected{% endif %}>已评分</option></select>{% if assignment.submission_mode == 'group' %}<label class="sr-only" for="review-group">小组</label><select id="review-group" class="form-control" name="group"><option value="">全部小组</option>{% for group in course_groups %}<option value="{{ group.pk }}" {% if selected_group == group.pk|stringformat:'s' %}selected{% endif %}>{{ group.name }}</option>{% endfor %}</select>{% endif %}<button class="btn btn-primary">筛选</button><a href="{{ assignment.get_absolute_url }}">重置</a></form>
-<div class="experiment-toolbar"><a class="btn btn-outline-primary" href="{% url 'assignments:export' pk=assignment.pk kind='grades' %}?{{ export_query }}">导出筛选成绩 CSV</a><a class="btn btn-outline-secondary" href="{% url 'assignments:export' pk=assignment.pk kind='files' %}?{{ export_query }}">批量下载有效提交</a><span class="text-muted">共 {{ workbench_page.paginator.count }} 个提交单位</span></div>
-<div class="review-table-wrap"><table class="table review-table"><thead><tr><th>学生 / 小组</th><th>状态与材料</th><th>版本 / 成绩</th><th>操作</th></tr></thead><tbody>{% for row in workbench_page %}<tr><td data-label="学生 / 小组"><strong>{{ row.label }}</strong>{% if assignment.submission_mode == 'group' %}<small class="d-block">{% for member in row.members %}{{ member }}（{{ member.username }}） {% endfor %}</small>{% endif %}</td><td data-label="状态与材料">{% if row.status == 'missing' %}未提交{% elif row.status == 'graded' %}已评分{% else %}待评分{% endif %}<div>{% for material in row.materials %}{% if material.present or material.required %}<span class="material-chip {% if not material.present %}missing{% endif %}">{{ material.label }}{% if not material.present %} · 缺少{% endif %}</span>{% endif %}{% endfor %}</div></td><td data-label="版本 / 成绩">{% if row.submission %}v{{ row.submission.version_number }}<small class="d-block">{% if row.submission.graded %}{{ row.submission.grade }} 分{% else %}待评分{% endif %}</small>{% else %}—{% endif %}</td><td data-label="操作">{% if row.submission %}<a href="{{ row.submission.get_absolute_url }}">查看提交</a><br><a href="{% url 'assignments:browse' pk=row.submission.pk %}">浏览代码</a> · <a href="{% url 'assignments:compare' pk=row.submission.pk %}">对比</a>{% if not assignment.course.is_archived %}<br><a href="{% url 'assignments:grade' pk=row.submission.pk %}">{% if row.submission.graded %}修改评分{% else %}评分{% endif %}</a>{% endif %}{% endif %}</td></tr>{% empty %}<tr><td colspan="4">暂无符合条件的学生或小组。</td></tr>{% endfor %}</tbody></table></div>
-{% if workbench_page.has_other_pages %}<nav aria-label="批改列表分页">{% if workbench_page.has_previous %}<a href="?{{ page_query }}&amp;page={{ workbench_page.previous_page_number }}">上一页</a>{% endif %} {{ workbench_page.number }} / {{ workbench_page.paginator.num_pages }} {% if workbench_page.has_next %}<a href="?{{ page_query }}&amp;page={{ workbench_page.next_page_number }}">下一页</a>{% endif %}</nav>{% endif %}
-<h2 class="h4 mt-4">全部提交与历史版本</h2>
+<section class="exp-section" id="submissions">
+  <h2>学生提交</h2>
+  <div class="stat-row mb-3">
+    <span class="stat-pill">已提交 <b>{{ workbench_page.paginator.count }}</b></span>
+    <span class="stat-pill">未提交 <b>{{ missing_count }}</b></span>
+    <span class="stat-pill stat-add">已评分 <b>{{ graded_count }}</b></span>
+    <span class="stat-pill">待评分 <b>{{ pending_count }}</b></span>
+  </div>
+  {% if not assignment.course.is_archived %}
+  <div class="experiment-toolbar">
+    <a class="btn btn-outline-primary" href="{% url 'assignments:update' pk=assignment.pk %}">编辑实验</a>
+    {% if not submitted %}<a class="btn btn-outline-danger" href="{% url 'assignments:delete' pk=assignment.pk %}">删除实验</a>{% endif %}
+    <a class="btn btn-outline-secondary" href="{% url 'assignments:groups' course_id=assignment.course_id %}">管理实验小组</a>
+  </div>
+  {% endif %}
+  <div class="version-list">
+    {% for submission in submitted %}
+    <a class="attachment-card" href="{{ submission.get_absolute_url }}">
+      <strong>V{{ submission.version_number }} · {{ submission.topic }}</strong>
+      <small class="d-block">{{ submission.owner_label }} · {{ submission.submitted_date|date:'Y-m-d H:i' }}</small>
+      <span>{% if submission.withdrawn %}已撤回{% elif submission.current_slot == 1 %}当前有效版本{% else %}历史版本{% endif %}{% if submission.graded %} · 已评分 {{ submission.grade }} 分{% endif %}</span>
+    </a>
+    {% empty %}<p class="muted">还没有学生提交。</p>{% endfor %}
+  </div>
+</section>
+
+<section class="exp-section" id="workbench">
+  <h2>批改工作台</h2>
+  <p class="muted">未提交 {{ missing_count }} {% if assignment.submission_mode == 'group' %}组{% else %}人{% endif %} · 待评分 {{ pending_count }} 份 · 已评分 {{ graded_count }} 份</p>
+  {% if ungrouped %}<div class="alert alert-warning">尚未分组的学生：{% for student in ungrouped %}{{ student }}（{{ student.username }}） {% endfor %}。请先在实验小组中分配成员。</div>{% endif %}
+  <form method="get" class="experiment-toolbar">
+    <label class="sr-only" for="review-q">搜索学生或小组</label>
+    <input id="review-q" class="form-control" name="q" value="{{ query }}" placeholder="搜索姓名、用户名或小组">
+    <label class="sr-only" for="review-status">提交状态</label>
+    <select id="review-status" class="form-control" name="status">
+      <option value="all">全部状态</option>
+      <option value="missing" {% if selected_status == 'missing' %}selected{% endif %}>未提交</option>
+      <option value="pending" {% if selected_status == 'pending' %}selected{% endif %}>待评分</option>
+      <option value="graded" {% if selected_status == 'graded' %}selected{% endif %}>已评分</option>
+    </select>
+    {% if assignment.submission_mode == 'group' %}
+    <label class="sr-only" for="review-group">小组</label>
+    <select id="review-group" class="form-control" name="group"><option value="">全部小组</option>{% for group in course_groups %}<option value="{{ group.pk }}" {% if selected_group == group.pk|stringformat:'s' %}selected{% endif %}>{{ group.name }}</option>{% endfor %}</select>
+    {% endif %}
+    <button class="btn btn-primary">筛选</button>
+    <a href="{{ assignment.get_absolute_url }}">重置</a>
+  </form>
+  <div class="experiment-toolbar">
+    <a class="btn btn-outline-primary" href="{% url 'assignments:export' pk=assignment.pk kind='grades' %}?{{ export_query }}">导出筛选成绩 CSV</a>
+    <a class="btn btn-outline-secondary" href="{% url 'assignments:export' pk=assignment.pk kind='files' %}?{{ export_query }}">批量下载有效提交</a>
+    <span class="text-muted">共 {{ workbench_page.paginator.count }} 个提交单位</span>
+  </div>
+  <div class="review-table-wrap">
+    <table class="table review-table">
+      <thead><tr><th>学生 / 小组</th><th>状态与材料</th><th>版本 / 成绩</th><th>操作</th></tr></thead>
+      <tbody>
+      {% for row in workbench_page %}
+      <tr>
+        <td data-label="学生 / 小组"><strong>{{ row.label }}</strong>{% if assignment.submission_mode == 'group' %}<small class="d-block">{% for member in row.members %}{{ member }}（{{ member.username }}） {% endfor %}</small>{% endif %}</td>
+        <td data-label="状态与材料">{% if row.status == 'missing' %}未提交{% elif row.status == 'graded' %}已评分{% else %}待评分{% endif %}<div>{% for material in row.materials %}{% if material.present or material.required %}<span class="material-chip {% if not material.present %}missing{% endif %}">{{ material.label }}{% if not material.present %} · 缺少{% endif %}</span>{% endif %}{% endfor %}</div></td>
+        <td data-label="版本 / 成绩">{% if row.submission %}V{{ row.submission.version_number }}<small class="d-block">{% if row.submission.graded %}{{ row.submission.grade }} 分{% else %}待评分{% endif %}</small>{% else %}—{% endif %}</td>
+        <td data-label="操作">{% if row.submission %}<a href="{{ row.submission.get_absolute_url }}">查看提交</a><br><a href="{% url 'assignments:browse' pk=row.submission.pk %}">浏览代码</a> · <a href="{% url 'assignments:compare' pk=row.submission.pk %}">对比</a>{% if not assignment.course.is_archived %}<br><a href="{% url 'assignments:grade' pk=row.submission.pk %}">{% if row.submission.graded %}修改评分{% else %}评分{% endif %}</a>{% endif %}{% endif %}</td>
+      </tr>
+      {% empty %}<tr><td colspan="4">暂无符合条件的学生或小组。</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if workbench_page.has_other_pages %}<nav aria-label="批改列表分页">{% if workbench_page.has_previous %}<a href="?{{ page_query }}&amp;page={{ workbench_page.previous_page_number }}">上一页</a>{% endif %} {{ workbench_page.number }} / {{ workbench_page.paginator.num_pages }} {% if workbench_page.has_next %}<a href="?{{ page_query }}&amp;page={{ workbench_page.next_page_number }}">下一页</a>{% endif %}</nav>{% endif %}
+</section>
+
 {% else %}
-{% if can_submit %}<a class="btn btn-primary" href="{% url 'assignments:submit' pk=assignment.pk %}">{% if current_submission %}追加新版本{% else %}提交实验{% endif %}</a>{% endif %}{% if assignment.submission_mode == 'group' %}<a class="btn btn-outline-secondary" href="{% url 'assignments:groups' course_id=assignment.course_id %}">查看我的小组</a>{% endif %}
-<h2 class="h4 mt-4">我的提交记录</h2>
+
+<section class="exp-section" id="submissions">
+  <div class="section-heading"><h2>我的提交</h2>
+    <div>{% if can_submit %}<a class="btn btn-primary btn-sm" href="{% url 'assignments:submit' pk=assignment.pk %}">{% if current_submission %}追加新版本{% else %}提交实验{% endif %}</a>{% endif %}
+    {% if assignment.submission_mode == 'group' %}<a class="btn btn-outline-secondary btn-sm" href="{% url 'assignments:groups' course_id=assignment.course_id %}">查看我的小组</a>{% endif %}</div>
+  </div>
+  {% if submitted %}
+  <div class="timeline">
+    {% for submission in submitted %}
+    <div class="timeline-item {% if submission.current_slot == 1 %}current{% endif %}">
+      <a class="vcard" href="{{ submission.get_absolute_url }}">
+        <div class="vcard-head">
+          <span class="vbadge {% if submission.current_slot == 1 %}current{% else %}hist{% endif %}">V{{ submission.version_number }}</span>
+          <h3 class="vcard-title">{{ submission.topic }}</h3>
+          {% if submission.current_slot == 1 %}<span class="status-chip">当前有效</span>{% else %}<span class="status-chip">历史版本</span>{% endif %}
+          {% if submission.graded %}<span class="status-chip">已评分 {{ submission.grade }} 分</span>{% endif %}
+          {% if submission.withdrawn %}<span class="status-chip">已撤回</span>{% endif %}
+        </div>
+        <p class="vcard-meta">{{ submission.submitted_date|date:'Y-m-d H:i' }} · {{ submission.attachments.count }} 个附件</p>
+        {% if submission.description %}<p class="vcard-desc">{{ submission.description }}</p>{% endif %}
+        <div class="vcard-foot">
+          <span>查看版本 →</span>
+          <span>{% if not forloop.last %}可与其他版本比较{% endif %}</span>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><h3>还没有提交</h3><p>按实验要求上传源码与报告即可开始，后续每次提交都会保留历史版本。</p></div>
+  {% endif %}
+</section>
+
+<section class="exp-section" id="history">
+  <div class="section-heading"><h2>版本历史</h2>
+    {% if current_submission %}<a class="btn btn-outline-secondary btn-sm" href="{% url 'assignments:version_history' pk=current_submission.pk %}">查看完整时间线 →</a>{% endif %}
+  </div>
+  <p class="muted">每次提交都会生成一个新版本，历史版本不可覆盖，可随时查看与前后版本对比。</p>
+  {% if versions_preview %}
+  <div class="version-list">{% for version in versions_preview %}<a class="btn btn-outline-secondary btn-sm" href="{{ version.get_absolute_url }}">V{{ version.version_number }} · {{ version.submitted_date|date:'m-d H:i' }}</a>{% endfor %}</div>
+  {% endif %}
+</section>
+
+<section class="exp-section" id="feedback">
+  <h2>成绩反馈</h2>
+  {% if current_submission and current_submission.graded %}
+  <div class="feedback-card">
+    <div class="d-flex justify-content-between align-items-start flex-wrap" style="gap:16px">
+      <div><p class="eyebrow mb-1">本次实验成绩</p><div class="feedback-score">{{ my_grade }}<small> / 100</small></div></div>
+      <a class="btn btn-outline-secondary btn-sm" href="{{ current_submission.get_absolute_url }}">查看评分明细</a>
+    </div>
+    {% if current_submission.score_breakdown %}
+    <div class="mt-3">
+      {% for row in current_submission.score_breakdown %}
+      <div class="rubric-row"><span class="r-name">{{ row.title }}</span><span class="rubric-bar"><i style="width:{% widthratio row.score row.points 100 %}%"></i></span><span class="r-score">{{ row.score }} / {{ row.points }}</span></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <p class="mt-3 mb-0">{{ current_submission.feedback|default:'教师暂未填写评语。'|linebreaksbr }}</p>
+  </div>
+  {% else %}
+  <p class="muted">{% if current_submission %}提交已收到，教师评分后会在这里显示成绩与评语。{% else %}提交实验后，教师评分结果会显示在这里。{% endif %}</p>
+  {% endif %}
+</section>
+
 {% endif %}
-<div class="version-list">{% for submission in submitted %}<a class="attachment-card" href="{{ submission.get_absolute_url }}"><strong>v{{ submission.version_number }} · {{ submission.topic }}</strong><small class="d-block">{{ submission.owner_label }} · {{ submission.submitted_date|date:'Y-m-d H:i' }}</small><span>{% if submission.withdrawn %}已撤回{% elif submission.current_slot == 1 %}当前有效版本{% else %}历史版本{% endif %}{% if submission.graded %} · 已评分 {{ submission.grade }} 分{% endif %}</span></a>{% empty %}<p>暂无提交记录。</p>{% endfor %}</div>
 {% endblock %}

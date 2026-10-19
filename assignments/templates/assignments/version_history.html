@@ -1,0 +1,81 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}版本历史 · {{ submission.assignment_ques }}{% endblock %}
+{% block body_content %}
+<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261019-1">
+
+<section class="exp-hero">
+  <div class="exp-hero-top">
+    <div>
+      <p class="eyebrow"><a href="{% url 'assignments:detail' pk=submission.assignment_ques_id %}">{{ submission.assignment_ques }}</a> / {{ submission.owner_label }}</p>
+      <h1 class="exp-title">版本历史</h1>
+      <p class="exp-sub">共 {{ timeline|length }} 个版本 · 每次提交都会保留完整快照，可按任意两个版本对比。</p>
+    </div>
+    <div class="stat-row">
+      <a class="btn btn-outline-secondary btn-sm" href="{{ submission.get_absolute_url }}">返回版本详情</a>
+      <a class="btn btn-primary btn-sm" href="{% url 'assignments:browse' pk=submission.pk %}">浏览当前版本代码</a>
+    </div>
+  </div>
+  <ul class="exp-meta">
+    <li><span>实验</span><strong>{{ submission.assignment_ques.assignment_name }}</strong></li>
+    <li><span>提交人</span><strong>{{ submission.author }}</strong></li>
+    <li><span>最新版本</span><strong>V{{ timeline.0.submission.version_number }}</strong></li>
+    <li><span>状态</span><strong>{% if timeline.0.is_current %}{% if timeline.0.submission.graded %}已评分 {{ timeline.0.submission.grade }} 分{% else %}待评分{% endif %}{% else %}已撤回{% endif %}</strong></li>
+  </ul>
+</section>
+
+<section class="exp-section">
+  {% if timeline|length < 2 %}<div class="alert alert-info">目前只有一个版本，追加提交后即可在这里看到完整的版本链路与前后对比。</div>{% endif %}
+  <div class="timeline">
+    {% for item in timeline %}
+    <div class="timeline-item {% if item.is_current %}current{% endif %}">
+      <div class="vcard">
+        <div class="vcard-head">
+          <span class="vbadge {% if item.is_current %}current{% else %}hist{% endif %}">V{{ item.submission.version_number }}</span>
+          <h2 class="vcard-title">{{ item.submission.topic }}</h2>
+          {% if item.is_current %}<span class="status-chip">当前版本</span>{% endif %}
+          {% if item.submission.graded %}<span class="status-chip">已评分 {{ item.submission.grade }}</span>{% endif %}
+          {% if item.submission.withdrawn %}<span class="status-chip">已撤回</span>{% endif %}
+        </div>
+        <p class="vcard-meta">{{ item.submission.author }} · {{ item.submission.submitted_date|date:'Y-m-d H:i' }}</p>
+        {% if item.submission.description %}<p class="vcard-desc">{{ item.submission.description }}</p>{% endif %}
+        <div class="vcard-foot">
+          {% if item.previous %}
+          <span>{{ item.stats.files }} 个文件发生变化</span>
+          <span class="count-add">+{{ item.stats.added }}</span>
+          <span class="count-del">-{{ item.stats.removed }}</span>
+          {% else %}
+          <span>初始提交 · {{ item.submission.attachments.count }} 个附件</span>
+          {% endif %}
+        </div>
+        <div class="experiment-toolbar mb-0">
+          <a class="btn btn-outline-primary btn-sm" href="{{ item.submission.get_absolute_url }}">查看版本</a>
+          {% if item.previous %}<a class="btn btn-outline-secondary btn-sm" href="{% url 'assignments:compare' pk=item.submission.pk %}?from={{ item.previous.pk }}&amp;to={{ item.submission.pk }}">与 V{{ item.previous.version_number }} 比较</a>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-state"><h3>暂无版本记录</h3><p>该实验还没有任何提交。</p></div>
+    {% endfor %}
+  </div>
+</section>
+
+{% if timeline|length > 2 %}
+<section class="exp-section">
+  <h2>跨版本比较</h2>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead><tr><th>对比范围</th><th>说明</th><th></th></tr></thead>
+      <tbody>
+      {% for pair in compare_pairs %}
+      <tr>
+        <td><span class="vbadge hist">V{{ pair.from.version_number }}</span> → <span class="vbadge">V{{ pair.to.version_number }}</span></td>
+        <td>{{ pair.to.topic }}</td>
+        <td><a href="{% url 'assignments:compare' pk=pair.to.pk %}?from={{ pair.from.pk }}&amp;to={{ pair.to.pk }}">比较</a></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

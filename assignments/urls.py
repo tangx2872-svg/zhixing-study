@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^delete/(?P<pk>[-\w]+)/$', views.DeleteAssignment.as_view(), name="delete"),
     url(r'^submit/(?P<pk>[0-9]+)/$', views.submit_assignment, name='submit'),
     url(r'^submission/detail/(?P<pk>[-\w]+)/$', views.SubmitAssignmentDetail.as_view(), name="submit_detail"),
+    url(r'^submission/(?P<pk>[0-9]+)/history/$', experiments.version_history, name='version_history'),
     url(r'^submission/delete/(?P<pk>[-\w]+)/$', views.delete_view, name="submit_delete"),
     url(r'^grade/(?P<pk>[-\w]+)/$', views.grade_assignment, name='grade')
 ]

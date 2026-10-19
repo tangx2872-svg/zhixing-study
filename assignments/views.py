@@ -143,6 +143,9 @@ class SubmitAssignmentDetail(LoginRequiredMixin, generic.DetailView):
         context['attachments'] = attachment_list(obj)
         context['materials'] = materials_for(obj)
         context['my_grade'] = next((row['final_grade'] for row in obj.participant_grades if row['id'] == self.request.user.pk), obj.grade)
+        from .experiments import submission_diff_stats, version_timeline
+        context['diff_stats'] = submission_diff_stats(obj)
+        context['timeline'] = version_timeline(obj)
         return context
 
 
@@ -163,6 +166,7 @@ class AssignmentDetail(LoginRequiredMixin, generic.DetailView):
         context['submitted'] = submissions
         current = submissions.filter(current_slot=1).first() if self.request.user.user_type == 1 else None
         context['current_submission'] = current
+        context['versions_preview'] = submission_series(current) if current else []
         context['can_submit'] = self.object.is_open
         context['materials_required'] = [dict(SubmissionAttachment.CATEGORY)[key] for key in self.object.required_materials]
         if self.request.user.user_type == 2:

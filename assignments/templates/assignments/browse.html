@@ -1,14 +1,62 @@
 {% extends 'base.html' %}{% load static %}
-{% block title %}代码与报告 · {{ submission.topic }}{% endblock %}
+{% block title %}代码浏览 · {{ submission.topic }}{% endblock %}
 {% block body_content %}
-<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261008-1">
-<div class="section-heading"><div><p class="eyebrow">{{ submission.assignment_ques }} / {{ submission.owner_label }}</p><h1>代码与报告 <span class="status-chip">v{{ submission.version_number }}</span></h1></div><a class="btn btn-outline-secondary" href="{{ submission.get_absolute_url }}">提交详情</a></div>
-<div class="experiment-toolbar"><a class="btn btn-outline-primary" href="{% url 'assignments:compare' pk=submission.pk %}">对比版本</a><label for="version-switch">查看版本</label><select id="version-switch" class="form-control" onchange="if(this.value) location.href=this.value">{% for version in versions %}<option value="{% url 'assignments:browse' pk=version.pk %}" {% if version.pk == submission.pk %}selected{% endif %}>v{{ version.version_number }} · {{ version.submitted_date|date:'m-d H:i' }}</option>{% endfor %}</select></div>
-<div class="code-layout"><nav class="file-tree" aria-label="项目文件目录"><h2 class="h6">文件目录 <small>{{ files|length }} 个文件</small></h2>{% for file in files %}<a class="file-tree-link {% if file.path == selected_path %}selected{% endif %}" href="?{{ file.query }}" title="{{ file.path }}"><span aria-hidden="true">{% if file.depth %}└{% else %}▤{% endif %}</span> {{ file.path }}<small>{{ file.size|filesizeformat }}</small></a>{% empty %}<p>暂无可浏览文件。</p>{% endfor %}</nav>
-<section class="code-panel"><div class="code-heading">{{ selected_path|default:'选择文件' }}</div>{% if notice %}<div class="alert alert-info m-3">{{ notice }}</div>{% endif %}
-{% if preview_kind == 'pdf' %}<a class="btn btn-outline-primary m-3" target="_blank" rel="noopener" href="?{{ selected_query }}">打开 PDF</a><iframe class="report-preview" title="PDF 实验报告" src="?{{ selected_query }}"></iframe>{% elif preview_kind == 'image' %}<img class="image-preview" alt="{{ selected_path }}" src="?{{ selected_query }}">{% endif %}
-{% if markdown %}<article class="markdown-preview">{{ markdown }}</article><details><summary class="p-3">查看 Markdown 源码</summary>{% endif %}
-{% if lines %}<div class="code-scroll"><table class="code-table highlight"><tbody>{% for line in lines %}<tr id="L{{ forloop.counter }}"><td class="line-number"><a href="#L{{ forloop.counter }}">{{ forloop.counter }}</a></td><td class="source-line">{{ line }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
-{% if markdown %}</details>{% endif %}
-</section></div><p class="text-muted mt-3">代码仅供查看，不在服务器执行。ZIP 中单层项目根目录会自动折叠，便于不同版本对比。</p>
+<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261019-1">
+
+<section class="exp-hero">
+  <div class="exp-hero-top">
+    <div>
+      <p class="eyebrow"><a href="{% url 'assignments:detail' pk=submission.assignment_ques_id %}">{{ submission.assignment_ques }}</a> / {{ submission.owner_label }}</p>
+      <h1 class="exp-title"><span class="vbadge current">V{{ submission.version_number }}</span> {{ submission.topic }}</h1>
+      <p class="exp-sub">{{ submission.author }} · {{ submission.submitted_date|date:'Y-m-d H:i' }} · 共 {{ files|length }} 个文件 · {{ total_size|filesizeformat }}</p>
+    </div>
+    <div class="stat-row">
+      <a class="btn btn-outline-secondary btn-sm" href="{{ submission.get_absolute_url }}">版本详情</a>
+      <a class="btn btn-outline-primary btn-sm" href="{% url 'assignments:compare' pk=submission.pk %}">版本对比</a>
+    </div>
+  </div>
+  <div class="experiment-toolbar mb-0">
+    <label for="version-switch" class="mb-0 text-muted">查看版本</label>
+    <select id="version-switch" class="form-control" onchange="if(this.value) location.href=this.value">
+      {% for version in versions %}<option value="{% url 'assignments:browse' pk=version.pk %}" {% if version.pk == submission.pk %}selected{% endif %}>V{{ version.version_number }} · {{ version.submitted_date|date:'m-d H:i' }}</option>{% endfor %}
+    </select>
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'assignments:download' pk=submission.pk %}">下载源码包</a>
+    {% if selected_path %}<span class="text-muted">{{ selected_path }}</span>{% endif %}
+  </div>
+</section>
+
+<div class="code-layout code-layout-wide">
+  <nav class="file-tree" aria-label="项目文件目录">
+    <div class="ft-head"><h2>文件</h2><small>{{ files|length }} 个</small></div>
+    {% for file in files %}
+    <a class="file-tree-link ft-row {% if file.path == selected_path %}selected{% endif %}" href="?{{ file.query }}" title="{{ file.path }}">
+      <span class="ft-icon {{ file.ext }}" aria-hidden="true">{% if file.ext == 'py' %}py{% elif file.ext == 'md' %}md{% elif file.ext == 'png' or file.ext == 'jpg' %}im{% elif file.ext == 'zip' %}zip{% elif file.ext == 'txt' %}txt{% elif file.ext == 'json' or file.ext == 'yml' or file.ext == 'yaml' %}cfg{% else %}·{% endif %}</span>
+      <span class="ft-name">{{ file.path }}</span>
+      <span class="ft-size">{{ file.size|filesizeformat }}</span>
+    </a>
+    {% empty %}<p class="text-muted">暂无可浏览文件。</p>{% endfor %}
+  </nav>
+
+  <section class="code-panel">
+    <div class="code-heading code-heading-wide">
+      <span class="fname">{{ selected_path|default:'选择文件' }}</span>
+      <span class="fmeta">{% if line_count %}{{ line_count }} 行{% endif %}{% if preview_kind %} · {{ preview_kind|upper }}{% endif %}{% if notice %} · 不可预览{% endif %}</span>
+    </div>
+    {% if notice %}<div class="alert alert-info m-3 mb-0">{{ notice }}</div>{% endif %}
+
+    {% if preview_kind == 'pdf' %}
+      <div class="p-3"><a class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener" href="?{{ selected_query }}">在新窗口打开 PDF</a></div>
+      <iframe class="report-preview" title="PDF 实验报告" src="?{{ selected_query }}"></iframe>
+    {% elif preview_kind == 'image' %}
+      <div class="p-3"><img class="image-preview" alt="{{ selected_path }}" src="?{{ selected_query }}"></div>
+    {% endif %}
+
+    {% if markdown %}<article class="markdown-preview">{{ markdown }}</article><details><summary class="p-3">查看 Markdown 源码</summary>{% endif %}
+    {% if lines %}<div class="code-scroll"><table class="code-table highlight"><tbody>{% for line in lines %}<tr id="L{{ forloop.counter }}"><td class="line-number"><a href="#L{{ forloop.counter }}">{{ forloop.counter }}</a></td><td class="source-line">{{ line }}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
+    {% if markdown %}</details>{% endif %}
+
+    {% if not lines and not preview_kind and not markdown %}<div class="empty-state m-3"><h3>选择左侧文件</h3><p>支持源码、Markdown、PDF 与图片在线预览。</p></div>{% endif %}
+  </section>
+</div>
+<p class="text-muted mt-3">代码只在浏览器中查看，服务器不会执行提交内容。ZIP 中单层项目根目录会自动折叠，便于不同版本对比。</p>
 {% endblock %}

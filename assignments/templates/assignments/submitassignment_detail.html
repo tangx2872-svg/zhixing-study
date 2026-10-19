@@ -1,39 +1,143 @@
-{% extends 'assignments/assignment_base.html' %}
-{% block title_name %}在线学习平台 - {{ submissions.topic }}{% endblock %}
-{% block main_content %}
-{% load static %}<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261008-1">
-<div class="container">
-<h1>{{ submissions.topic }}</h1>
-<p>v{{ submissions.version_number }} · {{ submissions.owner_label }} · {% if submissions.withdrawn %}已撤回{% elif submissions.current_slot == 1 %}当前有效版本{% else %}历史版本{% endif %}</p>
-{% if submissions.group_id %}<p>本次组员：{% for member in submissions.participant_snapshot %}{{ member.name }}（{{ member.username }}） {% endfor %}</p>{% endif %}
-<div class="experiment-toolbar"><a class="btn btn-primary" href="{% url 'assignments:browse' pk=submissions.pk %}">在线查看代码与报告</a><a class="btn btn-outline-primary" href="{% url 'assignments:compare' pk=submissions.pk %}">对比提交版本</a></div>
-<p>提交人：{{ submissions.author }} · 首次提交：{{ submissions.submitted_date }}</p>
-<p>最近更新：{{ submissions.updated_at }}</p>
-<p>{{ submissions.description|linebreaksbr }}</p>
-<p>附件：{{ submissions.assignment_file.name }}</p>
-<a class="btn btn-primary" href="{% url 'assignments:download' pk=submissions.pk %}">下载附件</a>
-{% for attachment in attachments %}<div class="attachment-card"><strong>{{ attachment.name }}</strong> · {{ attachment.size|filesizeformat }}<br><a href="{% url 'assignments:attachment_download' pk=submissions.pk attachment_id=attachment.pk %}">下载附件</a>{% if attachment.checksum %}<details><summary>校验信息</summary><small>SHA-256：{{ attachment.checksum }}</small></details>{% endif %}</div>{% endfor %}
-<p>{% for material in materials %}{% if material.present or material.required %}<span class="material-chip {% if not material.present %}missing{% endif %}">{{ material.label }}{% if not material.present %} · 缺少{% endif %}</span>{% endif %}{% endfor %}</p>
-{% if submissions.score_breakdown %}<h2 class="h5">评分明细</h2>{% for row in submissions.score_breakdown %}<p>{{ row.title }}：{{ row.score }} / {{ row.points }}</p>{% endfor %}{% endif %}
-{% if submissions.group_id and submissions.graded %}<p><strong>我的成绩：{{ my_grade }} 分</strong> · 小组分 {{ submissions.grade }}</p><details><summary>组员成绩</summary>{% for row in submissions.participant_grades %}<p>{{ row.name }}（{{ row.username }}）：{{ row.final_grade }} 分（调整 {{ row.adjustment }}）</p>{% endfor %}</details>{% endif %}
-{% if submissions.current_slot != 1 %}<p class="mt-3">这是历史版本，不参与当前作业评分。</p>{% endif %}
-<div class="mt-3">{% if submissions.graded %}<p>已评分，成绩：{{ submissions.grade }} 分</p><p>评语：{{ submissions.feedback|default:"暂无评语"|linebreaksbr }}</p><p>评分时间：{{ submissions.graded_at|default:"历史数据未记录" }}</p>{% else %}<p>尚未评分。</p>{% endif %}</div>
-{% if submissions.grade_records.exists %}
-<details class="my-3"><summary>评分与改分记录</summary>
-{% for record in submissions.grade_records.all %}<div class="border p-2 my-2">{{ record.created_at|default:"原评分时间未记录" }} · {{ record.grader|default:"历史记录（未记录评分人或账号已删除）" }} · {{ record.grade }} 分<p class="mb-0">{{ record.feedback|default:"暂无评语"|linebreaksbr }}</p>{% for row in record.score_breakdown %}<small class="d-block">{{ row.title }}：{{ row.score }} / {{ row.points }}</small>{% endfor %}{% if submissions.group_id %}{% for row in record.participant_grades %}<small class="d-block">{{ row.name }}（{{ row.username }}）：{{ row.final_grade }} 分（调整 {{ row.adjustment }}）</small>{% endfor %}{% endif %}</div>{% endfor %}
-</details>
-{% endif %}
+{% extends 'base.html' %}{% load static %}
+{% block title %}V{{ submissions.version_number }} · {{ submissions.topic }}{% endblock %}
+{% block body_content %}
+<link rel="stylesheet" href="{% static 'django_lms/css/experiments.css' %}?v=20261019-1">
+
+<section class="exp-hero">
+  <div class="exp-hero-top">
+    <div>
+      <p class="eyebrow"><a href="{% url 'assignments:detail' pk=submissions.assignment_ques_id %}">{{ submissions.assignment_ques }}</a> / {{ submissions.owner_label }}</p>
+      <h1 class="exp-title"><span class="vbadge {% if submissions.current_slot == 1 %}current{% else %}hist{% endif %}">V{{ submissions.version_number }}</span> {{ submissions.topic }}</h1>
+      <p class="exp-sub">{{ submissions.author }}{% if submissions.group_id %} · {{ submissions.group }}{% endif %} · {{ submissions.submitted_date|date:'Y-m-d H:i' }}</p>
+    </div>
+    <div class="stat-row">
+      {% if submissions.withdrawn %}<span class="status-chip">已撤回</span>
+      {% elif submissions.current_slot == 1 %}<span class="status-chip">当前有效版本</span>
+      {% else %}<span class="status-chip">历史版本</span>{% endif %}
+      {% if submissions.graded %}<span class="stat-pill">已评分 <b>{{ submissions.grade }}</b></span>{% endif %}
+    </div>
+  </div>
+
+  {% if diff_stats.previous %}
+  <div class="diff-summary">
+    <div class="stat-row">
+      <span class="stat-pill">V{{ diff_stats.previous.version_number }} → V{{ submissions.version_number }}</span>
+      <span class="stat-pill"><b>{{ diff_stats.files }}</b> 个文件发生变化</span>
+      <span class="stat-pill stat-add">+<b>{{ diff_stats.added }}</b> 行</span>
+      <span class="stat-pill stat-del">-<b>{{ diff_stats.removed }}</b> 行</span>
+    </div>
+    <div class="diff-bar" aria-hidden="true"><span class="add" style="width:{{ diff_stats.added_ratio }}%"></span><span class="del" style="flex:1"></span></div>
+  </div>
+  {% else %}
+  <p class="mt-3 mb-0 muted">这是该实验的初始版本，后续提交会在这里显示与上一版的变化统计。</p>
+  {% endif %}
+
+  <div class="experiment-toolbar mb-0">
+    <a class="btn btn-primary" href="{% url 'assignments:browse' pk=submissions.pk %}">浏览代码与文件</a>
+    {% if diff_stats.previous %}<a class="btn btn-outline-primary" href="{% url 'assignments:compare' pk=submissions.pk %}?from={{ diff_stats.previous.pk }}&amp;to={{ submissions.pk }}">与 V{{ diff_stats.previous.version_number }} 对比</a>{% endif %}
+    <a class="btn btn-outline-secondary" href="{% url 'assignments:download' pk=submissions.pk %}">下载提交</a>
+    {% if submissions.current_slot == 1 %}<a class="btn btn-outline-secondary" href="{% url 'assignments:version_history' pk=submissions.pk %}">版本历史</a>{% endif %}
+    {% if user.user_type == 2 and submissions.current_slot == 1 and not submissions.assignment_ques.course.is_archived %}
+    <a class="btn btn-success" href="{% url 'assignments:grade' pk=submissions.pk %}">{% if submissions.graded %}修改评分{% else %}评分{% endif %}</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="exp-section">
+  <h2>本次提交说明</h2>
+  <p>{{ submissions.description|linebreaksbr }}</p>
+</section>
+
+<section class="exp-section">
+  <div class="section-heading"><h2>提交材料</h2><span class="muted">{{ attachments|length }} 个文件</span></div>
+  <p>
+    {% for material in materials %}{% if material.present or material.required %}<span class="material-chip {% if not material.present %}missing{% endif %}">{{ material.label }}{% if not material.present %} · 缺少{% endif %}</span>{% endif %}{% endfor %}
+  </p>
+  {% for attachment in attachments %}
+  <div class="file-card">
+    <div>
+      <div class="fname">{{ attachment.name }}</div>
+      <div class="fmeta">{{ attachment.get_category_display }} · {{ attachment.size|filesizeformat }}{% if attachment.checksum %} · SHA-256 {{ attachment.checksum|slice:':12' }}…{% endif %}</div>
+    </div>
+    {% if attachment.pk %}<a class="btn btn-outline-secondary btn-sm" href="{% url 'assignments:attachment_download' pk=submissions.pk attachment_id=attachment.pk %}">下载</a>{% endif %}
+  </div>
+  {% empty %}
+  <p class="muted">该版本没有可下载的附件。</p>
+  {% endfor %}
+  <p class="muted mt-2">源码 ZIP 可直接在线浏览，无需解压；代码只在浏览器中查看，服务器不会执行。</p>
+</section>
+
+<section class="exp-section">
+  <h2>教师反馈</h2>
+  {% if submissions.graded %}
+  <div class="feedback-card">
+    <div class="d-flex justify-content-between align-items-start flex-wrap" style="gap:16px">
+      <div><p class="eyebrow mb-1">评分结果</p><div class="feedback-score">{% if submissions.group_id %}{{ my_grade }}{% else %}{{ submissions.grade }}{% endif %}<small> / 100</small></div></div>
+      <div class="text-right"><p class="mb-1 muted">评分教师</p><strong>{% if submissions.grade_records.first.grader %}{{ submissions.grade_records.first.grader }}{% else %}课程教师{% endif %}</strong><p class="mb-0 muted">{{ submissions.graded_at|date:'Y-m-d H:i' }}</p></div>
+    </div>
+    {% if submissions.score_breakdown %}
+    <div class="mt-3">
+      {% for row in submissions.score_breakdown %}
+      <div class="rubric-row"><span class="r-name">{{ row.title }}</span><span class="rubric-bar"><i style="width:{% widthratio row.score row.points 100 %}%"></i></span><span class="r-score">{{ row.score }} / {{ row.points }}</span></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <p class="mt-3 mb-0">{{ submissions.feedback|default:'教师暂未填写评语。'|linebreaksbr }}</p>
+    {% if submissions.group_id %}
+    <p class="mt-3"><strong>我的成绩：{{ my_grade }} 分</strong> · 小组分 {{ submissions.grade }}</p>
+    <div class="mt-2"><strong>组员成绩</strong>{% for row in submissions.participant_grades %}<div class="rubric-row"><span class="r-name">{{ row.name }}（{{ row.username }}）</span><span class="r-score">小组分 {{ submissions.grade }} · 调整 {{ row.adjustment }}</span><span class="r-score"><strong>{{ row.final_grade }}</strong> 分</span></div>{% endfor %}</div>
+    {% endif %}
+  </div>
+  {% else %}
+  <p class="muted">教师尚未评分。评分后此处会显示分数、评分项明细与评语。</p>
+  {% endif %}
+
+  {% if submissions.grade_records.exists %}
+  <details class="mt-3"><summary>评分与改分记录（{{ submissions.grade_records.count }} 次）</summary>
+    {% for record in submissions.grade_records.all %}
+    <div class="border p-2 my-2 rounded">
+      {{ record.created_at|default:'原评分时间未记录' }} · {{ record.grader|default:'历史记录（未记录评分人）' }} · {{ record.grade }} 分
+      <p class="mb-0">{{ record.feedback|default:'暂无评语'|linebreaksbr }}</p>
+      {% for row in record.score_breakdown %}<small class="d-block">{{ row.title }}：{{ row.score }} / {{ row.points }}</small>{% endfor %}
+    </div>
+    {% endfor %}
+  </details>
+  {% endif %}
+</section>
+
 {% if can_edit %}
-<a class="btn btn-warning" href="{% url 'assignments:submit' pk=submissions.assignment_ques_id %}">更新提交</a>
-{% if not submissions.graded %}
-<a class="btn btn-danger" href="{% url 'assignments:submit_delete' pk=submissions.pk %}">撤回提交</a>
+<div class="experiment-toolbar">
+  <a class="btn btn-warning" href="{% url 'assignments:submit' pk=submissions.assignment_ques_id %}">更新提交</a>
+  {% if not submissions.graded %}<a class="btn btn-danger" href="{% url 'assignments:submit_delete' pk=submissions.pk %}">撤回提交</a>{% endif %}
+</div>
 {% endif %}
-{% endif %}
-{% if user.user_type == 2 and submissions.current_slot == 1 and not submissions.assignment_ques.course.is_archived %}
-<a class="btn btn-success" href="{% url 'assignments:grade' pk=submissions.pk %}">{% if submissions.graded %}修改评分{% else %}评分{% endif %}</a>
-{% endif %}
-{% if can_view_assignment %}<a class="btn btn-secondary" href="{% url 'assignments:detail' pk=submissions.assignment_ques_id %}">返回作业</a>{% endif %}
-<a class="btn btn-outline-secondary" href="{% url 'profile' pk=user.pk %}">返回个人页</a>
-<h2 class="h5 mt-4">提交历史</h2><div class="version-list">{% for version in versions %}<a class="btn btn-outline-secondary" href="{{ version.get_absolute_url }}">v{{ version.version_number }} · {{ version.submitted_date|date:'m-d H:i' }}{% if version.withdrawn %} · 已撤回{% endif %}</a>{% endfor %}</div>
+
+<section class="exp-section" id="version-history">
+  <div class="section-heading"><h2>版本历史</h2><span class="muted">共 {{ timeline|length }} 个版本</span></div>
+  <div class="timeline">
+    {% for item in timeline %}
+    <div class="timeline-item {% if item.is_current %}current{% endif %}">
+      <a class="vcard" href="{{ item.submission.get_absolute_url }}">
+        <div class="vcard-head">
+          <span class="vbadge {% if item.is_current %}current{% else %}hist{% endif %}">V{{ item.submission.version_number }}</span>
+          <h3 class="vcard-title">{{ item.submission.topic }}</h3>
+          {% if item.is_current %}<span class="status-chip">当前版本</span>{% endif %}
+          {% if item.submission.graded %}<span class="status-chip">已评分 {{ item.submission.grade }}</span>{% endif %}
+        </div>
+        <p class="vcard-meta">{{ item.submission.author }} · {{ item.submission.submitted_date|date:'Y-m-d H:i' }}</p>
+        {% if item.stats.files %}<p class="vcard-meta">较上一版：{{ item.stats.files }} 个文件 · <span class="count-add">+{{ item.stats.added }}</span> <span class="count-del">-{{ item.stats.removed }}</span></p>{% endif %}
+        <div class="vcard-foot">
+          <span>查看版本</span>
+          {% if item.previous %}<span>对比 V{{ item.previous.version_number }} → V{{ item.submission.version_number }}</span>{% endif %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="experiment-toolbar">
+  {% if can_view_assignment %}<a class="btn btn-secondary" href="{% url 'assignments:detail' pk=submissions.assignment_ques_id %}">返回实验</a>{% endif %}
+  <a class="btn btn-outline-secondary" href="{% url 'profile' pk=user.pk %}">返回个人页</a>
 </div>
 {% endblock %}

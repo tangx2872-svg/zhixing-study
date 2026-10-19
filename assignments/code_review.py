@@ -188,3 +188,39 @@ def side_by_side(left, right):
                          'right_number': j + 1 if j < j2 else '',
                          'left': a[i] if i < i2 else '', 'right': b[j] if j < j2 else ''})
     return rows
+
+
+def line_stats(left, right):
+    """Exact added/removed line counts for two text snapshots."""
+    a, b = left.splitlines(), right.splitlines()
+    if max(len(a), len(b)) > 2000 or len(left) + len(right) > 256 * 1024:
+        raise ValidationError('文件较大，暂不统计行数。')
+    added = removed = 0
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=True).get_opcodes():
+        if tag == 'insert':
+            added += j2 - j1
+        elif tag == 'delete':
+            removed += i2 - i1
+        elif tag == 'replace':
+            added += j2 - j1
+            removed += i2 - i1
+    return added, removed
+
+
+def unified_rows(rows):
+    """Flatten side-by-side rows for the narrow-screen unified view."""
+    flat = []
+    for row in rows:
+        kind = row['kind']
+        if kind == 'replace':
+            if row['left_number'] != '':
+                flat.append({'kind': 'delete', 'number': row['left_number'], 'text': row['left']})
+            if row['right_number'] != '':
+                flat.append({'kind': 'insert', 'number': row['right_number'], 'text': row['right']})
+        elif kind == 'delete':
+            flat.append({'kind': 'delete', 'number': row['left_number'], 'text': row['left']})
+        elif kind == 'insert':
+            flat.append({'kind': 'insert', 'number': row['right_number'], 'text': row['right']})
+        else:
+            flat.append({'kind': 'equal', 'number': row['right_number'], 'text': row['right']})
+    return flat
